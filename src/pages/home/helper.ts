@@ -20,3 +20,34 @@ export const tagOptions = [
     tagClass: "green",
   },
 ];
+
+export const weekDays = [
+  {
+    day: "Sexta",
+    short: "S",
+  },
+  {
+    day: "Sábado",
+    short: "S",
+  },
+  {
+    day: "Domingo",
+    short: "D",
+  },
+  {
+    day: "Segunda",
+    short: "S",
+  },
+  {
+    day: "Terça",
+    short: "T",
+  },
+  {
+    day: "Quarta",
+    short: "Q",
+  },
+  {
+    day: "Quinta",
+    short: "Q",
+  },
+];

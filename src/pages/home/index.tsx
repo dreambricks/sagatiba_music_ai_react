@@ -8,7 +8,15 @@ import Balde from "../../assets/balde_background.png";
 import WantInvite from "../../assets/quero_convidar.png";
 
 import Sun from "../../assets/sol_lua.png";
-import { tagOptions } from "./helper";
+import SunMountain from "../../assets/sol-montanha.png";
+import GoingToDrink from "../../assets/vai_beber_qual_dia.png";
+import Lemon from "../../assets/sagatiba_image_components/LIMAO.png";
+import YellowBk from "../../assets/yellow-bk.png";
+import MusicBackground from "../../assets/gerar_musica_background.png";
+import MusicIcon from "../../assets/music-icon.png";
+
+import { tagOptions, weekDays } from "./helper";
+import { WeekBtn } from "./components/WeekBtn";
 
 export const Home = () => {
   return (
@@ -52,6 +60,47 @@ export const Home = () => {
               </button>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="week-days">
+        <img src={SunMountain} alt="" />
+
+        <div className="content">
+          <div className="drink">
+            <img src={GoingToDrink} alt="" />
+
+            <div className="select-days">
+              {weekDays.map((week) => (
+                <WeekBtn day={week.day} short={week.short} key={week.day} />
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="send-message">
+        <img src={YellowBk} alt="" className="background" />
+        <img src={Lemon} alt="" className="lemon" />
+
+        <div className="content">
+          <h1>MANDE SEU</h1>
+          <h2>RECADO AQUI :)</h2>
+
+          <textarea name="message" id=""></textarea>
+
+          <button>ENVIAR</button>
+        </div>
+      </section>
+
+      <section className="generate-music">
+        <img src={MusicBackground} alt="" />
+
+        <div className="content">
+          <button>
+            GERAR MÚSICA
+            <img src={MusicIcon} alt="" />
+          </button>
         </div>
       </section>
     </Container>
