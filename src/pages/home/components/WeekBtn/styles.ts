@@ -1,12 +1,13 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
+export const Container = styled.div<{ selected: boolean }>`
   display: flex;
   flex-direction: column;
   align-items: center;
 
   button {
-    background: #fbef00;
+    background: ${(props) => (props.selected ? "#F3592F" : "#FBEF00")};
+
     padding: 90px 75px;
     color: black;
     text-transform: uppercase;

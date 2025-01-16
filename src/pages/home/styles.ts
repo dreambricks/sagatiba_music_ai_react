@@ -225,12 +225,19 @@ export const Container = styled.div`
       flex-direction: column;
       align-items: center;
 
+      h1,
+      h2 {
+        font-size: 3.125rem;
+      }
+
       h2 {
         font-weight: 700;
+        font-family: "Gopher-Medium", "sans-serif";
       }
 
       textarea {
         background: white;
+        font-family: "Gopher-Regular", "sans-serif";
         padding: 95px 116px 84px;
         border: none;
         color: black;
@@ -250,6 +257,8 @@ export const Container = styled.div`
         font-size: 2.5rem;
         margin-top: 64px;
         padding: 21px 12px;
+        font-family: "Gopher-Regular", "sans-serif";
+        letter-spacing: 8px;
       }
     }
   }
@@ -286,6 +295,7 @@ export const Container = styled.div`
         border-radius: 69px;
         cursor: pointer;
         font-family: "Farreron-DemiBold", "sans-serif";
+        letter-spacing: 10px;
       }
     }
   }
