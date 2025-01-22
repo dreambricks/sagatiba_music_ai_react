@@ -20,22 +20,14 @@ import { WeekBtn } from "./components/WeekBtn";
 import { useState } from "react";
 
 export const Home = () => {
-  const [inviteFor, setInviteFor] = useState<number[]>([]);
-  const [weekDaysSelected, setWeekDaysSelected] = useState<string[]>([]);
+  const [inviteFor, setInviteFor] = useState<number>();
+  const [weekDaysSelected, setWeekDaysSelected] = useState<string>();
 
   const addWeekDays = (day: string) => {
-    if (weekDaysSelected.includes(day)) {
-      const updatelist = weekDaysSelected.filter(
-        (weekDays) => weekDays !== day
-      );
-      setWeekDaysSelected(updatelist);
-      return;
-    }
-
-    setWeekDaysSelected((prev) => [...prev, day]);
+    setWeekDaysSelected(day);
   };
 
-  const addInviteFor = (id: number) => setInviteFor((prev) => [...prev, id]);
+  const addInviteFor = (id: number) => setInviteFor(id);
 
   return (
     <Container>
@@ -74,7 +66,9 @@ export const Home = () => {
           <div className="option-check">
             {tagOptions.map(({ option, tagClass, id }) => (
               <button
-                className={`button ${tagClass}`}
+                className={`button ${tagClass} ${
+                  inviteFor === id ? "selected" : ""
+                }`}
                 key={option}
                 onClick={() => addInviteFor(id)}
               >
@@ -99,7 +93,7 @@ export const Home = () => {
                   short={week.short}
                   key={week.day}
                   onClick={() => addWeekDays(week.day)}
-                  selected={weekDaysSelected.includes(week.day)}
+                  selected={weekDaysSelected === week.day}
                 />
               ))}
             </div>

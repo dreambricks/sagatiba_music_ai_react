@@ -126,6 +126,11 @@ export const Container = styled.div`
           padding: 17px 0;
           border-radius: 41px;
           cursor: pointer;
+          opacity: 50%;
+
+          &.selected {
+            opacity: 100%;
+          }
 
           &.yellow {
             color: #f8e711;
