@@ -8,7 +8,6 @@ interface WeekBtn {
 }
 
 export const WeekBtn = ({ day, short, onClick, selected }: WeekBtn) => {
-  console.log(selected);
   return (
     <Container selected={selected}>
       <button onClick={onClick}>{short}</button>
