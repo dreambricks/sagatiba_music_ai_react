@@ -93,7 +93,7 @@ export const Container = styled.div`
     grid-template-columns: 154px 1fr 154px;
     width: 100%;
     position: relative;
-    background: #73bf44;
+    background: #ffdd2e;
 
     .sun {
       position: absolute;
@@ -121,32 +121,49 @@ export const Container = styled.div`
 
         .button {
           background: black;
-          font-size: 5.43rem;
+          font-size: 5rem;
           border: none;
           padding: 17px 0;
           border-radius: 41px;
           cursor: pointer;
-          opacity: 50%;
 
           &.selected {
-            opacity: 100%;
+            outline: 6px solid #fff;
           }
 
-          &.yellow {
+          &:nth-child(1) {
             color: #f8e711;
-            grid-column: 1/5;
+            grid-column: 1 / 5;
           }
-          &.orange {
+
+          &:nth-child(2) {
             color: #ff9900;
-            grid-column: 5/13;
+            grid-column: 5 / 13;
           }
-          &.blue {
+
+          &:nth-child(3) {
             color: #0091d0;
-            grid-column: 1/8;
+            grid-column: 1 / 7;
           }
-          &.green {
+
+          &:nth-child(4) {
             color: #73bf44;
-            grid-column: 8/13;
+            grid-column: 7 / 13;
+          }
+
+          &:nth-child(5) {
+            color: #73bf44;
+            grid-column: 1 / 6;
+          }
+
+          &:nth-child(6) {
+            color: #ff9900;
+            grid-column: 6 / 9;
+          }
+
+          &:nth-child(7) {
+            color: #0091d0;
+            grid-column: 9 / 13;
           }
         }
       }

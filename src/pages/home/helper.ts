@@ -5,7 +5,7 @@ export const tagOptions = [
     tagClass: "yellow",
   },
   {
-    option: "BEBER EM CASA",
+    option: "ROLÊ EM CASA",
     id: 2,
     tagClass: "orange",
   },
@@ -17,6 +17,22 @@ export const tagOptions = [
   {
     option: "SEXTOU",
     id: 4,
+    tagClass: "green",
+  },
+  {
+    option: "ANIVERSÁRIO",
+    id: 5,
+    tagClass: "orange",
+  },
+
+  {
+    option: "FESTA",
+    id: 6,
+    tagClass: "blue",
+  },
+  {
+    option: "SHOW",
+    id: 7,
     tagClass: "green",
   },
 ];

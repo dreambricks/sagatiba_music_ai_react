@@ -1,13 +1,6 @@
 import { Container } from "./styles";
-import BannerOne from "../../assets/banner-one.png";
-import Invite from "../../assets/invite.png";
 import BannerTwo from "../../assets/banner-two.png";
 import Sagalover from "../../assets/nome_do_sagalover.png";
-import Balde from "../../assets/balde_background.png";
-
-import WantInvite from "../../assets/quero_convidar.png";
-
-import Sun from "../../assets/sol_lua.png";
 import SunMountain from "../../assets/sol-montanha.png";
 import GoingToDrink from "../../assets/vai_beber_qual_dia.png";
 import Lemon from "../../assets/sagatiba_image_components/LIMAO.png";
@@ -15,29 +8,32 @@ import YellowBk from "../../assets/yellow-bk.png";
 import MusicBackground from "../../assets/gerar_musica_background.png";
 import MusicIcon from "../../assets/music-icon.png";
 
-import { tagOptions, weekDays } from "./helper";
+import { weekDays } from "./helper";
 import { WeekBtn } from "./components/WeekBtn";
 import { useState } from "react";
+import { Banner } from "./components/banner";
+import { InviteOptions } from "./components/invite_options";
 
 export const Home = () => {
-  const [inviteFor, setInviteFor] = useState<number>();
+  // const [inviteFor, setInviteFor] = useState<number>();
   const [weekDaysSelected, setWeekDaysSelected] = useState<string>();
 
   const addWeekDays = (day: string) => {
     setWeekDaysSelected(day);
   };
 
-  const addInviteFor = (id: number) => setInviteFor(id);
+  // const addInviteFor = (id: number) => setInviteFor(id);
 
   return (
     <Container>
-      <main>
+      {/* <main>
         <div className="content">
           <img src={BannerOne} alt="banner" className="banner" />
 
           <img src={Invite} alt="banner" className="invite" />
         </div>
-      </main>
+      </main> */}
+      <Banner/>
 
       <section className="banner-two">
         <div className="content">
@@ -51,7 +47,7 @@ export const Home = () => {
         </div>
       </section>
 
-      <section className="banner-three">
+      {/* <section className="banner-three">
         <div className="content">
           <img src={Balde} alt="" className="banner" />
         </div>
@@ -77,7 +73,9 @@ export const Home = () => {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
+
+      <InviteOptions/>
 
       <section className="week-days">
         <img src={SunMountain} alt="" />
