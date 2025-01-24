@@ -257,6 +257,12 @@ export const Container = styled.div`
         font-family: "Gopher-Medium", "sans-serif";
       }
 
+      h3 {
+        font-weight: 200;
+        font-family: "Gopher-Regular", "sans-serif";
+        font-size: 2rem;
+      }
+
       textarea {
         background: white;
         font-family: "Gopher-Regular", "sans-serif";
@@ -269,6 +275,11 @@ export const Container = styled.div`
         box-sizing: border-box;
         margin-top: 40px;
         height: 444px;
+      }
+
+      textarea::placeholder {
+        color: rgb(165, 165, 165);
+        text-align: center;
       }
 
       button {

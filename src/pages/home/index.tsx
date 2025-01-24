@@ -3,8 +3,6 @@ import BannerTwo from "../../assets/banner-two.png";
 import Sagalover from "../../assets/nome_do_sagalover.png";
 import SunMountain from "../../assets/sol-montanha.png";
 import GoingToDrink from "../../assets/vai_beber_qual_dia.png";
-import Lemon from "../../assets/sagatiba_image_components/LIMAO.png";
-import YellowBk from "../../assets/yellow-bk.png";
 import MusicBackground from "../../assets/gerar_musica_background.png";
 import MusicIcon from "../../assets/music-icon.png";
 
@@ -13,6 +11,7 @@ import { WeekBtn } from "./components/WeekBtn";
 import { useState } from "react";
 import { Banner } from "./components/banner";
 import { InviteOptions } from "./components/invite_options";
+import { SendMessage } from "./components/sendMessage";
 
 export const Home = () => {
   // const [inviteFor, setInviteFor] = useState<number>();
@@ -47,34 +46,6 @@ export const Home = () => {
         </div>
       </section>
 
-      {/* <section className="banner-three">
-        <div className="content">
-          <img src={Balde} alt="" className="banner" />
-        </div>
-      </section>
-
-      <section className="invite">
-        <img src={Sun} alt="" className="sun" />
-
-        <div className="content">
-          <img src={WantInvite} alt="" />
-
-          <div className="option-check">
-            {tagOptions.map(({ option, tagClass, id }) => (
-              <button
-                className={`button ${tagClass} ${
-                  inviteFor === id ? "selected" : ""
-                }`}
-                key={option}
-                onClick={() => addInviteFor(id)}
-              >
-                {option}{" "}
-              </button>
-            ))}
-          </div>
-        </div>
-      </section> */}
-
       <InviteOptions/>
 
       <section className="week-days">
@@ -99,7 +70,7 @@ export const Home = () => {
         </div>
       </section>
 
-      <section className="send-message">
+      {/* <section className="send-message">
         <img src={YellowBk} alt="" className="background" />
         <img src={Lemon} alt="" className="lemon" />
 
@@ -111,7 +82,9 @@ export const Home = () => {
 
           <button>ENVIAR</button>
         </div>
-      </section>
+      </section> */}
+
+      <SendMessage/>
 
       <section className="generate-music">
         <img src={MusicBackground} alt="" />
