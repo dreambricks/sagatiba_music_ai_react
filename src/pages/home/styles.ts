@@ -308,15 +308,13 @@ export const Container = styled.div`
       margin: 0 auto;
       grid-column: 2/3;
       grid-row: 1/3;
-
-      margin-top: 92px;
-
       display: flex;
       flex-direction: column;
       align-items: center;
+      margin-top: 410px;
+      gap: 22px;
 
       button {
-        margin-top: 452px;
         background: #0091d0;
         color: #f8e711;
         display: flex;
@@ -329,6 +327,12 @@ export const Container = styled.div`
         cursor: pointer;
         font-family: "Farreron-DemiBold", "sans-serif";
         letter-spacing: 10px;
+      }
+
+      p {
+        font-size: 3rem;
+        color: white;
+        font-family: "Gopher-Medium", "sans-serif";
       }
     }
   }

@@ -3,15 +3,13 @@ import BannerTwo from "../../assets/banner-two.png";
 import Sagalover from "../../assets/nome_do_sagalover.png";
 import SunMountain from "../../assets/sol-montanha.png";
 import GoingToDrink from "../../assets/vai_beber_qual_dia.png";
-import MusicBackground from "../../assets/gerar_musica_background.png";
-import MusicIcon from "../../assets/music-icon.png";
-
 import { weekDays } from "./helper";
 import { WeekBtn } from "./components/WeekBtn";
 import { useState } from "react";
 import { Banner } from "./components/banner";
 import { InviteOptions } from "./components/invite_options";
 import { SendMessage } from "./components/sendMessage";
+import { GenerateMusic } from "./components/generateMusic";
 
 export const Home = () => {
   // const [inviteFor, setInviteFor] = useState<number>();
@@ -86,7 +84,7 @@ export const Home = () => {
 
       <SendMessage/>
 
-      <section className="generate-music">
+      {/* <section className="generate-music">
         <img src={MusicBackground} alt="" />
 
         <div className="content">
@@ -95,7 +93,8 @@ export const Home = () => {
             <img src={MusicIcon} alt="" />
           </button>
         </div>
-      </section>
+      </section> */}
+      <GenerateMusic/>
     </Container>
   );
 };
