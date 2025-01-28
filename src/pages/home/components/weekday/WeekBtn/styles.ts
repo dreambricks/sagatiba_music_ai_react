@@ -6,12 +6,17 @@ export const Container = styled.div<{ selected: boolean }>`
   align-items: center;
 
   button {
-    background: ${(props) => (props.selected ? "#F3592F" : "#FFDD2E")};
+    background: #ffdd2e;
+
+    &.red {
+      background: #f3592f;
+    }
+
     padding: 0px 25px;
     font-size: 1rem;
     color: black;
     text-transform: uppercase;
-    border: none;
+    border: ${(props) => (props.selected ? "2px solid black" : "none")};
     margin-bottom: 10px;
     border-radius: 20px;
     cursor: pointer;

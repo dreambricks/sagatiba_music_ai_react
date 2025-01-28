@@ -18,18 +18,29 @@ export const Container = styled.section`
       display: flex;
       flex-direction: column;
       align-items: center;
+      width: 100%;
 
-      button {
+      .button {
         background: #0090d0;
-        border: none;
         font-family: "Gopher-Medium", "sans-serif";
-        color: black;
         border-radius: 20px;
         display: flex;
-        gap: 15px;
+        gap: 10px;
         align-items: center;
         padding: 15px 20px;
         margin-top: 40px;
+        overflow: hidden;
+
+        input {
+          background: transparent;
+          font-family: "Gopher-Medium", "sans-serif";
+
+          border: none;
+          outline: none;
+          font-size: 1.5rem;
+          width: 170px;
+          color: black;
+        }
 
         & img {
           width: 20px;
@@ -211,13 +222,24 @@ export const Container = styled.section`
       .phone {
         font-size: 3.4375rem;
 
-        button {
-          padding: 10px 25px;
+        .button {
+          padding: 20px 15px;
+          padding-left: 30px;
           font-size: 1.6rem;
           margin-top: 56px;
+          border-radius: 50px;
+          gap: 10px;
 
           & img {
             width: 40px;
+          }
+
+          input {
+            background: transparent;
+            border: none;
+            outline: none;
+            font-size: 1.7rem;
+            width: 200px;
           }
         }
 

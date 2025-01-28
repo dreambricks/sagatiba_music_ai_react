@@ -16,9 +16,14 @@ export const WeekBtn = ({
   selected,
   isImage,
 }: WeekBtn) => {
+  const orangeBk = ["Domingo", "Sábado"].includes(day);
+
   return (
     <Container selected={selected}>
-      <button onClick={onClick} className={`${isImage ? "btn-img" : ""}`}>
+      <button
+        onClick={onClick}
+        className={`${orangeBk ? "red" : ""} ${isImage ? "btn-img" : ""}`}
+      >
         {isImage ? <img src={Bottle} /> : short}
       </button>
 
