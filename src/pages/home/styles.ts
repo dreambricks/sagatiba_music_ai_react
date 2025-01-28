@@ -29,52 +29,6 @@ export const Container = styled.div`
     }
   }
 
-  .banner-two {
-    width: 100%;
-    margin-top: -40px;
-    position: relative;
-    z-index: 2;
-
-    .content {
-      grid-column: 1/4;
-      position: relative;
-
-      .banner {
-        display: block;
-        width: 100%;
-      }
-
-      .sagalover {
-        position: absolute;
-        width: 100%;
-        max-width: 880px;
-        right: 50%;
-        bottom: 132px;
-        transform: translateX(50%);
-        display: flex;
-        flex-direction: column;
-        gap: 70px;
-      }
-
-      input {
-        border-radius: 78px;
-        background: #f3592f;
-        color: white;
-        font-size: 4rem;
-        padding: 17px 113px;
-        width: 100%;
-        max-width: 864px;
-        box-sizing: border-box;
-        border: none;
-        height: 155px;
-
-        &::placeholder {
-          color: white;
-        }
-      }
-    }
-  }
-
   .banner-three {
     width: 100%;
 
@@ -165,48 +119,6 @@ export const Container = styled.div`
             color: #0091d0;
             grid-column: 9 / 13;
           }
-        }
-      }
-    }
-  }
-
-  section.week-days {
-    grid-template-columns: 149px 1fr 149px;
-
-    width: 100%;
-    & > img {
-      width: 100%;
-      grid-column: 1/4;
-    }
-
-    .content {
-      grid-column: 1/4;
-      grid-row: 1/2;
-      position: relative;
-      width: 100%;
-
-      display: grid;
-      grid-template-columns: 149px 1fr 149px;
-
-      .drink {
-        display: flex;
-        flex-direction: column;
-        position: absolute;
-        left: 0;
-        top: 240px;
-        width: 100%;
-        grid-column: 2/3;
-
-        img {
-          width: 100%;
-          max-width: 863px;
-        }
-
-        .select-days {
-          display: flex;
-          justify-content: space-between;
-          gap: 20px;
-          margin-top: 125px;
         }
       }
     }

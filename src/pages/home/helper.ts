@@ -39,12 +39,9 @@ export const tagOptions = [
 
 export const weekDays = [
   {
-    day: "Sexta",
-    short: "S",
-  },
-  {
-    day: "Sábado",
-    short: "S",
+    day: "Qualquer dia é dia",
+    short: "D",
+    isImage: true,
   },
   {
     day: "Domingo",
@@ -65,5 +62,13 @@ export const weekDays = [
   {
     day: "Quinta",
     short: "Q",
+  },
+  {
+    day: "Sexta",
+    short: "S",
+  },
+  {
+    day: "Sábado",
+    short: "S",
   },
 ];

@@ -1,26 +1,15 @@
 import { Container } from "./styles";
-import BannerTwo from "../../assets/banner-two.png";
-import Sagalover from "../../assets/nome_do_sagalover.png";
-import SunMountain from "../../assets/sol-montanha.png";
-import GoingToDrink from "../../assets/vai_beber_qual_dia.png";
-import { weekDays } from "./helper";
-import { WeekBtn } from "./components/WeekBtn";
-import { useState } from "react";
+
 import { Banner } from "./components/banner";
 import { InviteOptions } from "./components/invite_options";
 import { SendMessage } from "./components/sendMessage";
 import { GenerateMusic } from "./components/generateMusic";
+import { Sagalovers } from "./components/destination";
+import { WeekDay } from "./components/weekday/indedx";
+import { Phone } from "./components/phone";
+import { Stickers } from "./components/stickers";
 
 export const Home = () => {
-  // const [inviteFor, setInviteFor] = useState<number>();
-  const [weekDaysSelected, setWeekDaysSelected] = useState<string>();
-
-  const addWeekDays = (day: string) => {
-    setWeekDaysSelected(day);
-  };
-
-  // const addInviteFor = (id: number) => setInviteFor(id);
-
   return (
     <Container>
       {/* <main>
@@ -30,43 +19,11 @@ export const Home = () => {
           <img src={Invite} alt="banner" className="invite" />
         </div>
       </main> */}
-      <Banner/>
+      <Banner />
 
-      <section className="banner-two">
-        <div className="content">
-          <img src={BannerTwo} alt="" className="banner" />
+      <Sagalovers />
 
-          <div className="sagalover">
-            <img src={Sagalover} alt="" />
-
-            <input type="text" name="username" placeholder="@sagatiba" />
-          </div>
-        </div>
-      </section>
-
-      <InviteOptions/>
-
-      <section className="week-days">
-        <img src={SunMountain} alt="" />
-
-        <div className="content">
-          <div className="drink">
-            <img src={GoingToDrink} alt="" />
-
-            <div className="select-days">
-              {weekDays.map((week) => (
-                <WeekBtn
-                  day={week.day}
-                  short={week.short}
-                  key={week.day}
-                  onClick={() => addWeekDays(week.day)}
-                  selected={weekDaysSelected === week.day}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
+      <InviteOptions />
 
       {/* <section className="send-message">
         <img src={YellowBk} alt="" className="background" />
@@ -82,7 +39,11 @@ export const Home = () => {
         </div>
       </section> */}
 
-      <SendMessage/>
+      <WeekDay />
+
+      <SendMessage />
+
+      <Phone />
 
       {/* <section className="generate-music">
         <img src={MusicBackground} alt="" />
@@ -94,7 +55,9 @@ export const Home = () => {
           </button>
         </div>
       </section> */}
-      <GenerateMusic/>
+      <GenerateMusic />
+
+      <Stickers />
     </Container>
   );
 };
