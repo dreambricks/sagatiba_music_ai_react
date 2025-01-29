@@ -18,7 +18,7 @@ export const Sagalovers = () => {
             Digite abaixo o nome da pessoa que você quer convidar
           </p>
 
-          <input type="text" name="username" placeholder="@sagatiba" />
+          <input type="text" name="username" placeholder="sagatiba" />
 
           <p className="move">
             Mas, pra Seguir na Saga, tem que ter responsa, hein? Só compartilhe
@@ -29,6 +29,12 @@ export const Sagalovers = () => {
             <input type="checkbox" name="" id="" />
             <p>
               EU ACEITO OS TERMOS DE USO E RESPONSABILIDADE DE COMPARTILHAMENTO
+            </p>
+          </div>
+          <div className="terms">
+            <input type="checkbox" name="" id="" />
+            <p>
+              EU ACEITO A POLITICA DE PRIVACIDADE
             </p>
           </div>
         </div>

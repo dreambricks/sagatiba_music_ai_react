@@ -66,6 +66,7 @@ export const Container = styled.section`
         &::placeholder {
           color: white;
           text-align: center;
+          opacity: 60%;
         }
       }
 
