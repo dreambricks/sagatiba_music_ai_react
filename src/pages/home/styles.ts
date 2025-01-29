@@ -43,7 +43,7 @@ export const Container = styled.div`
     }
   }
 
-  section.invite {
+  /* section.invite {
     grid-template-columns: 154px 1fr 154px;
     width: 100%;
     position: relative;
@@ -122,7 +122,7 @@ export const Container = styled.div`
         }
       }
     }
-  }
+  } */
 
   .send-message {
     position: relative;

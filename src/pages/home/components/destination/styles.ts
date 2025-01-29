@@ -21,7 +21,6 @@ export const Container = styled.section`
   }
 
   .content {
-    height: calc(100vh - 80px);
     grid-column: 1/4;
     background: #ffde2f;
     width: 100%;
@@ -32,6 +31,7 @@ export const Container = styled.section`
     display: grid;
     grid-template-columns: 35px 1fr 35px;
     justify-items: center;
+    padding-bottom: 20px;
 
     .type {
       margin-top: 67px;
@@ -76,7 +76,8 @@ export const Container = styled.section`
       }
     }
 
-    .terms {
+    .terms,
+    .terms-policy {
       margin-top: 50px;
       display: flex;
       gap: 5px;
@@ -110,11 +111,16 @@ export const Container = styled.section`
         }
       }
     }
+
+    .terms-policy {
+      margin-top: 0px;
+    }
   }
 
   @media (min-width: 600px) {
     .content {
       grid-template-columns: 120px 1fr 120px;
+      padding-bottom: 20px;
     }
   }
 

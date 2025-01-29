@@ -31,7 +31,8 @@ export const Sagalovers = () => {
               EU ACEITO OS TERMOS DE USO E RESPONSABILIDADE DE COMPARTILHAMENTO
             </p>
           </div>
-          <div className="terms">
+          
+          <div className="terms-policy">
             <input type="checkbox" name="" id="" />
             <p>
               EU ACEITO A POLITICA DE PRIVACIDADE

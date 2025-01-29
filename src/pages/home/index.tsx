@@ -4,6 +4,7 @@ import { WeekDay } from "./components/weekday/indedx";
 import { Phone } from "./components/phone";
 import { Stickers } from "./components/stickers";
 import { Banner } from "./components/banner";
+import { InviteOptions } from "./components/invite_options";
 
 export const Home = () => {
   return (
@@ -13,7 +14,7 @@ export const Home = () => {
 
       <Sagalovers />
 
-      {/* <InviteOptions /> */}
+      <InviteOptions />
 
       <WeekDay />
 
