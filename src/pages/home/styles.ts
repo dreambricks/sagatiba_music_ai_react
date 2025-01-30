@@ -43,88 +43,7 @@ export const Container = styled.div`
     }
   }
 
-  /* section.invite {
-    grid-template-columns: 154px 1fr 154px;
-    width: 100%;
-    position: relative;
-    background: #ffdd2e;
-
-    .sun {
-      position: absolute;
-      right: 0;
-      top: 0%;
-      transform: translateY(-55%);
-    }
-
-    .content {
-      grid-column: 2/3;
-      position: relative;
-      padding: 113px 0;
-      width: 100%;
-      .banner {
-        display: block;
-        width: 100%;
-      }
-
-      .option-check {
-        display: grid;
-        grid-template-columns: repeat(12, 1fr);
-        grid-template-rows: auto auto;
-        gap: 50px;
-        margin-top: 120px;
-
-        .button {
-          background: black;
-          font-size: 5rem;
-          border: none;
-          padding: 17px 0;
-          border-radius: 41px;
-          cursor: pointer;
-
-          &.selected {
-            outline: 6px solid #fff;
-          }
-
-          &:nth-child(1) {
-            color: #f8e711;
-            grid-column: 1 / 5;
-          }
-
-          &:nth-child(2) {
-            color: #ff9900;
-            grid-column: 5 / 13;
-          }
-
-          &:nth-child(3) {
-            color: #0091d0;
-            grid-column: 1 / 7;
-          }
-
-          &:nth-child(4) {
-            color: #73bf44;
-            grid-column: 7 / 13;
-          }
-
-          &:nth-child(5) {
-            color: #73bf44;
-            grid-column: 1 / 6;
-          }
-
-          &:nth-child(6) {
-            color: #ff9900;
-            grid-column: 6 / 9;
-          }
-
-          &:nth-child(7) {
-            color: #0091d0;
-            grid-column: 9 / 13;
-          }
-        }
-      }
-    }
-  } */
-
-  .send-message {
+  /* .send-message {
     position: relative;
 
     .background {
@@ -206,7 +125,7 @@ export const Container = styled.div`
         letter-spacing: 8px;
       }
     }
-  }
+  } */
 
   .generate-music {
     & > img {

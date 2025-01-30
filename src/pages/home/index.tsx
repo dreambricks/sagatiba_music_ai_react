@@ -5,6 +5,7 @@ import { Phone } from "./components/phone";
 import { Stickers } from "./components/stickers";
 import { Banner } from "./components/banner";
 import { InviteOptions } from "./components/invite_options";
+import { SendMessage } from "./components/sendMessage";
 
 export const Home = () => {
   return (
@@ -18,7 +19,7 @@ export const Home = () => {
 
       <WeekDay />
 
-      {/* <SendMessage /> */}
+      <SendMessage />
 
       {/* <GenerateMusic /> */}
 

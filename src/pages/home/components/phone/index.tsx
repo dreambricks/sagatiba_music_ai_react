@@ -34,6 +34,7 @@ export const Phone = () => {
           <div className="button">
             <img src={Whatsapp} alt="" />
             <input
+              placeholder="xx x xxxx-xxxx"
               type="text"
               name="phone"
               value={number}
