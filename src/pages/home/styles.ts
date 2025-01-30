@@ -127,7 +127,7 @@ export const Container = styled.div`
     }
   } */
 
-  .generate-music {
+  /* .generate-music {
     & > img {
       width: 100%;
       grid-column: 1/4;
@@ -166,7 +166,7 @@ export const Container = styled.div`
         font-family: "Gopher-Medium", "sans-serif";
       }
     }
-  }
+  } */
 
   @media (min-width: 768px) {
   }

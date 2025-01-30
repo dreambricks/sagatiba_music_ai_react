@@ -1,12 +1,12 @@
-import MusicBackground from "../../../../assets/gerar_musica_background.png";
 import MusicIcon from "../../../../assets/music-icon.png";
-import { Container } from "../../styles";
+import { Container } from "./style";
+
 
 export const GenerateMusic = () => {
     return(
         <Container>
         <section className="generate-music">
-        <img src={MusicBackground} alt="" />
+        <img className="banner" alt="" />
 
         <div className="content">
             <p>Tá na hora de Sagatibar!</p>

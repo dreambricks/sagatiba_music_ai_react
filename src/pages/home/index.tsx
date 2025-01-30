@@ -6,6 +6,7 @@ import { Stickers } from "./components/stickers";
 import { Banner } from "./components/banner";
 import { InviteOptions } from "./components/invite_options";
 import { SendMessage } from "./components/sendMessage";
+import { GenerateMusic } from "./components/generateMusic";
 
 export const Home = () => {
   return (
@@ -21,7 +22,7 @@ export const Home = () => {
 
       <SendMessage />
 
-      {/* <GenerateMusic /> */}
+      <GenerateMusic />
 
       <Phone />
 
