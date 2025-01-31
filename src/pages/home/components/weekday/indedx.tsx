@@ -4,11 +4,16 @@ import { weekDays } from "../../helper";
 import { WeekBtn } from "./WeekBtn";
 import { Container } from "./styles";
 
-export const WeekDay = () => {
+interface WeekDayProps {
+  onWeekdays: (val: string) => void;
+}
+
+export const WeekDay = ({ onWeekdays }: WeekDayProps) => {
   const [weekDaysSelected, setWeekDaysSelected] = useState<string>();
 
   const addWeekDays = (day: string) => {
     setWeekDaysSelected(day);
+    onWeekdays(day);
   };
   return (
     <Container>

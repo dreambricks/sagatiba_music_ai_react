@@ -2,12 +2,22 @@ import Sagalover from "../../../../assets/nome_do_sagalover.png";
 import { Container } from "./styles";
 import Mountains from "../../../../assets/mountains.png";
 import { useState } from "react";
-import { Modal, ModalInfo } from "./Modal";
+import { ModalInfo } from "./Modal";
 
-export const Sagalovers = () => {
+interface SagaloverProps {
+  changeIg: (val: string) => void;
+  onAacceptTerm: (val: boolean) => void;
+  onAcceptPolicy: (val: boolean) => void;
+}
+
+export const Sagalovers = ({
+  changeIg,
+  onAacceptTerm,
+  onAcceptPolicy,
+}: SagaloverProps) => {
   const [modalOpen, setModalOpen] = useState(false);
 
-  const openModal = (e: any) => {
+  const openModal = () => {
     setModalOpen(true);
   };
 
@@ -31,7 +41,12 @@ export const Sagalovers = () => {
             Digite abaixo o nome da pessoa que você quer convidar
           </p>
 
-          <input type="text" name="username" placeholder="sagatiba" />
+          <input
+            type="text"
+            name="username"
+            placeholder="sagatiba"
+            onChange={(e) => changeIg(e.target.value)}
+          />
 
           <p className="move">
             Mas, pra Seguir na Saga, tem que ter responsa, hein? Só compartilhe
@@ -39,14 +54,24 @@ export const Sagalovers = () => {
           </p>
 
           <div className="terms">
-            <input type="checkbox" name="" id="" />
+            <input
+              type="checkbox"
+              name=""
+              id=""
+              onChange={(e) => onAacceptTerm(e.target.value)}
+            />
             <p onClick={openModal}>
               EU ACEITO OS TERMOS DE USO E RESPONSABILIDADE DE COMPARTILHAMENTO
             </p>
           </div>
 
           <div className="terms-policy">
-            <input type="checkbox" name="" id="" />
+            <input
+              type="checkbox"
+              name=""
+              id=""
+              onChange={(e) => onAcceptPolicy(e.target.value)}
+            />
             <p onClick={openModal}>EU ACEITO A POLITICA DE PRIVACIDADE</p>
           </div>
         </div>

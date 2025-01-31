@@ -71,31 +71,8 @@ export const Container = styled.div<{ selected: boolean }>`
     button {
       font-size: 1.5rem;
       margin-bottom: 30px;
-      height: 102px;
-      width: 82px;
-
-      &.btn-img {
-        height: 102px;
-
-        img {
-          display: block;
-          width: 30px;
-          height: 102px;
-        }
-      }
-    }
-
-    p {
-      font-size: 0.8rem;
-    }
-  }
-
-  @media (min-width: 1024px) {
-    button {
-      font-size: 1.5rem;
-      margin-bottom: 30px;
       height: 152px;
-      width: 132px;
+      width: 100px;
 
       &.btn-img {
         height: 152px;

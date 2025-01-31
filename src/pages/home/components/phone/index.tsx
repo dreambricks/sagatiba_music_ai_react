@@ -1,26 +1,32 @@
 import { Container } from "./styles";
-import LoadingBottle from "../../../../assets/loading-bottle.png";
+import LoadingBottle from "../../../../assets/CRISTALINA.png";
 import Whatsapp from "../../../../assets/whatsapp1.png";
 import { useState } from "react";
+import Loading from "../../../../assets/spinner_sem_fundo_ver2.gif";
 
-export const Phone = () => {
+interface PhoneProps {
+  addPhone: (phone: string) => void;
+  loading: boolean;
+}
+
+export const Phone = ({ addPhone, loading }: PhoneProps) => {
   const [number, setNumber] = useState("");
 
   function aplicarMascaraTelefone(val: string) {
-    // Remove qualquer caractere que não seja número
-    console.log(val);
     const numeros = val.replace(/\D/g, "");
 
-    // Aplica a máscara no formato "11 9 8888-8888"
     const mascara = numeros
       .replace(/^(\d{2})(\d{1})(\d{4})(\d{0,4})$/, "$1 $2 $3-$4")
       .trim();
 
     setNumber(mascara);
+
+    if (validarFormatoTelefone(mascara)) {
+      addPhone(mascara);
+    }
   }
 
-  function validarFormatoTelefone(telefone) {
-    // Regex para verificar o formato "XX 9 XXXX-XXXX", onde o "9" é obrigatório
+  function validarFormatoTelefone(telefone: string) {
     const regex = /^\d{2} 9 \d{4}-\d{4}$/;
     return regex.test(telefone);
   }
@@ -50,6 +56,7 @@ export const Phone = () => {
         </div>
 
         <div className="loading">
+          {loading && <img src={Loading} className="loading-gif" />}
           <img src={LoadingBottle} alt="" />
         </div>
 

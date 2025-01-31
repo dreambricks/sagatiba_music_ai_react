@@ -58,6 +58,12 @@ export const Container = styled.section`
       align-items: center;
       width: 100%;
       margin-top: 10px;
+      position: relative;
+      .loading-gif {
+        position: absolute;
+        inset: 0;
+      }
+
       img {
         width: 100%;
         max-width: 400px;

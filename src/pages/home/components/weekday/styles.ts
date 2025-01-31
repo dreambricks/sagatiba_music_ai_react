@@ -93,9 +93,11 @@ export const Container = styled.section`
       margin-top: 50px;
 
       .drink {
+        justify-content: space-evenly;
         .select-days {
           gap: 15px;
-          grid-template-columns: repeat(8, 100px);
+          display: flex;
+          width: 100%;
         }
       }
     }

@@ -4,31 +4,32 @@ import Sun from "../../../../assets/sol_lua.png";
 import { tagOptions } from "../../../../pages/home/helper";
 import { InviteForContainer } from "./styles";
 
+interface InviteOptionsProps {
+  onInvite: (id: string) => void;
+}
 
-export const InviteOptions = () => {
+export const InviteOptions = ({ onInvite }: InviteOptionsProps) => {
+  const [inviteFor, setInviteFor] = useState("");
 
-  const [inviteFor, setInviteFor] = useState<number>();
+  const addInviteFor = (id: string) => {
+    setInviteFor(id);
+    onInvite(id);
+  };
 
-  const addInviteFor = (id: number) => setInviteFor(id);
-
-
-    return (
-         <InviteForContainer> 
-        
-          <div className="content">
-            <img src={Balde} alt="" className="banner" />
-          </div>
-
+  return (
+    <InviteForContainer>
+      <div className="content">
+        <img src={Balde} alt="" className="banner" />
+      </div>
 
       <div className="invite">
         <img src={Sun} alt="" className="sun" />
 
         <div className="content">
-
           <div className="texts">
             <div className="invite_options_text_blue">
               <h2>Conta pra gente:</h2>
-              <h2>qual o convite  do rolê?</h2>
+              <h2>qual o convite do rolê?</h2>
             </div>
 
             <div className="invite_options_text_black">
@@ -38,13 +39,13 @@ export const InviteOptions = () => {
           </div>
 
           <div className="option-check">
-            {tagOptions.map(({ option, tagClass, id }) => (
+            {tagOptions.map(({ option, tagClass }) => (
               <button
                 className={`button ${tagClass} ${
-                  inviteFor === id ? "selected" : ""
+                  inviteFor === option ? "selected" : ""
                 }`}
                 key={option}
-                onClick={() => addInviteFor(id)}
+                onClick={() => addInviteFor(option)}
               >
                 {option}{" "}
               </button>
@@ -52,7 +53,6 @@ export const InviteOptions = () => {
           </div>
         </div>
       </div>
-
-      </InviteForContainer>
-    );
-  };
+    </InviteForContainer>
+  );
+};

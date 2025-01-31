@@ -24,7 +24,6 @@ export const tagOptions = [
     id: 5,
     tagClass: "orange",
   },
-
   {
     option: "FESTA",
     id: 6,
