@@ -1,10 +1,23 @@
 import Sagalover from "../../../../assets/nome_do_sagalover.png";
 import { Container } from "./styles";
 import Mountains from "../../../../assets/mountains.png";
+import { useState } from "react";
+import { Modal, ModalInfo } from "./Modal";
 
 export const Sagalovers = () => {
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const openModal = (e: any) => {
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
   return (
     <Container>
+      {modalOpen && <ModalInfo isOpen={modalOpen} onClose={closeModal} />}
       <div className="top">
         <img src={Mountains} alt="" />
       </div>
@@ -27,16 +40,14 @@ export const Sagalovers = () => {
 
           <div className="terms">
             <input type="checkbox" name="" id="" />
-            <p>
+            <p onClick={openModal}>
               EU ACEITO OS TERMOS DE USO E RESPONSABILIDADE DE COMPARTILHAMENTO
             </p>
           </div>
-          
+
           <div className="terms-policy">
             <input type="checkbox" name="" id="" />
-            <p>
-              EU ACEITO A POLITICA DE PRIVACIDADE
-            </p>
+            <p onClick={openModal}>EU ACEITO A POLITICA DE PRIVACIDADE</p>
           </div>
         </div>
       </div>

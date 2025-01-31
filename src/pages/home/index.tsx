@@ -7,11 +7,19 @@ import { Banner } from "./components/banner";
 import { InviteOptions } from "./components/invite_options";
 import { SendMessage } from "./components/sendMessage";
 import { GenerateMusic } from "./components/generateMusic";
+import { useRef, useState } from "react";
+import { Lyrics } from "./components/lyrics";
 
 export const Home = () => {
+  const ig = useRef("");
+  const acceptTerm = useRef(false);
+  const acceptPolicy = useRef(false);
+  const invite = useRef("");
+  const day = useRef("");
+  const message = useRef("");
+
   return (
     <Container>
-
       <Banner />
 
       <Sagalovers />
@@ -27,6 +35,8 @@ export const Home = () => {
       <Phone />
 
       <Stickers />
+
+      <Lyrics />
     </Container>
   );
 };

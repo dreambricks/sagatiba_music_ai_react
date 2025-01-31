@@ -9,6 +9,11 @@
 }
 
 @font-face {
+  font-family: Gopher-Bold;
+  src: url("./assets/fonts/gopher/Gopher-Bold.woff2");
+}
+
+@font-face {
   font-family: Farreron-DemiBold;
   src: url("./assets/fonts/farreon/FarreronsSerif-DemiBold.woff2");
 }
