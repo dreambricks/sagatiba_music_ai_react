@@ -32,6 +32,11 @@ export const Container = styled.div`
       font-family: "Gopher-Bold", "sans-serif";
       padding: 15px 40px 12px;
       border-radius: 12px;
+
+      &:disabled{
+      cursor:not-allowed;
+      background:#68924b;
+      }
     }
 
     .lyrics {
@@ -46,26 +51,22 @@ export const Container = styled.div`
         overflow: auto;
 
         pre{
-      font-family: "Gopher-Medium", "sans-serif";
-        
+          font-family: "Gopher-Medium", "sans-serif";
         }
 
         &:: -webkit-scrollbar {
           width: 5px;
         }
 
-        /* Track */
         &::-webkit-scrollbar-track {
           background: #ef7a32;
         }
 
-        /* Handle */
         &::-webkit-scrollbar-thumb {
           background: #ffdd2e;
           border-radius: 10px;
         }
 
-        /* Handle on hover */
         &::-webkit-scrollbar-thumb:hover {
           background: #ffdd2e;
           border-radius: 10px;
@@ -81,8 +82,10 @@ export const Container = styled.div`
       font-family: "Gopher-Bold", "sans-serif";
       font-size: 1.5rem;
 
-      img {
-        width: 50px;
+        .socials{
+          img {
+          width: 40px;
+        }
       }
     }
 
@@ -99,10 +102,7 @@ export const Container = styled.div`
   @media (min-width: 1920px) {
     grid-template-columns: 1fr 1283px 1fr !important;
 
-
-
   .content {
-   
 
     h1 {
       font-size:6rem;
@@ -137,8 +137,6 @@ export const Container = styled.div`
           width: 15px;
         }
 
-       
-
         &::-webkit-scrollbar-thumb {
           border-radius: 115px;
         }
@@ -152,12 +150,12 @@ export const Container = styled.div`
     .share {
       gap: 30px;
       font-size: 6.25rem;
-
-      img {
-        width: 160px;
+      .socials{
+        img {
+          width: 160px;
+        }
       }
     }
-
     .advise {
       font-size: 2.5625rem;
 

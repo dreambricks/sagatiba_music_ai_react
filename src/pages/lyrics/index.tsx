@@ -1,16 +1,72 @@
 import { Container } from "./styles";
-import Socials from "../../assets/socials.png";
-import { useEffect, useState } from "react";
-import { getLyrics } from "../../storage";
+import Insta from "../../assets/icone_insta.png";
+import Whats from "../../assets/icone_whats.png";
+
+import { useEffect, useRef, useState } from "react";
+import { getLyrics, getPhoneFromCookie } from "../../storage";
+import { generate, getTaskId } from "../../service";
+import { useWebSocket } from "./useSocket";
 
 export const LyricsPage = () => {
   const [lyrics, setLyrics] = useState("");
+  const [status, setStatus] = useState("");
+
+  const [taskId, setTaskId] = useState();
+
+  const interval = useRef<undefined | number>();
+
+  useWebSocket(taskId);
+
+  const generateId = async () => {
+    try {
+      const response = await generate();
+      setStatus(response.status);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  async function pollForTaskCompletion() {
+    try {
+      const result = await getTaskId();
+
+      if (result) {
+        clearInterval(interval.current);
+      }
+
+      console.log({ result });
+      setTaskId(result.task_id);
+    } catch (error) {
+      console.error("Erro ao aguardar a conclusão da tarefa:", error);
+      return null;
+    }
+  }
 
   useEffect(() => {
     const item = getLyrics();
-
     if (item) setLyrics(item);
+    generateId();
   }, []);
+
+  // useEffect(() => {
+  //   const phone = getPhoneFromCookie();
+  //   if (phone) {
+  //     interval.current = setInterval(pollForTaskCompletion, 5000);
+
+  //     return () => clearInterval(interval.current);
+  //   }
+  // }, []);
+
+  useEffect(() => {
+    const phone = getPhoneFromCookie();
+
+    if (status && phone) {
+      interval.current = setInterval(pollForTaskCompletion, 5000);
+
+      return () => clearInterval(interval.current);
+    }
+  }, [status]);
+
   return (
     <Container>
       <div className="content">
@@ -22,7 +78,7 @@ export const LyricsPage = () => {
           convite.
         </p>
 
-        <button>QUERO FAZER O DOWNLOAD</button>
+        <button disabled>QUERO FAZER O DOWNLOAD</button>
 
         <div className="lyrics">
           <div className="lyrics-holder">
@@ -32,7 +88,11 @@ export const LyricsPage = () => {
 
         <div className="share">
           <p>compartilhe </p>
-          <img src={Socials} alt="" />
+
+          <div className="socials">
+            <img src={Whats} alt="" />
+            <img src={Insta} alt="" />
+          </div>
         </div>
 
         <p className="advise">

@@ -10,7 +10,7 @@ import { GenerateMusic } from "./components/generateMusic";
 import { useRef, useState } from "react";
 import { generateMusicLyric } from "../../service";
 import { toast } from "react-toastify";
-import { saveLyrics } from "../../storage";
+import { saveLyrics, savePhone, savePhoneToCookie } from "../../storage";
 import { useNavigate } from "react-router";
 
 export const Home = () => {
@@ -66,6 +66,9 @@ export const Home = () => {
       validateForm();
 
       const response = await generateMusicLyric(form);
+
+      savePhone(phone.current);
+      savePhoneToCookie(phone.current);
 
       saveLyrics(response.lyrics);
 

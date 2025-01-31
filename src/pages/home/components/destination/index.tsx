@@ -58,7 +58,7 @@ export const Sagalovers = ({
               type="checkbox"
               name=""
               id=""
-              onChange={(e) => onAacceptTerm(e.target.value)}
+              onChange={(e) => onAacceptTerm(e.target.checked)}
             />
             <p onClick={openModal}>
               EU ACEITO OS TERMOS DE USO E RESPONSABILIDADE DE COMPARTILHAMENTO
@@ -70,7 +70,7 @@ export const Sagalovers = ({
               type="checkbox"
               name=""
               id=""
-              onChange={(e) => onAcceptPolicy(e.target.value)}
+              onChange={(e) => onAcceptPolicy(e.target.checked)}
             />
             <p onClick={openModal}>EU ACEITO A POLITICA DE PRIVACIDADE</p>
           </div>
