@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { io, Socket } from "socket.io-client";
+import { getPhoneFromCookie } from "../../storage";
 
 const UR_BASE = "ws://54.232.87.120";
 
@@ -8,6 +9,8 @@ export const useWebSocket = (task_id: number | undefined) => {
   const [isConnected, setIsConnected] = useState(false);
   const socketRef = useRef<Socket | null>(null);
   const reconnectInterval = useRef<number | undefined>(undefined);
+
+  const phone = getPhoneFromCookie();
 
   useEffect(() => {
     if (!task_id) return; // Só conecta se houver um task_id
@@ -19,7 +22,7 @@ export const useWebSocket = (task_id: number | undefined) => {
       socketRef.current.on("connect", () => {
         console.log("Conectado ao WebSocket.");
         setIsConnected(true);
-        socketRef.current?.emit("request_audio_url", { task_id });
+        socketRef.current?.emit("request_audio_url", { task_id, phone });
       });
 
       socketRef.current.on("message", (data) => {
