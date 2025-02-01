@@ -1,7 +1,7 @@
 import axios from "axios";
 import { getLyrics, getPhone } from "../storage";
 
-const UR_BASE = "http://54.232.87.120";
+const UR_BASE = "http://sagatibamusic.zapto.org:5001";
 
 export const generateMusicLyric = async (obj: FormData) => {
   const response = await axios.post(`${UR_BASE}/lyrics`, obj);
