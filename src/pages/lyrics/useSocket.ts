@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { io, Socket } from "socket.io-client";
 import { getPhoneFromCookie } from "../../storage";
 
-const UR_BASE = "ws://54.232.87.120";
+const UR_BASE = "ws://54.232.87.120:5001";
 
 export const useWebSocket = (task_id: number | undefined) => {
   const [message, setMessage] = useState(null);
@@ -15,7 +15,7 @@ export const useWebSocket = (task_id: number | undefined) => {
   const phone = getPhoneFromCookie();
 
   useEffect(() => {
-    if (!task_id) return; // Só conecta se houver um task_id
+    if (!task_id) return;
 
     const connectWebSocket = () => {
       console.log("Conectando ao WebSocket...");
@@ -27,15 +27,27 @@ export const useWebSocket = (task_id: number | undefined) => {
         socketRef.current?.emit("request_audio_url", { task_id, phone });
       });
 
-      socketRef.current.on("message", (data) => {
+      socketRef.current.on("audio_response", (data) => {
         console.log("Mensagem recebida:", data);
         setMessage(data);
+
+        console.log(
+          "Desconectando do WebSocket após receber 'audio_response'."
+        );
+        socketRef.current?.disconnect();
+      });
+
+      socketRef.current.on("message", (message_received) => {
+        console.log("Mensagem recebida:", message_received);
+      });
+
+      socketRef.current.on("error_message", (error_message_received) => {
+        console.log("Mensagem recebida:", error_message_received);
       });
 
       socketRef.current.on("disconnect", () => {
         console.warn("WebSocket desconectado.");
         setIsConnected(false);
-        attemptReconnect();
       });
 
       socketRef.current.on("connect_error", (error) => {

@@ -6,7 +6,6 @@ export const Container = styled.div`
   height: 100%;
   background: #ffdd2e;
 
-
   .content {
     grid-column: 2/3;
     padding: 100px 0 60px;
@@ -33,9 +32,10 @@ export const Container = styled.div`
       padding: 15px 40px 12px;
       border-radius: 12px;
 
-      &:disabled{
-      cursor:not-allowed;
-      background:#68924b;
+      &:disabled {
+        cursor: not-allowed;
+        opacity: 80%;
+        background: #68924b;
       }
     }
 
@@ -50,11 +50,11 @@ export const Container = styled.div`
         height: 100%;
         overflow: auto;
 
-        pre{
+        pre {
           font-family: "Gopher-Medium", "sans-serif";
         }
 
-        &:: -webkit-scrollbar {
+        &::-webkit-scrollbar {
           width: 5px;
         }
 
@@ -82,8 +82,8 @@ export const Container = styled.div`
       font-family: "Gopher-Bold", "sans-serif";
       font-size: 1.5rem;
 
-        .socials{
-          img {
+      .socials {
+        img {
           width: 40px;
         }
       }
@@ -102,63 +102,62 @@ export const Container = styled.div`
   @media (min-width: 1920px) {
     grid-template-columns: 1fr 1283px 1fr !important;
 
-  .content {
+    .content {
+      h1 {
+        font-size: 6rem;
+      }
 
-    h1 {
-      font-size:6rem;
-    }
+      .description {
+        font-size: 2.56rem;
+      }
 
-    .description {
-      font-size:2.56rem;
-    }
+      button {
+        font-size: 4rem;
+        padding: 33px 40px 29px;
+        border-radius: 41px;
+      }
 
-    button {
-      font-size:4rem;
-      padding: 33px 40px 29px;
-      border-radius: 41px;
-    }
+      .lyrics {
+        border-radius: 113px;
+        height: 947px;
+        padding: 85px 99px 21px 161px;
 
-    .lyrics {
-      border-radius: 113px;
-      height: 947px;
-      padding: 85px 99px 21px 161px;
+        .lyrics-holder {
+          height: 100%;
+          overflow: auto;
+          font-size: 2.623rem;
 
-      .lyrics-holder {
-        height: 100%;
-        overflow: auto;
-        font-size:2.623rem;
+          p {
+            margin-right: 100px;
+            text-align: justify;
+          }
 
-        p{
-        margin-right:100px;
-        text-align:justify;
-        }
+          &::-webkit-scrollbar {
+            width: 15px;
+          }
 
-        &:: -webkit-scrollbar {
-          width: 15px;
-        }
+          &::-webkit-scrollbar-thumb {
+            border-radius: 115px;
+          }
 
-        &::-webkit-scrollbar-thumb {
-          border-radius: 115px;
-        }
-
-        &::-webkit-scrollbar-thumb:hover {
-          border-radius: 15px;
+          &::-webkit-scrollbar-thumb:hover {
+            border-radius: 15px;
+          }
         }
       }
-    }
 
-    .share {
-      gap: 30px;
-      font-size: 6.25rem;
-      .socials{
-        img {
-          width: 160px;
+      .share {
+        gap: 30px;
+        font-size: 6.25rem;
+        .socials {
+          img {
+            width: 160px;
+          }
         }
       }
-    }
-    .advise {
-      font-size: 2.5625rem;
-
+      .advise {
+        font-size: 2.5625rem;
+      }
     }
   }
 `;

@@ -10,12 +10,14 @@ import { useWebSocket } from "./useSocket";
 export const LyricsPage = () => {
   const [lyrics, setLyrics] = useState("");
   const [status, setStatus] = useState("");
-
   const [taskId, setTaskId] = useState();
+  const [buttonText, setButtonText] = useState("GERANDO MÚSICA");
+  const [audioUrl, setAudioUrl] = useState<string | null>(null);
+  const [isBtnDisabled, setIsBtnDisabled] = useState(true);
 
   const interval = useRef<undefined | number>();
 
-  useWebSocket(taskId);
+  const { message } = useWebSocket(taskId);
 
   const generateId = async () => {
     try {
@@ -67,6 +69,35 @@ export const LyricsPage = () => {
     }
   }, [status]);
 
+   // Função para baixar o MP3 via fetch
+   const downloadMp3 = async (url: string) => {
+    try {
+      setButtonText("FAZENDO DOWNLOAD");
+
+      const response = await fetch(url);
+      const blob = await response.blob();
+      const blobUrl = window.URL.createObjectURL(blob);
+
+      const link = document.createElement("a");
+      link.href = blobUrl;
+      link.download = "minha_musica.mp3";
+      document.body.appendChild(link);
+      link.click();
+      
+      setButtonText("QUERO FAZER O DOWNLOAD");
+      setIsBtnDisabled(false);
+    } catch (error) {
+      console.error("Erro ao baixar o arquivo:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (message && message.audio_url) {
+      setAudioUrl(message.audio_url);
+      downloadMp3(message.audio_url);
+    }
+  }, [message]);
+
   return (
     <Container>
       <div className="content">
@@ -78,7 +109,7 @@ export const LyricsPage = () => {
           convite.
         </p>
 
-        <button disabled>QUERO FAZER O DOWNLOAD</button>
+        <button disabled={isBtnDisabled}>{buttonText}</button>
 
         <div className="lyrics">
           <div className="lyrics-holder">
