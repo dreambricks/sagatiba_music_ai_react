@@ -31,6 +31,7 @@ export const Container = styled.div`
       font-family: "Gopher-Bold", "sans-serif";
       padding: 15px 40px 12px;
       border-radius: 12px;
+      cursor: pointer;
 
       &:disabled {
         cursor: not-allowed;

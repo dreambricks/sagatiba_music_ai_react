@@ -73,17 +73,19 @@ export const LyricsPage = () => {
    const downloadMp3 = async (url: string) => {
     try {
       setButtonText("FAZENDO DOWNLOAD");
-
+      setIsBtnDisabled(true);
+  
       const response = await fetch(url);
       const blob = await response.blob();
       const blobUrl = window.URL.createObjectURL(blob);
-
+  
       const link = document.createElement("a");
       link.href = blobUrl;
       link.download = "minha_musica.mp3";
       document.body.appendChild(link);
       link.click();
-      
+      document.body.removeChild(link);
+  
       setButtonText("QUERO FAZER O DOWNLOAD");
       setIsBtnDisabled(false);
     } catch (error) {
@@ -92,7 +94,7 @@ export const LyricsPage = () => {
   };
 
   useEffect(() => {
-    if (message && message.audio_url) {
+    if (message?.audio_url) {
       setAudioUrl(message.audio_url);
       downloadMp3(message.audio_url);
     }
@@ -109,7 +111,7 @@ export const LyricsPage = () => {
           convite.
         </p>
 
-        <button disabled={isBtnDisabled}>{buttonText}</button>
+        <button disabled={isBtnDisabled} onClick={() => audioUrl && downloadMp3(audioUrl)}>{buttonText}</button>
 
         <div className="lyrics">
           <div className="lyrics-holder">
