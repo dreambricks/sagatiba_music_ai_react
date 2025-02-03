@@ -53,6 +53,7 @@ export const Container = styled.div`
 
         pre {
           font-family: "Gopher-Medium", "sans-serif";
+          white-space: pre-line;
         }
 
         &::-webkit-scrollbar {
