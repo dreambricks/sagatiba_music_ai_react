@@ -72,24 +72,52 @@ export const LyricsPage = () => {
    // Função para baixar o MP3 via fetch
    const downloadMp3 = async (url: string) => {
     try {
-      setButtonText("FAZENDO DOWNLOAD");
-      setIsBtnDisabled(true);
-  
-      const response = await fetch(url);
-      const blob = await response.blob();
-      const blobUrl = window.URL.createObjectURL(blob);
-  
-      const link = document.createElement("a");
-      link.href = blobUrl;
-      link.download = "minha_musica.mp3";
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-  
-      setButtonText("QUERO FAZER O DOWNLOAD");
-      setIsBtnDisabled(false);
+        const maxSize = 1177 * 1024;
+
+        setButtonText("FAZENDO DOWNLOAD");
+        setIsBtnDisabled(true);
+
+        const response = await fetch(url);
+        if (!response.ok) throw new Error("Erro na resposta da rede");
+
+        const reader = response.body?.getReader();
+        if (!reader) throw new Error("Falha ao obter o leitor do stream");
+
+        let receivedLength = 0;
+        let chunks: Uint8Array[] = [];
+
+        while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+
+            if (receivedLength + value.length > maxSize) {
+                chunks.push(value.slice(0, maxSize - receivedLength));
+                break;
+            }
+
+            chunks.push(value);
+            receivedLength += value.length;
+        }
+
+        const blob = new Blob(chunks, { type: "audio/mp3" });
+        const blobUrl = window.URL.createObjectURL(blob);
+
+        const filename = `sagatiba_${Date.now()}.mp3`;
+
+        const link = document.createElement("a");
+        link.href = blobUrl;
+        link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        setButtonText("QUERO FAZER O DOWNLOAD");
+        setIsBtnDisabled(false);
     } catch (error) {
-      console.error("Erro ao baixar o arquivo:", error);
+        console.error("Erro ao baixar o arquivo:", error);
+        alert("Erro ao baixar o arquivo: " + error.message);
+        setButtonText("QUERO FAZER O DOWNLOAD");
+        setIsBtnDisabled(false);
     }
   };
 
