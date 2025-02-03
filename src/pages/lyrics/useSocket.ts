@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { io, Socket } from "socket.io-client";
 import { getPhoneFromCookie } from "../../storage";
 
-const UR_BASE = "ws://54.232.87.120:5001";
+const UR_BASE = "wss://sagatibamusicapi.zapto.org:5001";
 
 export const useWebSocket = (task_id: number | undefined) => {
   const [message, setMessage] = useState(null);
@@ -19,7 +19,16 @@ export const useWebSocket = (task_id: number | undefined) => {
 
     const connectWebSocket = () => {
       console.log("Conectando ao WebSocket...");
-      socketRef.current = io(UR_BASE, { transports: ["websocket"] });
+
+      if (socketRef.current) {
+        socketRef.current.disconnect();
+        socketRef.current = null;
+      }
+
+      socketRef.current = io(UR_BASE, {
+        transports: ["websocket"],
+        secure: true,
+      });
 
       socketRef.current.on("connect", () => {
         console.log("Conectado ao WebSocket.");
@@ -42,7 +51,7 @@ export const useWebSocket = (task_id: number | undefined) => {
       });
 
       socketRef.current.on("error_message", (error_message_received) => {
-        console.log("Mensagem recebida:", error_message_received);
+        console.log("Mensagem de erro recebida:", error_message_received);
       });
 
       socketRef.current.on("disconnect", () => {
