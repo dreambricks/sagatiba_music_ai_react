@@ -56,6 +56,30 @@ export const Home = () => {
     }
   };
 
+  const validateForm2 = () => {
+    const fields = [
+      { ref: ig, name: "Usuário" },
+      { ref: acceptTerm, name: "Termo de responsabilidade", isCheckbox: true },
+      { ref: acceptPolicy, name: "Política de privacidade", isCheckbox: true },
+      { ref: invite, name: "Convite" },
+      { ref: day, name: "Dia" },
+      { ref: message, name: "Mensagem" },
+      { ref: phone, name: "Telefone" },
+    ];
+
+    for (const field of fields) {
+      if (field.isCheckbox) {
+        if (!field.ref.current) {
+          throw new Error(`Campo obrigatório: ${field.name}`);
+        }
+      } else {
+        if (!field.ref.current?.trim()) {
+          throw new Error(`Campo obrigatório: ${field.name}`);
+        }
+      }
+    }
+  };
+
   const formatPhone = (phone: string) => {
     return phone.replace(/[\s-]/g, "");
   };
@@ -71,6 +95,8 @@ export const Home = () => {
       form.append("message", message.current);
       const formattedPhone = formatPhone(phone.current);
       form.append("phone", formattedPhone);
+
+      validateForm2();
       validateForm();
 
       const response = await generateMusicLyric(form);
@@ -82,11 +108,18 @@ export const Home = () => {
 
       navigate("/letras");
     } catch (error: any) {
-      toast.error(
-        "Aparentemente, sua mensagem contém palavras de baixo calão, conteúdo religioso ou político. Por favor, reformule seu recado."
-      );
+      if (error.status === 403) {
+        toast.error(
+          "Aparentemente, sua mensagem contém palavras de baixo calão, conteúdo religioso ou político. Por favor, reformule seu recado."
+        );
 
-      console.log({ error });
+        return;
+      }
+
+      if (error.message) {
+        toast.error(error.message);
+        return;
+      }
     } finally {
       setLoadingLyrics(false);
     }

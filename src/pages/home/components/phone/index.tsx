@@ -3,6 +3,7 @@ import LoadingBottle from "../../../../assets/CRISTALINA.png";
 import Whatsapp from "../../../../assets/whatsapp1.png";
 import { forwardRef, useState } from "react";
 import Loading from "../../../../assets/spinner_sem_fundo_ver2.gif";
+import { toast } from "react-toastify";
 
 interface PhoneProps {
   addPhone: (phone: string) => void;
@@ -14,21 +15,38 @@ export const Phone = forwardRef<HTMLDivElement, PhoneProps>(
   ({ addPhone, loading, onFill }, ref) => {
     const [number, setNumber] = useState("");
 
-    function aplicarMascaraTelefone(val: string) {
+    function phoneMask(val: string) {
       const numeros = val.replace(/\D/g, "");
 
-      const mascara = numeros
+      if (numeros.length === 0) {
+        setNumber("");
+        return;
+      }
+
+      if (numeros.length >= 3) {
+        const regex = /^\d{2}9/;
+        if (!regex.test(numeros)) {
+          toast.error("Seu número de celular deve começar com DDD + 9");
+          return;
+        }
+      }
+
+      let mascara = numeros
         .replace(/^(\d{2})(\d{1})(\d{4})(\d{0,4})$/, "$1 $2 $3-$4")
         .trim();
 
+      if (val.endsWith(" ") || val.endsWith("-")) {
+        mascara = mascara.slice(0, -1);
+      }
+
       setNumber(mascara);
 
-      if (validarFormatoTelefone(mascara)) {
+      if (validatePhone(mascara)) {
         addPhone(mascara);
       }
     }
 
-    function validarFormatoTelefone(telefone: string) {
+    function validatePhone(telefone: string) {
       const regex = /^\d{2} 9 \d{4}-\d{4}$/;
       return regex.test(telefone);
     }
@@ -48,7 +66,7 @@ export const Phone = forwardRef<HTMLDivElement, PhoneProps>(
                   name="phone"
                   value={number}
                   maxLength={14}
-                  onChange={(e) => aplicarMascaraTelefone(e.target.value)}
+                  onChange={(e) => phoneMask(e.target.value)}
                 />
               </div>
               <div onClick={onFill} className="send">
