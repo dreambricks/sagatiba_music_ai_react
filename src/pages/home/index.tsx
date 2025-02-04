@@ -82,7 +82,7 @@ export const Home = () => {
 
       navigate("/letras");
     } catch (error: any) {
-      toast.error(error.message);
+      toast.error(error.response.data.error);
 
       console.log({ error });
     } finally {
@@ -90,16 +90,50 @@ export const Home = () => {
     }
   };
 
+  // const scrollToSection = (
+  //   sectionRef: React.RefObject<HTMLDivElement>,
+  //   offset: number = 0
+  // ) => {
+  //   if (sectionRef.current) {
+  //     const top =
+  //       sectionRef.current.getBoundingClientRect().top +
+  //       window.scrollY +
+  //       offset;
+  //     window.scrollTo({ top, behavior: "smooth" });
+  //   }
+  // };
+
   const scrollToSection = (
     sectionRef: React.RefObject<HTMLDivElement>,
-    offset: number = 0
+    offset: number = 0,
+    duration: number = 1000 // Tempo total em milissegundos
   ) => {
     if (sectionRef.current) {
-      const top =
-        sectionRef.current.getBoundingClientRect().top +
-        window.scrollY +
-        offset;
-      window.scrollTo({ top, behavior: "smooth" });
+      const startPosition = window.scrollY;
+      const targetPosition =
+        sectionRef.current.getBoundingClientRect().top + window.scrollY + offset;
+      const distance = targetPosition - startPosition;
+      const startTime = performance.now();
+  
+      const easeInOutQuad = (t: number) => {
+        return t < 0.5
+          ? 2 * t * t
+          : -1 + (4 - 2 * t) * t;
+      };
+  
+      const scrollAnimation = (currentTime: number) => {
+        const timeElapsed = currentTime - startTime;
+        const progress = Math.min(timeElapsed / duration, 1);
+        const ease = easeInOutQuad(progress);
+        const scrollStep = startPosition + distance * ease;
+        window.scrollTo(0, scrollStep);
+  
+        if (progress < 1) {
+          requestAnimationFrame(scrollAnimation);
+        }
+      };
+  
+      requestAnimationFrame(scrollAnimation);
     }
   };
 

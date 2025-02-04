@@ -85,6 +85,18 @@ export const Container = styled.div`
         color: rgb(165, 165, 165);
         text-align: center;
       }
+
+      .send {
+        background: #f3592f !important;
+        border-radius: 17px;
+        color: #ffde2f;
+        border: none;
+        cursor: pointer;
+        font-size: 1rem;
+        margin-top: 15px;
+        padding: 15px 20px;
+        font-family: "Gopher-Regular", "sans-serif";
+      }
     }
   }
 
@@ -204,6 +216,10 @@ export const Container = styled.div`
           padding: 50px 50px 330px;
           width: 55%;
           font-size: 2.3rem;
+        }
+
+        .send {
+          font-size: 1.5rem;
         }
       }
     }

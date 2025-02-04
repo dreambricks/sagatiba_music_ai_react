@@ -38,17 +38,19 @@ export const Phone = forwardRef<HTMLDivElement, PhoneProps>(({ addPhone, loading
         <div className="phone" >
           <p>Antes da música ser gerada, precisamos do seu WhatsApp.</p>
 
-          <div className="button">
-            <img src={Whatsapp} alt="" />
-            <input
-              placeholder="xx x xxxx-xxxx"
-              type="text"
-              name="phone"
-              value={number}
-              maxLength={14}
-              onChange={(e) => aplicarMascaraTelefone(e.target.value)}
-              onBlur={onFill}
-            />
+          <div className="button-container">
+            <div className="button">
+              <img src={Whatsapp} alt="" />
+              <input
+                placeholder="xx x xxxx-xxxx"
+                type="text"
+                name="phone"
+                value={number}
+                maxLength={14}
+                onChange={(e) => aplicarMascaraTelefone(e.target.value)}
+              />
+            </div>
+            <div onClick={onFill} className="send"> &gt; </div>
           </div>
 
           <p>

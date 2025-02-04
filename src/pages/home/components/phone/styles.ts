@@ -20,6 +20,29 @@ export const Container = styled.section`
       align-items: center;
       width: 100%;
 
+      .button-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+        margin-top: 40px;
+
+        .send {
+          background: #32c034 !important;
+          border-radius: 17px;
+          color: black;
+          border: none;
+          font-size: 1.5rem;
+          padding: 5px 20px;
+          font-family: "Gopher-Medium", "sans-serif";
+          font-weight: bold;
+          cursor: pointer;
+          align-items: center;
+          color: #ffde2f;
+        }
+      }
+
       .button {
         background: #0090d0;
         font-family: "Gopher-Medium", "sans-serif";
@@ -28,7 +51,6 @@ export const Container = styled.section`
         gap: 10px;
         align-items: center;
         padding: 15px 20px;
-        margin-top: 40px;
         overflow: hidden;
 
         input {
@@ -141,7 +163,6 @@ export const Container = styled.section`
         button {
           padding: 10px 15px;
           font-size: 1rem;
-          margin-top: 20px;
           border-radius: 50px;
           gap: 10px;
 
@@ -232,7 +253,7 @@ export const Container = styled.section`
           padding: 20px 15px;
           padding-left: 30px;
           font-size: 1.6rem;
-          margin-top: 56px;
+          /* margin-top: 56px; */
           border-radius: 50px;
           gap: 10px;
 
