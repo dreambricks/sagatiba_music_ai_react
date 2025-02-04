@@ -67,7 +67,7 @@ export const Container = styled.div`
         border: none;
         color: black;
         border-radius: 30px;
-        font-size: 0.9rem;
+        font-size: 1rem;
         width: 100%;
         box-sizing: border-box;
         margin-top: 20px;
