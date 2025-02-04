@@ -82,7 +82,7 @@ export const Home = () => {
 
       navigate("/letras");
     } catch (error: any) {
-      toast.error(error.response.data.error);
+      toast.error('Aparentemente, sua mensagem contém palavras de baixo calão, conteúdo religioso ou político. Por favor, reformule seu recado.');
 
       console.log({ error });
     } finally {
