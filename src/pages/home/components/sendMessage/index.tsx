@@ -1,14 +1,17 @@
 import { Container } from "./style";
 import Lemon from "../../../../assets/sagatiba_image_components/LIMAO.png";
+import { forwardRef } from "react";
 
 interface SendMessageProps {
   onAddMessage: (val: string) => void;
+  onFill: () => void;
 }
 
-export const SendMessage = ({ onAddMessage }: SendMessageProps) => {
+export const SendMessage = forwardRef<HTMLDivElement, SendMessageProps>(
+  ({ onAddMessage, onFill }, ref) => {
   return (
     <Container>
-      <div className="top">
+      <div className="top" ref={ref}>
         <img src={Lemon} alt="" className="lemon" />
       </div>
       <img alt="" className="banner" />
@@ -25,9 +28,11 @@ export const SendMessage = ({ onAddMessage }: SendMessageProps) => {
             id=""
             placeholder="MANDE SEU RECADO AQUI"
             onChange={(e) => onAddMessage(e.target.value)}
+            onBlur={onFill}
           ></textarea>
         </div>
       </div>
     </Container>
-  );
-};
+    );
+  }
+);

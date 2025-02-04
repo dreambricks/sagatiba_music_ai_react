@@ -43,7 +43,7 @@ export const Container = styled.section`
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      margin-top: 170px;
+      margin-top: 150px;
       max-width: 340px;
       gap: 10px;
 
@@ -181,8 +181,26 @@ export const Container = styled.section`
       grid-template-columns: 1fr 1220px 1fr;
 
       .body {
-        width: auto;
+        width: 60%;
         max-width: unset;
+
+        .sagalover-name {
+          font-size: 1.3rem;
+        }
+
+        .type {
+          font-size: 1.3rem;
+        }
+
+        .move {
+          font-size: 1.3rem;
+          max-width: 80%;
+        }
+
+        .terms,
+        .terms-policy {
+          font-size: 0.8rem;
+        }
 
         img {
           width: 690px;
@@ -206,6 +224,7 @@ export const Container = styled.section`
       padding-bottom: 30px;
 
       .body {
+        width: auto;
         margin-top: 300px;
 
         .sagalover-name {
@@ -259,7 +278,7 @@ export const ModalStyles = styled.div`
       overflow: auto;
       height: 100%;
 
-      &:: -webkit-scrollbar {
+      &::-webkit-scrollbar {
         width: 5px;
         height: 10px; /* Define a altura da scrollbar */
       }

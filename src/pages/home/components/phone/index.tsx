@@ -1,15 +1,16 @@
 import { Container } from "./styles";
 import LoadingBottle from "../../../../assets/CRISTALINA.png";
 import Whatsapp from "../../../../assets/whatsapp1.png";
-import { useState } from "react";
+import { forwardRef, useState } from "react";
 import Loading from "../../../../assets/spinner_sem_fundo_ver2.gif";
 
 interface PhoneProps {
   addPhone: (phone: string) => void;
   loading: boolean;
+  onFill: () => void;
 }
 
-export const Phone = ({ addPhone, loading }: PhoneProps) => {
+export const Phone = forwardRef<HTMLDivElement, PhoneProps>(({ addPhone, loading, onFill }, ref) => {
   const [number, setNumber] = useState("");
 
   function aplicarMascaraTelefone(val: string) {
@@ -33,8 +34,8 @@ export const Phone = ({ addPhone, loading }: PhoneProps) => {
 
   return (
     <Container>
-      <div className="content">
-        <div className="phone">
+      <div className="content"  ref={ref}>
+        <div className="phone" >
           <p>Antes da música ser gerada, precisamos do seu WhatsApp.</p>
 
           <div className="button">
@@ -46,6 +47,7 @@ export const Phone = ({ addPhone, loading }: PhoneProps) => {
               value={number}
               maxLength={14}
               onChange={(e) => aplicarMascaraTelefone(e.target.value)}
+              onBlur={onFill}
             />
           </div>
 
@@ -67,4 +69,8 @@ export const Phone = ({ addPhone, loading }: PhoneProps) => {
       </div>
     </Container>
   );
-};
+});
+
+
+
+

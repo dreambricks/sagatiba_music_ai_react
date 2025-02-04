@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { forwardRef, useState } from "react";
 import Balde from "../../../../assets/balde_background.png";
 import Sun from "../../../../assets/sol_lua.png";
 import { tagOptions } from "../../../../pages/home/helper";
@@ -6,18 +6,21 @@ import { InviteForContainer } from "./styles";
 
 interface InviteOptionsProps {
   onInvite: (id: string) => void;
+  onFill: () => void;
 }
 
-export const InviteOptions = ({ onInvite }: InviteOptionsProps) => {
-  const [inviteFor, setInviteFor] = useState("");
+export const InviteOptions  = forwardRef<HTMLDivElement, InviteOptionsProps>(
+  ({ onInvite, onFill }, ref) => {
+    const [inviteFor, setInviteFor] = useState("");
 
-  const addInviteFor = (id: string) => {
-    setInviteFor(id);
-    onInvite(id);
-  };
+    const addInviteFor = (id: string) => {
+      setInviteFor(id);
+      onInvite(id);
+      onFill();
+    };
 
-  return (
-    <InviteForContainer>
+    return (
+      <InviteForContainer>
       <div className="content">
         <img src={Balde} alt="" className="banner" />
       </div>
@@ -26,7 +29,7 @@ export const InviteOptions = ({ onInvite }: InviteOptionsProps) => {
         <img src={Sun} alt="" className="sun" />
 
         <div className="content">
-          <div className="texts">
+          <div className="texts"  ref={ref}>
             <div className="invite_options_text_blue">
               <h2>Conta pra gente:</h2>
               <h2>qual o convite do rolê?</h2>
@@ -54,5 +57,6 @@ export const InviteOptions = ({ onInvite }: InviteOptionsProps) => {
         </div>
       </div>
     </InviteForContainer>
-  );
-};
+    );
+  }
+);

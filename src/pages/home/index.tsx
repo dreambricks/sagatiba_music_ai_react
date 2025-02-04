@@ -26,8 +26,13 @@ export const Home = () => {
   const message = useRef("");
   const phone = useRef("");
 
-  const section1 = useRef<HTMLDivElement | null>(null);
-  const section2 = useRef<HTMLDivElement | null>(null);
+  const sectionBanner = useRef<HTMLDivElement | null>(null);
+  const sectionSagalovers = useRef<HTMLDivElement | null>(null);
+  const inviteOptions = useRef<HTMLDivElement | null>(null);
+  const sectionWeekDay = useRef<HTMLDivElement | null>(null);
+  const sectionSendMessage = useRef<HTMLDivElement | null>(null);
+  const sectionGenerateMusic = useRef<HTMLDivElement | null>(null);
+  const sectionPhone = useRef<HTMLDivElement | null>(null);
 
   const changeIg = (value: string) => (ig.current = value);
   const onAacceptTerm = (value: boolean) => (acceptTerm.current = value);
@@ -102,9 +107,9 @@ export const Home = () => {
     <Container>
       <Banner
         sectionId="banner"
-        ref={section1}
+        ref={sectionBanner}
         onButtonClick={() => {
-          if (section2.current) scrollToSection(section2, 0);
+          if (sectionSagalovers.current) scrollToSection(sectionSagalovers, 200);
         }}
       />
 
@@ -112,20 +117,54 @@ export const Home = () => {
         changeIg={changeIg}
         onAacceptTerm={onAacceptTerm}
         onAcceptPolicy={onAcceptPolicy}
-        ref={section2}
+        ref={sectionSagalovers}
+        onFill={()=>{
+          if (inviteOptions.current) scrollToSection(inviteOptions, 0);
+        }}
       />
 
-      <InviteOptions onInvite={onInvite} />
+      <InviteOptions 
+        ref={inviteOptions} 
+        onInvite={onInvite}
+        onFill={()=>{
+          if (sectionWeekDay.current) scrollToSection(sectionWeekDay, 0);
+        }} 
+      />
 
-      <WeekDay onWeekdays={onWeekdays} />
+      <WeekDay 
+        ref={sectionWeekDay} 
+        onWeekdays={onWeekdays} 
+        onFill={()=>{
+          if (sectionSendMessage.current) scrollToSection(sectionSendMessage, 0);
+        }}
+      />
 
-      <SendMessage onAddMessage={onAddMessage} />
+      <SendMessage 
+        ref={sectionSendMessage} 
+        onAddMessage={onAddMessage}
+        onFill={()=>{
+          if (sectionPhone.current) scrollToSection(sectionPhone, -150);
+        }}
+      />
 
-      <GenerateMusic generateMusic={generateMusic} />
+      <GenerateMusic 
+        ref={sectionGenerateMusic} 
+        generateMusic={generateMusic}
+        onFill={()=>{
+          if (sectionPhone.current) scrollToSection(sectionPhone, -150);
+        }}
+      />
 
-      <Phone addPhone={addPhone} loading={loadingLyrics} />
+      <Phone 
+        ref={sectionPhone} 
+        addPhone={addPhone} 
+        loading={loadingLyrics}
+        onFill={()=>{
+          if (sectionGenerateMusic.current) scrollToSection(sectionGenerateMusic, 0);
+        }}
+      />
 
-      <Stickers />
+      <Stickers/>
 
       {/* <Lyrics /> */}
     </Container>

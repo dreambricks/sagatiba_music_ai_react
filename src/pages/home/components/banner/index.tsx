@@ -14,9 +14,9 @@ export const Banner = forwardRef<HTMLDivElement, SectionProps>(
         <div className="content">
           <img alt="banner" className="banner" />
 
-          <button className="invite" onClick={onButtonClick}>
+          <div className="invite" onClick={onButtonClick}>
             <img src={Invite} alt="invite" className="invite" />
-          </button>
+          </div>
         </div>
       </Container>
     );
