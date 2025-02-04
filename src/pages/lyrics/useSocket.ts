@@ -11,8 +11,6 @@ export const useWebSocket = (task_id: number | undefined) => {
   const socketRef = useRef<Socket | null>(null);
   const reconnectInterval = useRef<number | undefined>(undefined);
 
-  console.log(message);
-
   const phone = getPhoneFromCookie();
 
   useEffect(() => {

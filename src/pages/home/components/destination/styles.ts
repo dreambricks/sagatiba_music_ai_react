@@ -43,8 +43,9 @@ export const Container = styled.section`
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      margin-top: 120px;
+      margin-top: 170px;
       max-width: 340px;
+      gap: 10px;
 
       img {
         width: 100%;
@@ -116,7 +117,7 @@ export const Container = styled.section`
     }
 
     .terms-policy {
-      margin-top: 0px;
+      margin-top: -5px;
     }
   }
 

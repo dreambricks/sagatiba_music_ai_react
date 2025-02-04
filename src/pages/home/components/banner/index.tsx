@@ -1,13 +1,24 @@
+import { forwardRef } from "react";
 import Invite from "../../../../assets/invite.png";
 import { Container } from "./styles";
 
-export const Banner = () => {
-  return (
-    <Container>
-      <div className="content">
-        <img alt="banner" className="banner" />
-        <img src={Invite} alt="invite" className="invite" />
-      </div>
-    </Container>
-  );
-};
+interface SectionProps {
+  sectionId: string;
+  onButtonClick: () => void;
+}
+
+export const Banner = forwardRef<HTMLDivElement, SectionProps>(
+  ({ sectionId, onButtonClick }, ref) => {
+    return (
+      <Container ref={ref} id={sectionId}>
+        <div className="content">
+          <img alt="banner" className="banner" />
+
+          <button className="invite" onClick={onButtonClick}>
+            <img src={Invite} alt="invite" className="invite" />
+          </button>
+        </div>
+      </Container>
+    );
+  }
+);

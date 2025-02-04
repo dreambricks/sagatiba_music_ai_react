@@ -30,6 +30,9 @@ export const Container = styled.section`
       right: 50%;
       top: 51%;
       transform: translate(50%, -50%);
+      img {
+        width: 100%;
+      }
     }
   }
 

@@ -26,6 +26,9 @@ export const Home = () => {
   const message = useRef("");
   const phone = useRef("");
 
+  const section1 = useRef<HTMLDivElement | null>(null);
+  const section2 = useRef<HTMLDivElement | null>(null);
+
   const changeIg = (value: string) => (ig.current = value);
   const onAacceptTerm = (value: boolean) => (acceptTerm.current = value);
   const onAcceptPolicy = (value: boolean) => (acceptPolicy.current = value);
@@ -82,14 +85,34 @@ export const Home = () => {
     }
   };
 
+  const scrollToSection = (
+    sectionRef: React.RefObject<HTMLDivElement>,
+    offset: number = 0
+  ) => {
+    if (sectionRef.current) {
+      const top =
+        sectionRef.current.getBoundingClientRect().top +
+        window.scrollY +
+        offset;
+      window.scrollTo({ top, behavior: "smooth" });
+    }
+  };
+
   return (
     <Container>
-      <Banner />
+      <Banner
+        sectionId="banner"
+        ref={section1}
+        onButtonClick={() => {
+          if (section2.current) scrollToSection(section2, 0);
+        }}
+      />
 
       <Sagalovers
         changeIg={changeIg}
         onAacceptTerm={onAacceptTerm}
         onAcceptPolicy={onAcceptPolicy}
+        ref={section2}
       />
 
       <InviteOptions onInvite={onInvite} />

@@ -36,7 +36,6 @@ export const LyricsPage = () => {
         clearInterval(interval.current);
       }
 
-      console.log({ result });
       setTaskId(result.task_id);
     } catch (error) {
       console.error("Erro ao aguardar a conclusão da tarefa:", error);
@@ -69,55 +68,55 @@ export const LyricsPage = () => {
     }
   }, [status]);
 
-   // Função para baixar o MP3 via fetch
-   const downloadMp3 = async (url: string) => {
+  // Função para baixar o MP3 via fetch
+  const downloadMp3 = async (url: string) => {
     try {
-        const maxSize = 1177 * 1024;
+      const maxSize = 1177 * 1024;
 
-        setButtonText("FAZENDO DOWNLOAD");
-        setIsBtnDisabled(true);
+      setButtonText("FAZENDO DOWNLOAD");
+      setIsBtnDisabled(true);
 
-        const response = await fetch(url);
-        if (!response.ok) throw new Error("Erro na resposta da rede");
+      const response = await fetch(url);
+      if (!response.ok) throw new Error("Erro na resposta da rede");
 
-        const reader = response.body?.getReader();
-        if (!reader) throw new Error("Falha ao obter o leitor do stream");
+      const reader = response.body?.getReader();
+      if (!reader) throw new Error("Falha ao obter o leitor do stream");
 
-        let receivedLength = 0;
-        let chunks: Uint8Array[] = [];
+      let receivedLength = 0;
+      const chunks: Uint8Array[] = [];
 
-        while (true) {
-            const { done, value } = await reader.read();
-            if (done) break;
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
 
-            if (receivedLength + value.length > maxSize) {
-                chunks.push(value.slice(0, maxSize - receivedLength));
-                break;
-            }
-
-            chunks.push(value);
-            receivedLength += value.length;
+        if (receivedLength + value.length > maxSize) {
+          chunks.push(value.slice(0, maxSize - receivedLength));
+          break;
         }
 
-        const blob = new Blob(chunks, { type: "audio/mp3" });
-        const blobUrl = window.URL.createObjectURL(blob);
+        chunks.push(value);
+        receivedLength += value.length;
+      }
 
-        const filename = `sagatiba_${Date.now()}.mp3`;
+      const blob = new Blob(chunks, { type: "audio/mp3" });
+      const blobUrl = window.URL.createObjectURL(blob);
 
-        const link = document.createElement("a");
-        link.href = blobUrl;
-        link.download = filename;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+      const filename = `sagatiba_${Date.now()}.mp3`;
 
-        setButtonText("QUERO FAZER O DOWNLOAD");
-        setIsBtnDisabled(false);
+      const link = document.createElement("a");
+      link.href = blobUrl;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      setButtonText("QUERO FAZER O DOWNLOAD");
+      setIsBtnDisabled(false);
     } catch (error) {
-        console.error("Erro ao baixar o arquivo:", error);
-        alert("Erro ao baixar o arquivo: " + error.message);
-        setButtonText("QUERO FAZER O DOWNLOAD");
-        setIsBtnDisabled(false);
+      console.error("Erro ao baixar o arquivo:", error);
+      alert("Erro ao baixar o arquivo: " + error.message);
+      setButtonText("QUERO FAZER O DOWNLOAD");
+      setIsBtnDisabled(false);
     }
   };
 
@@ -139,7 +138,12 @@ export const LyricsPage = () => {
           convite.
         </p>
 
-        <button disabled={isBtnDisabled} onClick={() => audioUrl && downloadMp3(audioUrl)}>{buttonText}</button>
+        <button
+          disabled={isBtnDisabled}
+          onClick={() => audioUrl && downloadMp3(audioUrl)}
+        >
+          {buttonText}
+        </button>
 
         <div className="lyrics">
           <div className="lyrics-holder">
