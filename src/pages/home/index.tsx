@@ -82,7 +82,9 @@ export const Home = () => {
 
       navigate("/letras");
     } catch (error: any) {
-      toast.error('Aparentemente, sua mensagem contém palavras de baixo calão, conteúdo religioso ou político. Por favor, reformule seu recado.');
+      toast.error(
+        "Aparentemente, sua mensagem contém palavras de baixo calão, conteúdo religioso ou político. Por favor, reformule seu recado."
+      );
 
       console.log({ error });
     } finally {
@@ -111,28 +113,28 @@ export const Home = () => {
     if (sectionRef.current) {
       const startPosition = window.scrollY;
       const targetPosition =
-        sectionRef.current.getBoundingClientRect().top + window.scrollY + offset;
+        sectionRef.current.getBoundingClientRect().top +
+        window.scrollY +
+        offset;
       const distance = targetPosition - startPosition;
       const startTime = performance.now();
-  
+
       const easeInOutQuad = (t: number) => {
-        return t < 0.5
-          ? 2 * t * t
-          : -1 + (4 - 2 * t) * t;
+        return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
       };
-  
+
       const scrollAnimation = (currentTime: number) => {
         const timeElapsed = currentTime - startTime;
         const progress = Math.min(timeElapsed / duration, 1);
         const ease = easeInOutQuad(progress);
         const scrollStep = startPosition + distance * ease;
         window.scrollTo(0, scrollStep);
-  
+
         if (progress < 1) {
           requestAnimationFrame(scrollAnimation);
         }
       };
-  
+
       requestAnimationFrame(scrollAnimation);
     }
   };
@@ -143,7 +145,8 @@ export const Home = () => {
         sectionId="banner"
         ref={sectionBanner}
         onButtonClick={() => {
-          if (sectionSagalovers.current) scrollToSection(sectionSagalovers, 200);
+          if (sectionSagalovers.current)
+            scrollToSection(sectionSagalovers, 200);
         }}
       />
 
@@ -152,55 +155,55 @@ export const Home = () => {
         onAacceptTerm={onAacceptTerm}
         onAcceptPolicy={onAcceptPolicy}
         ref={sectionSagalovers}
-        onFill={()=>{
+        onFill={() => {
           if (inviteOptions.current) scrollToSection(inviteOptions, 0);
         }}
       />
 
-      <InviteOptions 
-        ref={inviteOptions} 
+      <InviteOptions
+        ref={inviteOptions}
         onInvite={onInvite}
-        onFill={()=>{
+        onFill={() => {
           if (sectionWeekDay.current) scrollToSection(sectionWeekDay, 0);
-        }} 
-      />
-
-      <WeekDay 
-        ref={sectionWeekDay} 
-        onWeekdays={onWeekdays} 
-        onFill={()=>{
-          if (sectionSendMessage.current) scrollToSection(sectionSendMessage, 0);
         }}
       />
 
-      <SendMessage 
-        ref={sectionSendMessage} 
+      <WeekDay
+        ref={sectionWeekDay}
+        onWeekdays={onWeekdays}
+        onFill={() => {
+          if (sectionSendMessage.current)
+            scrollToSection(sectionSendMessage, 0);
+        }}
+      />
+
+      <SendMessage
+        ref={sectionSendMessage}
         onAddMessage={onAddMessage}
-        onFill={()=>{
+        onFill={() => {
           if (sectionPhone.current) scrollToSection(sectionPhone, -150);
         }}
       />
 
-      <GenerateMusic 
-        ref={sectionGenerateMusic} 
+      <GenerateMusic
+        ref={sectionGenerateMusic}
         generateMusic={generateMusic}
-        onFill={()=>{
+        onFill={() => {
           if (sectionPhone.current) scrollToSection(sectionPhone, -150);
         }}
       />
 
-      <Phone 
-        ref={sectionPhone} 
-        addPhone={addPhone} 
+      <Phone
+        ref={sectionPhone}
+        addPhone={addPhone}
         loading={loadingLyrics}
-        onFill={()=>{
-          if (sectionGenerateMusic.current) scrollToSection(sectionGenerateMusic, 0);
+        onFill={() => {
+          if (sectionGenerateMusic.current)
+            scrollToSection(sectionGenerateMusic, 0);
         }}
       />
 
-      <Stickers/>
-
-      {/* <Lyrics /> */}
+      <Stickers />
     </Container>
   );
 };

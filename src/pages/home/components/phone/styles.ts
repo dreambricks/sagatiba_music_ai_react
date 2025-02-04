@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 export const Container = styled.section`
   background: #ffde2f;
-  height: 100vh;
   grid-template-columns: 35px 1fr 35px !important;
 
   .content {
@@ -11,6 +10,7 @@ export const Container = styled.section`
     flex-direction: column;
     justify-content: center;
     font-family: "Gopher-Medium", "sans-serif";
+    padding: 50px 0;
 
     .phone {
       font-size: 1.5rem;
@@ -59,7 +59,7 @@ export const Container = styled.section`
 
           border: none;
           outline: none;
-          font-size: 1.5rem;
+          font-size: 24px;
           width: 170px;
           color: black;
         }
@@ -265,7 +265,7 @@ export const Container = styled.section`
             background: transparent;
             border: none;
             outline: none;
-            font-size: 1.7rem;
+            font-size: 28px;
             width: 200px;
           }
         }

@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 export const Container = styled.section`
-  height: 100vh;
   background: #0091d0;
   width: 100%;
   grid-template-columns: 35px 1fr 35px !important;
@@ -38,6 +37,7 @@ export const Container = styled.section`
     display: flex;
     flex-direction: column;
     justify-content: center;
+    padding: 50px 0;
 
     .drink {
       display: flex;
