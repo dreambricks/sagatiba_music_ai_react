@@ -43,20 +43,6 @@ export const Home = () => {
   const addPhone = (value: string) => (phone.current = value);
 
   const validateForm = () => {
-    if (
-      !ig.current.trim() ||
-      !invite.current.trim() ||
-      !day.current.trim() ||
-      !message.current.trim() ||
-      !phone.current.trim() ||
-      !acceptTerm.current ||
-      !acceptPolicy.current
-    ) {
-      throw new Error("Verifique se preencheu os campos corretamente");
-    }
-  };
-
-  const validateForm2 = () => {
     const fields = [
       { ref: ig, name: "Usuário" },
       { ref: acceptTerm, name: "Termo de responsabilidade", isCheckbox: true },
@@ -96,7 +82,6 @@ export const Home = () => {
       const formattedPhone = formatPhone(phone.current);
       form.append("phone", formattedPhone);
 
-      validateForm2();
       validateForm();
 
       const response = await generateMusicLyric(form);
