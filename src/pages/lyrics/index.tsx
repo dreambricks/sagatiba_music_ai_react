@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Container } from "./styles";
 import Insta from "../../assets/icone_insta.png";
 import Whats from "../../assets/icone_whats.png";
@@ -114,16 +115,16 @@ export const LyricsPage = () => {
       setIsBtnDisabled(false);
     } catch (error) {
       console.error("Erro ao baixar o arquivo:", error);
-      alert("Erro ao baixar o arquivo: " + error.message);
+      alert("Erro ao baixar o arquivo: " + (error as any).message);
       setButtonText("QUERO FAZER O DOWNLOAD");
       setIsBtnDisabled(false);
     }
   };
 
   useEffect(() => {
-    if (message?.audio_url) {
-      setAudioUrl(message.audio_url);
-      downloadMp3(message.audio_url);
+    if ((message as any)?.audio_url) {
+      setAudioUrl((message as any).audio_url);
+      downloadMp3((message as any).audio_url);
     }
   }, [message]);
 

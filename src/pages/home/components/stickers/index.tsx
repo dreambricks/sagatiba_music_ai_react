@@ -12,7 +12,7 @@ export const Stickers = () => {
         </p>
 
         <div className="stickers">
-          {array.map((item, index) => (
+          {array.map((_, index) => (
             <img src={StickersImg} key={index} />
           ))}
         </div>

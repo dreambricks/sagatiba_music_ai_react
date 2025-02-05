@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Container } from "./styles";
 import { Sagalovers } from "./components/destination";
 import { WeekDay } from "./components/weekday/indedx";
@@ -59,7 +60,7 @@ export const Home = () => {
           throw new Error(`Campo obrigatório: ${field.name}`);
         }
       } else {
-        if (!field.ref.current?.trim()) {
+        if (typeof field.ref.current !== "string" || !field.ref.current.trim()) {
           throw new Error(`Campo obrigatório: ${field.name}`);
         }
       }
