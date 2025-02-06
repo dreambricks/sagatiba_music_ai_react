@@ -9,7 +9,7 @@ export const Container = styled.section`
   position: relative;
 
   .background {
-    width: 150%;
+    width: 100%;
     object-fit: cover;
     position: absolute;
     bottom: -150px;
@@ -57,7 +57,7 @@ export const Container = styled.section`
 
   @media (min-width: 620px) {
     .background {
-      bottom: -350px;
+      bottom: -250px;
     }
     .content {
       justify-content: flex-start;
@@ -66,6 +66,8 @@ export const Container = styled.section`
       .drink {
         .select-days {
           gap: 15px;
+          width: 100%;
+          grid-template-columns: repeat(8, 70px);
         }
       }
     }
@@ -141,16 +143,6 @@ export const Container = styled.section`
       p {
         font-size: 4rem;
         color: white;
-      }
-    }
-
-    .content {
-      .drink {
-        justify-content: flex-start;
-        .select-days {
-          width: 100%;
-          grid-template-columns: repeat(8, 1fr);
-        }
       }
     }
   }

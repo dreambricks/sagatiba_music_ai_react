@@ -63,7 +63,7 @@ export const Container = styled.div`
       textarea {
         background: white;
         font-family: "Gopher-Regular", "sans-serif";
-        padding: 20px 50px 100px;
+        padding: 20px;
         border: none;
         color: black;
         border-radius: 30px;
@@ -71,10 +71,11 @@ export const Container = styled.div`
         width: 100%;
         box-sizing: border-box;
         margin-top: 20px;
-        height: 50%;
+        height: 200px;
         overflow-y: scroll;
         scrollbar-width: none;
         -ms-overflow-style: none;
+        -webkit-overflow-scrolling: touch;
       }
 
       textarea::-webkit-scrollbar {
@@ -193,7 +194,7 @@ export const Container = styled.div`
           font-size: 1.6rem;
         }
         textarea {
-          padding: 30px 50px 250px;
+          padding: 30px 50px;
           width: 55%;
           font-size: 1.6rem;
         }
