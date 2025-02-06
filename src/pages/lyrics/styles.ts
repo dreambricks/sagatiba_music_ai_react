@@ -177,7 +177,6 @@ export const Container = styled.div`
 
       .lyrics {
         border-radius: 113px;
-        height: 947px;
         padding: 85px 99px 21px 161px;
 
         .lyrics-holder {
@@ -188,7 +187,7 @@ export const Container = styled.div`
   }
 
   @media (min-width: 1920px) {
-    grid-template-columns: 1fr 1283px 1fr !important;
+    grid-template-columns: 1fr 1626px 1fr !important;
 
     .content {
       h1 {
@@ -206,31 +205,39 @@ export const Container = styled.div`
         border-radius: 41px;
       }
 
-      .lyrics {
-        border-radius: 113px;
-        height: 947px;
-        padding: 85px 99px 21px 161px;
+      .container-info {
+        gap: 222px;
+        height: 1059px;
+        grid-template-rows: 1059px;
 
-        .lyrics-holder {
-          height: 100%;
-          overflow: auto;
-          font-size: 2.623rem;
+        .download-img {
+          max-width: 697px;
+        }
 
-          p {
-            margin-right: 100px;
-            text-align: justify;
-          }
+        .lyrics {
+          border-radius: 113px;
+          padding: 61px 19px 50px 82px;
 
-          &::-webkit-scrollbar {
-            width: 15px;
-          }
+          .lyrics-holder {
+            height: 100%;
+            font-size: 2.623rem;
 
-          &::-webkit-scrollbar-thumb {
-            border-radius: 115px;
-          }
+            pre {
+              margin-right: 100px;
+              text-align: justify;
+            }
 
-          &::-webkit-scrollbar-thumb:hover {
-            border-radius: 15px;
+            &::-webkit-scrollbar {
+              width: 15px;
+            }
+
+            &::-webkit-scrollbar-thumb {
+              border-radius: 115px;
+            }
+
+            &::-webkit-scrollbar-thumb:hover {
+              border-radius: 115px;
+            }
           }
         }
       }
