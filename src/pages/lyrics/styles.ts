@@ -46,6 +46,8 @@ export const Container = styled.div`
       .download-img {
         border-radius: 40px;
         overflow: hidden;
+        display: none;
+
         img {
           width: 100%;
           max-width: 490px;
@@ -130,6 +132,7 @@ export const Container = styled.div`
         .download-img {
           grid-column: 1/2;
           grid-row: 1/2;
+          display: block;
 
           img {
             width: 100%;
