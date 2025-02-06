@@ -197,6 +197,7 @@ export const Container = styled.div`
 
       .description {
         font-size: 2.56rem;
+        max-width: 968px;
       }
 
       button {
