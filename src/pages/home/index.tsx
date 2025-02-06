@@ -100,6 +100,12 @@ export const Home = () => {
         );
 
         return;
+      } else if (error.status === 429){
+        toast.error(
+          "Você atingiu o limite de geração de músicas. Tente novamente mais tarde!"
+        );
+        
+        return;
       }
 
       if (error.message) {
