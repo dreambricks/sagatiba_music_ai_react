@@ -2,6 +2,7 @@
 import { Container } from "./styles";
 import Insta from "../../assets/icone_insta.png";
 import Whats from "../../assets/icone_whats.png";
+import Download from "../../assets/download-music.png";
 
 import { useEffect, useRef, useState } from "react";
 import { getLyrics, getPhoneFromCookie } from "../../storage";
@@ -23,6 +24,7 @@ export const LyricsPage = () => {
   const generateId = async () => {
     try {
       const response = await generate();
+
       setStatus(response.status);
     } catch (error) {
       console.log(error);
@@ -49,15 +51,6 @@ export const LyricsPage = () => {
     if (item) setLyrics(item);
     generateId();
   }, []);
-
-  // useEffect(() => {
-  //   const phone = getPhoneFromCookie();
-  //   if (phone) {
-  //     interval.current = setInterval(pollForTaskCompletion, 5000);
-
-  //     return () => clearInterval(interval.current);
-  //   }
-  // }, []);
 
   useEffect(() => {
     const phone = getPhoneFromCookie();
@@ -146,9 +139,15 @@ export const LyricsPage = () => {
           {buttonText}
         </button>
 
-        <div className="lyrics">
-          <div className="lyrics-holder">
-            <pre>{lyrics}</pre>
+        <div className="container-info">
+          <div className="download-img">
+            <img src={Download} alt="" />
+          </div>
+
+          <div className="lyrics">
+            <div className="lyrics-holder">
+              <pre>{lyrics}</pre>
+            </div>
           </div>
         </div>
 

@@ -72,7 +72,7 @@ export const Container = styled.div<{ selected: boolean }>`
       font-size: 1.5rem;
       margin-bottom: 30px;
       height: 152px;
-      width: 120px;
+      width: 100px;
 
       &.btn-img {
         height: 152px;
@@ -86,6 +86,12 @@ export const Container = styled.div<{ selected: boolean }>`
 
     p {
       font-size: 0.8rem;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    button {
+      width: 120px;
     }
   }
 

@@ -40,38 +40,51 @@ export const Container = styled.div`
       }
     }
 
-    .lyrics {
-      margin-top: 40px;
-      background: #f3592f;
-      border-radius: 40px;
-      height: 320px;
-      padding: 25px 10px 25px 30px;
+    .container-info {
+      margin-top: 50px;
 
-      .lyrics-holder {
-        height: 100%;
-        overflow: auto;
-
-        pre {
-          font-family: "Gopher-Medium", "sans-serif";
-          white-space: pre-line;
+      .download-img {
+        border-radius: 40px;
+        overflow: hidden;
+        img {
+          width: 100%;
+          max-width: 490px;
         }
+      }
 
-        &::-webkit-scrollbar {
-          width: 5px;
-        }
+      .lyrics {
+        margin-top: 40px;
+        background: #f3592f;
+        border-radius: 40px;
+        height: 320px;
+        padding: 25px 10px 25px 30px;
 
-        &::-webkit-scrollbar-track {
-          background: #ef7a32;
-        }
+        .lyrics-holder {
+          height: 100%;
+          overflow: auto;
 
-        &::-webkit-scrollbar-thumb {
-          background: #ffdd2e;
-          border-radius: 10px;
-        }
+          pre {
+            font-family: "Gopher-Medium", "sans-serif";
+            white-space: pre-line;
+          }
 
-        &::-webkit-scrollbar-thumb:hover {
-          background: #ffdd2e;
-          border-radius: 10px;
+          &::-webkit-scrollbar {
+            width: 5px;
+          }
+
+          &::-webkit-scrollbar-track {
+            background: #ef7a32;
+          }
+
+          &::-webkit-scrollbar-thumb {
+            background: #ffdd2e;
+            border-radius: 10px;
+          }
+
+          &::-webkit-scrollbar-thumb:hover {
+            background: #ffdd2e;
+            border-radius: 10px;
+          }
         }
       }
     }
@@ -99,6 +112,79 @@ export const Container = styled.div`
 
   @media (min-width: 768px) {
     grid-template-columns: 1fr 560px 1fr !important;
+
+    .content {
+      .description {
+        max-width: 560px;
+        text-align: center;
+      }
+
+      .container-info {
+        margin-top: 50px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 500px;
+        gap: 20px;
+        width: 100%;
+
+        .download-img {
+          grid-column: 1/2;
+          grid-row: 1/2;
+
+          img {
+            width: 100%;
+            max-width: unset;
+            height: 100%;
+            display: block;
+            object-fit: cover;
+          }
+        }
+
+        .lyrics {
+          grid-column: 2/3;
+
+          margin-top: 0;
+          flex-grow: 1;
+          height: initial;
+        }
+      }
+    }
+  }
+
+  @media (min-width: 1024px) {
+    grid-template-columns: 1fr 960px 1fr !important;
+
+    .content {
+      .description {
+        max-width: 560px;
+        text-align: center;
+      }
+
+      .container-info {
+        grid-template-rows: 900px;
+      }
+    }
+  }
+
+  @media (min-width: 1280px) {
+    grid-template-columns: 1fr 960px 1fr !important;
+
+    .content {
+      .description {
+        max-width: 560px;
+        text-align: center;
+      }
+
+      .lyrics {
+        border-radius: 113px;
+        height: 947px;
+        padding: 85px 99px 21px 161px;
+
+        .lyrics-holder {
+          font-size: 1.8rem;
+        }
+      }
+    }
   }
 
   @media (min-width: 1920px) {
