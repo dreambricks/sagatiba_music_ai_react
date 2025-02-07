@@ -95,8 +95,9 @@ export const Home = () => {
       navigate("/letras");
     } catch (error: any) {
       if (error.status === 403) {
+        console.log(error.request.response)
         toast.error(
-          "Aparentemente, sua mensagem contém palavras de baixo calão, conteúdo religioso ou político. Por favor, reformule seu recado."
+          error.response.data.error
         );
 
         return;
@@ -210,14 +211,6 @@ export const Home = () => {
         }}
       />
 
-      <GenerateMusic
-        ref={sectionGenerateMusic}
-        generateMusic={generateMusic}
-        onFill={() => {
-          if (sectionPhone.current) scrollToSection(sectionPhone, -150);
-        }}
-      />
-
       <Phone
         ref={sectionPhone}
         addPhone={addPhone}
@@ -228,6 +221,15 @@ export const Home = () => {
         }}
       />
 
+      <GenerateMusic
+        ref={sectionGenerateMusic}
+        generateMusic={generateMusic}
+        onFill={() => {
+          if (sectionPhone.current) scrollToSection(sectionPhone, -150);
+        }}
+      />
+
+    
       <Stickers />
     </Container>
   );
