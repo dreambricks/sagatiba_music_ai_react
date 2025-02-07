@@ -38,3 +38,20 @@ export const getTaskId = async () => {
     console.log(error);
   }
 };
+
+export const getLyricsToMessage = async (id: string) => {
+  try {
+    const response = await axios.get(`${UR_BASE}/lyrics/get?task_id=${id}`);
+
+    if (response.data) {
+      const { audio_urls, lyrics } = response.data;
+      console.log("Response data:", { audio_urls, lyrics });
+      return { audio_urls, lyrics };
+    }
+
+    return null;
+  } catch (error) {
+    console.error("Erro ao buscar os dados:", error);
+    return null;
+  }
+};
