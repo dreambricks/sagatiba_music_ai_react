@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import backGroundAudio from "../../assets/audio_background.png";
 
 export const Container = styled.div`
   display: grid;
@@ -23,20 +24,46 @@ export const Container = styled.div`
       text-align: center;
     }
 
-    button {
-      margin-top: 40px;
-      background: #75b947;
-      border: none;
-      color: black;
-      font-family: "Gopher-Bold", "sans-serif";
-      padding: 15px 40px 12px;
-      border-radius: 12px;
-      cursor: pointer;
+    .audio-content {
+      margin-top: 50px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100px;
+      width: 80%;
+      background: url(${backGroundAudio}) center center no-repeat;
+      background-size: contain;
+      padding: 20px 20px;
 
-      &:disabled {
-        cursor: not-allowed;
-        opacity: 80%;
-        background: #68924b;
+      audio {
+        width: 100%;
+        max-width: 430px;
+        filter: invert(15%) sepia(95%) saturate(6932%) hue-rotate(358deg)
+          brightness(97%) contrast(112%);
+
+        &::-webkit-media-controls {
+          background-color: transparent;
+        }
+
+        &::-webkit-media-controls-enclosure {
+          background: transparent;
+        }
+
+        &::-webkit-media-controls-play-button {
+          transform: scale(2.5);
+          margin: 0 10px;
+        }
+        &::-webkit-media-controls-play-button:hover {
+          transform: scale(3);
+        }
+
+        &::-webkit-media-controls-time-remaining-display,
+        &::-webkit-media-controls-current-time-display,
+        &::-webkit-media-controls-volume-slider,
+        &::-webkit-media-controls-mute-button {
+          display: none;
+        }
       }
     }
 

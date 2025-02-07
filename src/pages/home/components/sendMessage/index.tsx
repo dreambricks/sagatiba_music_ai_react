@@ -28,6 +28,7 @@ export const SendMessage = forwardRef<HTMLDivElement, SendMessageProps>(
             id=""
             placeholder="MANDE SEU RECADO AQUI"
             onChange={(e) => onAddMessage(e.target.value)}
+            maxLength={300}
           ></textarea>
         <button onClick={onFill} className="send">enviar</button>
           
