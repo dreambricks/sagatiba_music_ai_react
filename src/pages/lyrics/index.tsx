@@ -14,7 +14,7 @@ export const LyricsPage = () => {
   const [status, setStatus] = useState("");
   const [taskId, setTaskId] = useState();
   const [buttonText, setButtonText] = useState("GERANDO MÚSICA");
-  const [audioUrl, setAudioUrl] = useState<string | null>(null);
+  const [audioUrls, setAudioUrls] = useState<string[]>([]);
   const [isBtnDisabled, setIsBtnDisabled] = useState(true);
 
   const interval = useRef<undefined | number>();
@@ -63,61 +63,42 @@ export const LyricsPage = () => {
   }, [status]);
 
   // Função para baixar o MP3 via fetch
-  const downloadMp3 = async (url: string) => {
+  const downloadMp3Files = async (urls: string[]) => {
     try {
-      const maxSize = 1177 * 1024;
-
       setButtonText("FAZENDO DOWNLOAD");
       setIsBtnDisabled(true);
-
-      const response = await fetch(url);
-      if (!response.ok) throw new Error("Erro na resposta da rede");
-
-      const reader = response.body?.getReader();
-      if (!reader) throw new Error("Falha ao obter o leitor do stream");
-
-      let receivedLength = 0;
-      const chunks: Uint8Array[] = [];
-
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-
-        if (receivedLength + value.length > maxSize) {
-          chunks.push(value.slice(0, maxSize - receivedLength));
-          break;
-        }
-
-        chunks.push(value);
-        receivedLength += value.length;
+  
+      for (let i = 0; i < urls.length; i++) {
+        const url = urls[i];
+        const response = await fetch(url);
+        if (!response.ok) throw new Error(`Erro ao baixar arquivo ${i + 1}`);
+  
+        const blob = await response.blob();
+        const blobUrl = window.URL.createObjectURL(blob);
+        const filename = `sagatiba_${Date.now()}_${i + 1}.mp3`;
+  
+        const link = document.createElement("a");
+        link.href = blobUrl;
+        link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
       }
-
-      const blob = new Blob(chunks, { type: "audio/mp3" });
-      const blobUrl = window.URL.createObjectURL(blob);
-
-      const filename = `sagatiba_${Date.now()}.mp3`;
-
-      const link = document.createElement("a");
-      link.href = blobUrl;
-      link.download = filename;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-
+  
       setButtonText("QUERO FAZER O DOWNLOAD");
       setIsBtnDisabled(false);
     } catch (error) {
-      console.error("Erro ao baixar o arquivo:", error);
-      alert("Erro ao baixar o arquivo: " + (error as any).message);
+      console.error("Erro ao baixar os arquivos:", error);
+      alert("Erro ao baixar os arquivos: " + (error as any).message);
       setButtonText("QUERO FAZER O DOWNLOAD");
       setIsBtnDisabled(false);
     }
   };
 
   useEffect(() => {
-    if ((message as any)?.audio_url) {
-      setAudioUrl((message as any).audio_url);
-      downloadMp3((message as any).audio_url);
+    if ((message as any)?.audio_urls) {
+      setAudioUrls((message as any).audio_urls);
+      downloadMp3Files((message as any).audio_urls);
     }
   }, [message]);
 
@@ -134,7 +115,7 @@ export const LyricsPage = () => {
 
         <button
           disabled={isBtnDisabled}
-          onClick={() => audioUrl && downloadMp3(audioUrl)}
+          onClick={() => audioUrls.length > 0 && downloadMp3Files(audioUrls)}
         >
           {buttonText}
         </button>

@@ -209,7 +209,7 @@ export const Container = styled.div`
       }
 
       .container-info {
-        gap: 222px;
+        gap: 2px;
         height: 1059px;
         grid-template-rows: 1059px;
 
@@ -223,7 +223,7 @@ export const Container = styled.div`
 
           .lyrics-holder {
             height: 100%;
-            font-size: 2.623rem;
+            font-size: 1.8rem;
 
             pre {
               margin-right: 100px;
