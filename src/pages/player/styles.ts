@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import backGroundAudio from "../../assets/audio_background.png";
 
 export const Container = styled.div`
   display: grid;
@@ -22,49 +21,6 @@ export const Container = styled.div`
     .description {
       margin-top: 40px;
       text-align: center;
-    }
-
-    .audio-content {
-      margin-top: 50px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100px;
-      width: 80%;
-      background: url(${backGroundAudio}) center center no-repeat;
-      background-size: contain;
-      padding: 20px 20px;
-
-      audio {
-        width: 100%;
-        max-width: 430px;
-        filter: invert(15%) sepia(95%) saturate(6932%) hue-rotate(358deg)
-          brightness(97%) contrast(112%);
-
-        &::-webkit-media-controls {
-          background-color: transparent;
-        }
-
-        &::-webkit-media-controls-enclosure {
-          background: transparent;
-        }
-
-        &::-webkit-media-controls-play-button {
-          transform: scale(2.5);
-          margin: 0 10px;
-        }
-        &::-webkit-media-controls-play-button:hover {
-          transform: scale(3);
-        }
-
-        &::-webkit-media-controls-time-remaining-display,
-        &::-webkit-media-controls-current-time-display,
-        &::-webkit-media-controls-volume-slider,
-        &::-webkit-media-controls-mute-button {
-          display: none;
-        }
-      }
     }
 
     .container-info {
