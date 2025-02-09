@@ -21,7 +21,6 @@ export const Home = () => {
 
   const ig = useRef("");
   const acceptTerm = useRef<boolean>(false);
-  const acceptPolicy = useRef<boolean>(false);
   const invite = useRef("");
   const day = useRef("");
   const message = useRef("");
@@ -37,7 +36,6 @@ export const Home = () => {
 
   const changeIg = (value: string) => (ig.current = value);
   const onAacceptTerm = (value: boolean) => (acceptTerm.current = value);
-  const onAcceptPolicy = (value: boolean) => (acceptPolicy.current = value);
   const onInvite = (value: string) => (invite.current = value);
   const onWeekdays = (value: string) => (day.current = value);
   const onAddMessage = (value: string) => (message.current = value);
@@ -47,7 +45,6 @@ export const Home = () => {
     const fields = [
       { ref: ig, name: "Usuário" },
       { ref: acceptTerm, name: "Termo de responsabilidade", isCheckbox: true },
-      { ref: acceptPolicy, name: "Política de privacidade", isCheckbox: true },
       { ref: invite, name: "Convite" },
       { ref: day, name: "Dia" },
       { ref: message, name: "Mensagem" },
@@ -179,7 +176,6 @@ export const Home = () => {
       <Sagalovers
         changeIg={changeIg}
         onAacceptTerm={onAacceptTerm}
-        onAcceptPolicy={onAcceptPolicy}
         ref={sectionSagalovers}
         onFill={() => {
           if (inviteOptions.current) scrollToSection(inviteOptions, 0);

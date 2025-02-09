@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Container = styled.section`
-  background: #ffde2f;
+  background: #f79327;
   grid-template-columns: 35px 1fr 35px !important;
 
   .content {
@@ -22,29 +22,19 @@ export const Container = styled.section`
 
       .button-container {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
-        gap: 1rem;
+        gap: 0.5rem;
         margin-top: 40px;
-
-        .send {
-          background: #32c034 !important;
-          border-radius: 17px;
-          color: black;
-          border: none;
-          font-size: 1.5rem;
-          padding: 5px 20px;
-          font-family: "Gopher-Medium", "sans-serif";
-          font-weight: bold;
+        .SigaBtn {
+          width: 60%;
           cursor: pointer;
-          align-items: center;
-          color: #ffde2f;
         }
       }
 
       .button {
-        background: #0090d0;
+        background: rgb(255, 255, 255);
         font-family: "Gopher-Medium", "sans-serif";
         border-radius: 20px;
         display: flex;
@@ -52,6 +42,7 @@ export const Container = styled.section`
         align-items: center;
         padding: 15px 20px;
         overflow: hidden;
+        max-width: 250px;
 
         input {
           background: transparent;
@@ -104,7 +95,7 @@ export const Container = styled.section`
       }
 
       span {
-        color: #0090d0;
+        color: rgb(255, 255, 255);
         font-size: 1rem;
       }
     }
@@ -139,7 +130,6 @@ export const Container = styled.section`
         }
 
         span {
-          color: #0090d0;
           font-size: 1.3rem;
         }
       }
@@ -160,14 +150,17 @@ export const Container = styled.section`
         text-align: left;
         align-items: flex-start;
 
-        button {
-          padding: 10px 15px;
-          font-size: 1rem;
-          border-radius: 50px;
-          gap: 10px;
+        .button-container {
+          align-items: flex-start;
+          button {
+            padding: 10px 15px;
+            font-size: 1rem;
+            border-radius: 50px;
+            gap: 10px;
 
-          & img {
-            width: 20px;
+            & img {
+              width: 20px;
+            }
           }
         }
 

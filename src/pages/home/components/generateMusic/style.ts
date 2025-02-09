@@ -31,36 +31,28 @@ export const Container = styled.div`
       margin-top: 10%;
       gap: 15px;
 
-      button {
-        background: #0091d0;
-        color: #f8e711;
-        display: flex;
-        align-items: center;
-        font-size: 1rem;
-        border: none;
-        gap: 10px;
-        padding: 20px 32px;
-        border-radius: 30px;
+      .gerar-musica {
+        width: 60%;
         cursor: pointer;
-        font-family: "Farreron-DemiBold", "sans-serif";
-        letter-spacing: 2px;
-        & > img {
-          width: 30px;
-        }
       }
 
       p {
-        font-size: 1rem;
+        width: 100%;
+        text-align: center;
         color: white;
         font-family: "Gopher-Medium", "sans-serif";
       }
     }
   }
 
-  @media (min-width: 600px) {
+  @media (min-width: 460px) {
     .generate-music {
       .content {
         margin-top: 0px;
+
+        .gerar-musica {
+          cursor: pointer;
+        }
 
         button {
           font-size: 1.5rem;
@@ -75,14 +67,27 @@ export const Container = styled.div`
     }
   }
 
+  @media (min-width: 600px) {
+    .generate-music {
+      .content {
+        margin-top: 0px;
+
+        .gerar-musica {
+          cursor: pointer;
+        }
+
+        p {
+          font-size: 1.6rem;
+        }
+      }
+    }
+  }
+
   @media (min-width: 728px) {
     .generate-music {
       .content {
-        button {
-          font-size: 1.6rem;
-          & > img {
-            width: 44px;
-          }
+        .gerar-musica {
+          width: 40%;
         }
         p {
           font-size: 1.6rem;
@@ -94,12 +99,6 @@ export const Container = styled.div`
   @media (min-width: 1024px) {
     .generate-music {
       .content {
-        button {
-          font-size: 1.8rem;
-          & > img {
-            width: 50px;
-          }
-        }
         p {
           font-size: 1.8rem;
         }
@@ -110,12 +109,6 @@ export const Container = styled.div`
   @media (min-width: 1280px) {
     .generate-music {
       .content {
-        button {
-          font-size: 2rem;
-          & > img {
-            width: 55px;
-          }
-        }
         p {
           font-size: 2rem;
         }
@@ -126,13 +119,8 @@ export const Container = styled.div`
   @media (min-width: 1540px) {
     .generate-music {
       .content {
-        button {
-          padding: 30px 52px;
-
-          font-size: 2.5rem;
-          & > img {
-            width: 55px;
-          }
+        .gerar-musica {
+          width: 30%;
         }
         p {
           font-size: 2.5rem;

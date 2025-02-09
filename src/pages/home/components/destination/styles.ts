@@ -35,6 +35,7 @@ export const Container = styled.section`
 
     .type {
       margin-top: 67px;
+      text-align: center;
     }
 
     .body {
@@ -52,10 +53,15 @@ export const Container = styled.section`
         max-width: 340px;
       }
 
+      .SigaBtn {
+        width: 60%;
+        cursor: pointer;
+      }
+
       input[type="text"] {
         border-radius: 78px;
-        background: #f3592f;
-        color: white;
+        background: rgb(255, 255, 255);
+        color: black;
         font-size: 1rem;
         padding: 17px 23px;
         width: 100%;
@@ -65,15 +71,15 @@ export const Container = styled.section`
         max-width: 90%;
 
         &::placeholder {
-          color: white;
+          color: black;
           text-align: center;
           opacity: 60%;
         }
       }
 
       .move {
-        margin-top: 30px;
         max-width: 400px;
+        text-align: center;
       }
     }
 
@@ -82,6 +88,7 @@ export const Container = styled.section`
       width: 100%;
       margin-top: 50px;
       display: flex;
+      justify-content: center;
       gap: 5px;
       align-items: center;
       font-size: 0.65rem;
@@ -183,6 +190,7 @@ export const Container = styled.section`
       .body {
         width: 60%;
         max-width: unset;
+        gap: 40px;
 
         .sagalover-name {
           font-size: 1.3rem;

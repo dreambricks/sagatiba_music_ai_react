@@ -3,6 +3,8 @@ import SunMountain from "../../../../assets/montanha_sol_separate.png";
 import { weekDays } from "../../helper";
 import { WeekBtn } from "./WeekBtn";
 import { Container } from "./styles";
+import Siga from "../../../../assets/SIGA_PASSO.svg";
+
 
 interface WeekDayProps {
   onWeekdays: (val: string) => void;
@@ -15,7 +17,6 @@ export const WeekDay = forwardRef<HTMLDivElement, WeekDayProps>(({ onWeekdays, o
   const addWeekDays = (day: string) => {
     setWeekDaysSelected(day);
     onWeekdays(day);
-    onFill();
   };
 
   return (
@@ -42,6 +43,7 @@ export const WeekDay = forwardRef<HTMLDivElement, WeekDayProps>(({ onWeekdays, o
           ))}
         </div>
       </div>
+      <img className="SigaBtn" src={Siga} alt="Siga para o próximo passo" onClick={onFill}/>  
     </div>
   </Container>
   );

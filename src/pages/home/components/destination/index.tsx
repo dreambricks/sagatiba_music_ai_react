@@ -3,31 +3,29 @@ import Sagalover from "../../../../assets/nome_do_sagalover.png";
 import { Container } from "./styles";
 import Mountains from "../../../../assets/mountains.png";
 import { ModalInfo } from "./Modal";
+import Siga from "../../../../assets/SIGA_PASSO.svg";
 
 interface SagaloverProps {
   changeIg: (val: string) => void;
   onAacceptTerm: (val: boolean) => void;
-  onAcceptPolicy: (val: boolean) => void;
   onFill: () => void;
 }
 
 export const Sagalovers = forwardRef<HTMLDivElement, SagaloverProps>(
-  ({ changeIg, onAacceptTerm, onAcceptPolicy, onFill }, ref) => {
+  ({ changeIg, onAacceptTerm,  onFill }, ref) => {
     const [modalOpen, setModalOpen] = useState(false);
     const [username, setUsername] = useState("");
     const [termsAccepted, setTermsAccepted] = useState(false);
-    const [policyAccepted, setPolicyAccepted] = useState(false);
     const [hasFilled, setHasFilled] = useState(false); // Novo estado para controle
 
     const openModal = () => setModalOpen(true);
     const closeModal = () => setModalOpen(false);
 
     useEffect(() => {
-      if (!hasFilled && username.trim() !== "" && termsAccepted && policyAccepted) {
-        onFill();
+      if (!hasFilled && username.trim() !== "" && termsAccepted) {
         setHasFilled(true); // Evita chamadas repetidas
       }
-    }, [username, termsAccepted, policyAccepted, onFill, hasFilled]);
+    }, [username, termsAccepted, hasFilled]);
 
     return (
       <Container>
@@ -48,12 +46,14 @@ export const Sagalovers = forwardRef<HTMLDivElement, SagaloverProps>(
             <input
               type="text"
               name="username"
-              placeholder="sagatiba"
+              placeholder="@Ricardo Sampaio"
               onChange={(e) => {
                 setUsername(e.target.value);
                 changeIg(e.target.value);
               }}
             />
+
+            <img className="SigaBtn" src={Siga} alt="Siga para o próximo passo" onClick={onFill}/>  
 
             <p className="move">
               Mas, pra Seguir na Saga, tem que ter responsa, hein? Só
@@ -73,16 +73,7 @@ export const Sagalovers = forwardRef<HTMLDivElement, SagaloverProps>(
               </p>
             </div>
 
-            <div className="terms-policy">
-              <input
-                type="checkbox"
-                onChange={(e) => {
-                  setPolicyAccepted(e.target.checked);
-                  onAcceptPolicy(e.target.checked);
-                }}
-              />
-              <p onClick={openModal}>EU ACEITO A POLITICA DE PRIVACIDADE</p>
-            </div>
+
           </div>
         </div>
       </Container>

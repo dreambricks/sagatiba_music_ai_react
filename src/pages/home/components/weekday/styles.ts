@@ -37,6 +37,7 @@ export const Container = styled.section`
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
     padding: 50px 0;
 
     .drink {
@@ -52,6 +53,12 @@ export const Container = styled.section`
 
         margin-top: 59px;
       }
+    }
+
+    .SigaBtn {
+      width: 65%;
+      margin-top: 50px;
+      cursor: pointer;
     }
   }
 
@@ -101,6 +108,12 @@ export const Container = styled.section`
           display: flex;
           width: 100%;
         }
+      }
+
+      .SigaBtn {
+        width: 50%;
+        margin-top: 50px;
+        cursor: pointer;
       }
     }
   }

@@ -1,6 +1,8 @@
 import { Container } from "./style";
 import Lemon from "../../../../assets/sagatiba_image_components/LIMAO.png";
 import { forwardRef } from "react";
+import Send from "../../../../assets/enviar.svg";
+
 
 interface SendMessageProps {
   onAddMessage: (val: string) => void;
@@ -30,7 +32,7 @@ export const SendMessage = forwardRef<HTMLDivElement, SendMessageProps>(
             onChange={(e) => onAddMessage(e.target.value)}
             maxLength={300}
           ></textarea>
-        <button onClick={onFill} className="send">enviar</button>
+          <img className="send" src={Send} alt="Siga para o próximo passo" onClick={onFill}/>  
           
         </div>
       </div>

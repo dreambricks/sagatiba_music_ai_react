@@ -1,5 +1,5 @@
 import { forwardRef } from "react";
-import MusicIcon from "../../../../assets/music-icon.png";
+import GerarMusica from "../../../../assets/gerar-musica.svg";
 import { Container } from "./style";
 
 interface GenerateMusicProps {
@@ -16,15 +16,12 @@ export const GenerateMusic = forwardRef<HTMLDivElement, GenerateMusicProps>(
 
         <div className="content" ref={ref}>
           <p>Tá na hora de Sagatibar!</p>
-          <button
-            onClick={() => {
+     
+            <img className="gerar-musica" src={GerarMusica} alt=""  onClick={() => {
               generateMusic();
               onFill();
-            }}
-          >
-            GERAR MÚSICA
-            <img src={MusicIcon} alt="" />
-          </button>
+            }}/>
+         
         </div>
       </section>
     </Container>

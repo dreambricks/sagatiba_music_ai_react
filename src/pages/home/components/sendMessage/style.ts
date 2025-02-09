@@ -88,15 +88,9 @@ export const Container = styled.div`
       }
 
       .send {
-        background: #f3592f !important;
-        border-radius: 17px;
-        color: #ffde2f;
-        border: none;
         cursor: pointer;
-        font-size: 1rem;
         margin-top: 15px;
-        padding: 15px 20px;
-        font-family: "Gopher-Regular", "sans-serif";
+        width: 20%;
       }
     }
   }
@@ -220,7 +214,7 @@ export const Container = styled.div`
         }
 
         .send {
-          font-size: 1.5rem;
+          width: 10%;
         }
       }
     }

@@ -4,6 +4,8 @@ import Whatsapp from "../../../../assets/whatsapp1.png";
 import { forwardRef, useState } from "react";
 import Loading from "../../../../assets/spinner_sem_fundo_ver2.gif";
 import { toast } from "react-toastify";
+import Siga from "../../../../assets/SIGA_PASSO.svg";
+
 
 interface PhoneProps {
   addPhone: (phone: string) => void;
@@ -69,10 +71,7 @@ export const Phone = forwardRef<HTMLDivElement, PhoneProps>(
                   onChange={(e) => phoneMask(e.target.value)}
                 />
               </div>
-              <div onClick={onFill} className="send">
-                {" "}
-                &gt;{" "}
-              </div>
+              <img className="SigaBtn" src={Siga} alt="Siga para o próximo passo" onClick={onFill}/> 
             </div>
 
             <p>
