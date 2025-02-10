@@ -24,19 +24,14 @@ export const Container = styled.div`
     }
 
     button {
-      margin-top: 40px;
-      background: #75b947;
-      border: none;
-      color: black;
+      margin-top: 100px;
+      margin-bottom: 50px ;
       font-family: "Gopher-Bold", "sans-serif";
-      padding: 15px 40px 12px;
-      border-radius: 12px;
       cursor: pointer;
 
       &:disabled {
         cursor: not-allowed;
         opacity: 80%;
-        background: #68924b;
       }
     }
 
@@ -56,7 +51,7 @@ export const Container = styled.div`
 
       .lyrics {
         margin-top: 40px;
-        background: #f3592f;
+        background: #32c034;
         border-radius: 40px;
         height: 320px;
         padding: 25px 10px 25px 30px;
@@ -75,7 +70,7 @@ export const Container = styled.div`
           }
 
           &::-webkit-scrollbar-track {
-            background: #ef7a32;
+            background: #129d14;
           }
 
           &::-webkit-scrollbar-thumb {
@@ -202,11 +197,11 @@ export const Container = styled.div`
         max-width: 968px;
       }
 
-      button {
+      /* button {
         font-size: 4rem;
         padding: 33px 40px 29px;
         border-radius: 41px;
-      }
+      } */
 
       .container-info {
         gap: 2px;

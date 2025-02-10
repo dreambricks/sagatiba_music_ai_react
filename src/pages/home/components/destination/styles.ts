@@ -310,6 +310,7 @@ export const ModalStyles = styled.div`
     p {
       text-align: justify;
       margin-right: 20px;
+      font-size: 1rem;
     }
   }
 
@@ -334,7 +335,6 @@ export const ModalStyles = styled.div`
 
       .info-holder {
         p {
-          font-size: 2rem;
         }
       }
     }
@@ -359,7 +359,6 @@ export const ModalStyles = styled.div`
           border-radius: 41px;
         }
         p {
-          font-size: 2rem;
         }
       }
     }

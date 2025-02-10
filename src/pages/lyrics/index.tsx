@@ -1,13 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Container } from "./styles";
-import Insta from "../../assets/icone_insta.png";
-import Whats from "../../assets/icone_whats.png";
+// import Insta from "../../assets/icone_insta.png";
+// import Whats from "../../assets/icone_whats.png";
 import Download from "../../assets/download-music.png";
 
 import { useEffect, useRef, useState } from "react";
 import { getLyrics, getPhoneFromCookie } from "../../storage";
 import { generate, getTaskId } from "../../service";
 import { useWebSocket } from "./useSocket";
+import { CustomButton } from "./components/custom-button";
 
 export const LyricsPage = () => {
   const [lyrics, setLyrics] = useState("");
@@ -67,16 +68,16 @@ export const LyricsPage = () => {
     try {
       setButtonText("FAZENDO DOWNLOAD");
       setIsBtnDisabled(true);
-  
+
       for (let i = 0; i < urls.length; i++) {
         const url = urls[i];
         const response = await fetch(url);
         if (!response.ok) throw new Error(`Erro ao baixar arquivo ${i + 1}`);
-  
+
         const blob = await response.blob();
         const blobUrl = window.URL.createObjectURL(blob);
         const filename = `sagatiba_${Date.now()}_${i + 1}.mp3`;
-  
+
         const link = document.createElement("a");
         link.href = blobUrl;
         link.download = filename;
@@ -84,7 +85,7 @@ export const LyricsPage = () => {
         link.click();
         document.body.removeChild(link);
       }
-  
+
       setButtonText("QUERO FAZER O DOWNLOAD");
       setIsBtnDisabled(false);
     } catch (error) {
@@ -113,12 +114,12 @@ export const LyricsPage = () => {
           convite.
         </p>
 
-        <button
+        <CustomButton
           disabled={isBtnDisabled}
           onClick={() => audioUrls.length > 0 && downloadMp3Files(audioUrls)}
         >
           {buttonText}
-        </button>
+        </CustomButton>
 
         <div className="container-info">
           <div className="download-img">
@@ -135,10 +136,10 @@ export const LyricsPage = () => {
         <div className="share">
           <p>compartilhe </p>
 
-          <div className="socials">
+          {/* <div className="socials">
             <img src={Whats} alt="" />
             <img src={Insta} alt="" />
-          </div>
+          </div> */}
         </div>
 
         <p className="advise">

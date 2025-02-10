@@ -50,6 +50,7 @@ export const Home = () => {
       { ref: message, name: "Mensagem" },
       { ref: phone, name: "Telefone" },
     ];
+    console.log(fields);
 
     for (const field of fields) {
       if (field.isCheckbox) {
@@ -98,11 +99,11 @@ export const Home = () => {
         );
 
         return;
-      } else if (error.status === 429){
+      } else if (error.status === 429) {
         toast.error(
           "Você atingiu o limite de geração de músicas. Tente novamente mais tarde!"
         );
-        
+
         return;
       }
 
@@ -225,7 +226,7 @@ export const Home = () => {
         }}
       />
 
-    
+
       <Stickers />
     </Container>
   );
