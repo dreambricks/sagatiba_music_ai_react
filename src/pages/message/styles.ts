@@ -56,7 +56,7 @@ export const Container = styled.div`
 
       .lyrics {
         margin-top: 40px;
-        background: #f3592f;
+        background: #32c034;
         border-radius: 40px;
         height: 320px;
         padding: 25px 10px 25px 30px;
@@ -68,6 +68,7 @@ export const Container = styled.div`
           pre {
             font-family: "Gopher-Medium", "sans-serif";
             white-space: pre-line;
+            user-select: text;
           }
 
           &::-webkit-scrollbar {
@@ -75,7 +76,7 @@ export const Container = styled.div`
           }
 
           &::-webkit-scrollbar-track {
-            background: #ef7a32;
+            background: #129d14;
           }
 
           &::-webkit-scrollbar-thumb {

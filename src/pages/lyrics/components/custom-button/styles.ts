@@ -27,7 +27,6 @@ export const SvgStyled = styled.svg`
     width: 600px;
   }
 
-  
   @media (min-width: 1920px) {
     width: 777px;
   }
@@ -51,7 +50,7 @@ export const ButtonText = styled.span`
     font-size: 1.8rem;
   }
 
-  @media (min-width: 1280px) {
-    font-size: 3.5rem;
+  @media (min-width: 1920px) {
+    font-size: 3rem;
   }
 `;

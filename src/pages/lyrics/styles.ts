@@ -25,7 +25,7 @@ export const Container = styled.div`
 
     button {
       margin-top: 100px;
-      margin-bottom: 50px ;
+      margin-bottom: 50px;
       font-family: "Gopher-Bold", "sans-serif";
       cursor: pointer;
 
@@ -63,6 +63,7 @@ export const Container = styled.div`
           pre {
             font-family: "Gopher-Medium", "sans-serif";
             white-space: pre-line;
+            user-select: text;
           }
 
           &::-webkit-scrollbar {
