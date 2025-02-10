@@ -1,5 +1,5 @@
-import Insta from "../../assets/icone_insta.png";
-import Whats from "../../assets/icone_whats.png";
+// import Insta from "../../assets/icone_insta.png";
+// import Whats from "../../assets/icone_whats.png";
 import { Container } from "./styles";
 import { useEffect, useState } from "react";
 import { getLyricsToMessage } from "../../service";
@@ -66,10 +66,10 @@ export const Player = () => {
         <div className="share">
           <p>compartilhe </p>
 
-          <div className="socials">
+          {/* <div className="socials">
             <img src={Whats} alt="" />
             <img src={Insta} alt="" />
-          </div>
+          </div> */}
         </div>
 
         <p className="advise">

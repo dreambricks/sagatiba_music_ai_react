@@ -167,7 +167,7 @@ export const Container = styled.div`
         padding: 85px 99px 21px 161px;
 
         .lyrics-holder {
-          font-size: 1.8rem;
+          font-size: 1.4rem;
         }
       }
     }
@@ -186,16 +186,15 @@ export const Container = styled.div`
         max-width: 968px;
       }
 
-      button {
+      /* button {
         font-size: 4rem;
         padding: 33px 40px 29px;
         border-radius: 41px;
-      }
+      } */
 
       .container-info {
         gap: 2px;
         height: 1059px;
-        grid-template-rows: 1059px;
 
         .download-img {
           max-width: 697px;
@@ -233,9 +232,6 @@ export const Container = styled.div`
         gap: 30px;
         font-size: 6.25rem;
         .socials {
-          img {
-            width: 160px;
-          }
         }
       }
       .advise {

@@ -1,7 +1,7 @@
 import PlayIcon from "../../../assets/play-btn.svg";
 import PauseIcon from "../../../assets/btn-pause.png";
 
-import { Container, PlayButton, WaveformContainer } from "./styles";
+import { AudioContainer, PlayButton, WaveformContainer } from "./styles";
 import { useEffect, useRef, useState } from "react";
 import WaveSurfer from "wavesurfer.js";
 
@@ -27,15 +27,20 @@ export const AudioPlayer = ({ audioUrl }: AudioPlayerProps) => {
   };
 
   useEffect(() => {
+    if (!waveformRef.current) return;
+
     wavesurferRef.current = WaveSurfer.create({
-      container: waveformRef.current as HTMLElement,
+      container: waveformRef.current,
       waveColor: "#fde047",
       progressColor: "#f97316",
       cursorColor: "transparent",
       barWidth: 3,
       barGap: 3,
-      barRadius: 3,
+      barRadius: 30,
+      height: "auto",
       barAlign: "bottom",
+      normalize: true,
+      fillParent: true,
     });
 
     wavesurferRef?.current?.load(audioUrl);
@@ -44,7 +49,7 @@ export const AudioPlayer = ({ audioUrl }: AudioPlayerProps) => {
   }, []);
 
   return (
-    <Container>
+    <AudioContainer>
       <div className="controls">
         <PlayButton onClick={togglePlay}>
           {isPlaying ? (
@@ -55,6 +60,6 @@ export const AudioPlayer = ({ audioUrl }: AudioPlayerProps) => {
         </PlayButton>
         <WaveformContainer ref={waveformRef} />
       </div>
-    </Container>
+    </AudioContainer>
   );
 };
