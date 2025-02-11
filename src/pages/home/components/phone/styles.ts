@@ -25,7 +25,7 @@ export const Container = styled.section`
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        gap: 0.5rem;
+        gap: 1rem;
         margin-top: 40px;
         .SigaBtn {
           width: 60%;
@@ -178,8 +178,11 @@ export const Container = styled.section`
       }
 
       .music-message {
+        margin-top: 0px;
         font-size: 1.3rem;
-        align-items: flex-start;
+        height: 100%;
+        align-self: flex-start;
+        justify-content: space-between;
 
         p {
           text-align: left;
@@ -187,7 +190,7 @@ export const Container = styled.section`
 
         span {
           font-size: 0.9rem;
-          margin-top: 30px;
+          align-self: flex-end;
         }
       }
     }

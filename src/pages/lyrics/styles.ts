@@ -31,7 +31,6 @@ export const Container = styled.div`
 
       &:disabled {
         cursor: not-allowed;
-        opacity: 80%;
       }
     }
 

@@ -9,14 +9,17 @@ import { getLyrics, getPhoneFromCookie } from "../../storage";
 import { generate, getTaskId } from "../../service";
 import { useWebSocket } from "./useSocket";
 import { CustomButton } from "./components/custom-button";
+import Loading from "../../assets/spinner_sem_fundo_ver2.gif";
+import { LoadingImage } from "./components/custom-button/styles";
 
 export const LyricsPage = () => {
   const [lyrics, setLyrics] = useState("");
   const [status, setStatus] = useState("");
   const [taskId, setTaskId] = useState();
-  const [buttonText, setButtonText] = useState("GERANDO MÚSICA");
+  const [buttonText, setButtonText] = useState("QUERO FAZER O DOWNLOAD");
   const [audioUrls, setAudioUrls] = useState<string[]>([]);
   const [isBtnDisabled, setIsBtnDisabled] = useState(true);
+  const [loading, setLoading] = useState(true);
 
   const interval = useRef<undefined | number>();
 
@@ -66,7 +69,6 @@ export const LyricsPage = () => {
   // Função para baixar o MP3 via fetch
   const downloadMp3Files = async (urls: string[]) => {
     try {
-      setButtonText("FAZENDO DOWNLOAD");
       setIsBtnDisabled(true);
 
       for (let i = 0; i < urls.length; i++) {
@@ -100,6 +102,7 @@ export const LyricsPage = () => {
     if ((message as any)?.audio_urls) {
       setAudioUrls((message as any).audio_urls);
       downloadMp3Files((message as any).audio_urls);
+      setLoading(false);
     }
   }, [message]);
 
@@ -118,7 +121,11 @@ export const LyricsPage = () => {
           disabled={isBtnDisabled}
           onClick={() => audioUrls.length > 0 && downloadMp3Files(audioUrls)}
         >
-          {buttonText}
+          {loading ? (
+            <LoadingImage src={Loading} alt="Loading..." />
+          ) : (
+            buttonText
+          )}
         </CustomButton>
 
         <div className="container-info">

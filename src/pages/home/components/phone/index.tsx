@@ -71,7 +71,7 @@ export const Phone = forwardRef<HTMLDivElement, PhoneProps>(
                   onChange={(e) => phoneMask(e.target.value)}
                 />
               </div>
-              <img className="SigaBtn" src={Siga} alt="Siga para o próximo passo" onClick={onFill}/> 
+              <img className="SigaBtn" src={Siga} alt="Siga para o próximo passo" onClick={onFill} />
             </div>
 
             <p>

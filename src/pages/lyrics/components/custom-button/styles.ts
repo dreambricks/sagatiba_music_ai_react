@@ -54,3 +54,11 @@ export const ButtonText = styled.span`
     font-size: 3rem;
   }
 `;
+
+export const LoadingImage = styled.img`
+  margin-top: 0.3em;
+  width: 2em;
+  position: relative;
+  z-index: 1;
+  align-self: center;
+`;
