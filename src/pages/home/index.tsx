@@ -87,8 +87,9 @@ export const Home = () => {
 
       savePhone(phone.current);
       savePhoneToCookie(phone.current);
-
       saveLyrics(response.lyrics);
+
+      window.scrollTo(0, 0);
 
       navigate("/letras");
     } catch (error: any) {

@@ -12,7 +12,7 @@ interface SagaloverProps {
 }
 
 export const Sagalovers = forwardRef<HTMLDivElement, SagaloverProps>(
-  ({ changeIg, onAacceptTerm,  onFill }, ref) => {
+  ({ changeIg, onAacceptTerm, onFill }, ref) => {
     const [modalOpen, setModalOpen] = useState(false);
     const [username, setUsername] = useState("");
     const [termsAccepted, setTermsAccepted] = useState(false);
@@ -46,14 +46,13 @@ export const Sagalovers = forwardRef<HTMLDivElement, SagaloverProps>(
             <input
               type="text"
               name="username"
-              placeholder="@Ricardo Sampaio"
+              placeholder="Nome do convidado"
               onChange={(e) => {
                 setUsername(e.target.value);
                 changeIg(e.target.value);
               }}
             />
 
-            <img className="SigaBtn" src={Siga} alt="Siga para o próximo passo" onClick={onFill}/>  
 
             <p className="move">
               Mas, pra Seguir na Saga, tem que ter responsa, hein? Só
@@ -73,6 +72,7 @@ export const Sagalovers = forwardRef<HTMLDivElement, SagaloverProps>(
               </p>
             </div>
 
+            <img className="SigaBtn" src={Siga} alt="Siga para o próximo passo" onClick={onFill} />
 
           </div>
         </div>
