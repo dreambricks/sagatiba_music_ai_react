@@ -9,8 +9,8 @@ import { getLyrics, getPhoneFromCookie } from "../../storage";
 import { generate, getTaskId } from "../../service";
 import { useWebSocket } from "./useSocket";
 import { CustomButton } from "./components/custom-button";
-import Loading from "../../assets/spinner_sem_fundo_ver2.gif";
-import { LoadingImage } from "./components/custom-button/styles";
+// import Loading from "../../assets/spinner_sem_fundo_ver2.gif";
+// import { LoadingImage } from "./components/custom-button/styles";
 
 export const LyricsPage = () => {
   const [lyrics, setLyrics] = useState("");
@@ -20,10 +20,22 @@ export const LyricsPage = () => {
   const [audioUrls, setAudioUrls] = useState<string[]>([]);
   const [isBtnDisabled, setIsBtnDisabled] = useState(true);
   const [loading, setLoading] = useState(true);
+  const [buttonLoadingText, setButtonLoadingText] = useState("Coletando dados...");
 
   const interval = useRef<undefined | number>();
+  const buttonInterval = useRef<undefined | number>();
 
   const { message } = useWebSocket(taskId);
+
+  const loadingMessages = [
+    "Aprendendo estilo musical...",
+    "Refinando os acordes...",
+    "Carregando inspiração...",
+    "Pausa para uma Sagatiba...",
+    "Ajustando o tom perfeito...",
+    "Criando harmonia mágica...",
+    "Coletando dados..."
+  ];
 
   const generateId = async () => {
     try {
@@ -65,6 +77,21 @@ export const LyricsPage = () => {
       return () => clearInterval(interval.current);
     }
   }, [status]);
+
+  useEffect(() => {
+    if (isBtnDisabled) {
+      let index = 0;
+      buttonInterval.current = setInterval(() => {
+        setButtonLoadingText(loadingMessages[index]);
+        index = (index + 1) % loadingMessages.length;
+      }, 3500);
+    } else {
+      clearInterval(buttonInterval.current);
+      setButtonLoadingText("QUERO FAZER O DOWNLOAD");
+    }
+
+    return () => clearInterval(buttonInterval.current);
+  }, [isBtnDisabled]);
 
   // Função para baixar o MP3 via fetch
   const downloadMp3Files = async (urls: string[]) => {
@@ -109,12 +136,10 @@ export const LyricsPage = () => {
   return (
     <Container>
       <div className="content">
-        <h1>SUA MÚSICA ESTÁ PRONTA.</h1>
+        <h1>ESTAMOS COMPONDO SUA MÚSICA. AGUARDE, VAI LEVAR POUCOS MINUTOS.</h1>
 
         <p className="description">
-          Bora seguir na saga? Você já deve ter recebido uma mensagem no
-          WhatsApp. Agora é só compartilhar com a pessoa que inspirou esse
-          convite.
+          Bora seguir na saga? Você vai receber um SMS pra ouvir a música quando ela ficar pronta!
         </p>
 
         <CustomButton
@@ -122,7 +147,8 @@ export const LyricsPage = () => {
           onClick={() => audioUrls.length > 0 && downloadMp3Files(audioUrls)}
         >
           {loading ? (
-            <LoadingImage src={Loading} alt="Loading..." />
+            // <><LoadingImage src={Loading} alt="Loading..." /> {buttonLoadingText}</>
+            buttonLoadingText
           ) : (
             buttonText
           )}

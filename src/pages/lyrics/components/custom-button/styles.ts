@@ -37,6 +37,7 @@ export const ButtonText = styled.span`
   position: relative;
   z-index: 1;
   font-size: 1rem;
+  text-align: center;
 
   @media (min-width: 768px) {
     font-size: 1.2rem;
