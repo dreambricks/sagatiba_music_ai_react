@@ -214,7 +214,7 @@ export const Container = styled.div`
         }
 
         .lyrics {
-          border-radius: 113px;
+          border-radius: 80px;
           padding: 61px 19px 50px 82px;
 
           .lyrics-holder {

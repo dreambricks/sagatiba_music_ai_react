@@ -2,7 +2,7 @@
 import { Container } from "./styles";
 // import Insta from "../../assets/icone_insta.png";
 // import Whats from "../../assets/icone_whats.png";
-import Download from "../../assets/download-music.png";
+import Download from "../../assets/download_lyric.gif";
 
 import { useEffect, useRef, useState } from "react";
 import { getLyrics, getPhoneFromCookie } from "../../storage";
