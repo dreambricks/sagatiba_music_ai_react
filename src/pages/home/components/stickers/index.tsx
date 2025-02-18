@@ -7,8 +7,8 @@ export const Stickers = () => {
     <Container>
       <div className="content">
         <p>
-          POR FALAR EM ZAP, ENQUANTO ESPERA,
-          <br /> QUE TAL JÁ AUMENTAR SEU ACERVO DE FIGURINHAS?
+          ENQUANTO ESPERA,
+          <br /> QUE TAL JÁ AUMENTAR SEU ACERVO DE FIGURINHAS NO ZAP?
         </p>
 
         <div className="stickers">

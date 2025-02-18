@@ -20,6 +20,14 @@ export const clearLyrics = () => {
   return localStorage.removeItemg("lyrics");
 };
 
+export const saveTaskId = (id: string) => {
+  localStorage.setItem("task_id", id);
+};
+
+export const getTaskId = () => {
+  return localStorage.getItem("task_id");
+};
+
 const COOKIE_NAME = "phone";
 const EXPIRATION_DAYS = 1;
 

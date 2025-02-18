@@ -5,8 +5,8 @@ import { Container } from "./styles";
 import Download from "../../assets/download_lyric.gif";
 
 import { useEffect, useRef, useState } from "react";
-import { getLyrics, getPhoneFromCookie } from "../../storage";
-import { generate, getTaskId } from "../../service";
+import { getLyrics } from "../../storage";
+import { generate } from "../../service";
 import { useWebSocket } from "./useSocket";
 import { CustomButton } from "./components/custom-button";
 // import Loading from "../../assets/spinner_sem_fundo_ver2.gif";
@@ -14,7 +14,6 @@ import { CustomButton } from "./components/custom-button";
 
 export const LyricsPage = () => {
   const [lyrics, setLyrics] = useState("");
-  const [status, setStatus] = useState("");
   const [taskId, setTaskId] = useState();
   const [buttonText, setButtonText] = useState("QUERO FAZER O DOWNLOAD");
   const [audioUrls, setAudioUrls] = useState<string[]>([]);
@@ -22,7 +21,6 @@ export const LyricsPage = () => {
   const [loading, setLoading] = useState(true);
   const [buttonLoadingText, setButtonLoadingText] = useState("Coletando dados...");
 
-  const interval = useRef<undefined | number>();
   const buttonInterval = useRef<undefined | number>();
 
   const { message } = useWebSocket(taskId);
@@ -41,26 +39,29 @@ export const LyricsPage = () => {
     try {
       const response = await generate();
 
-      setStatus(response.status);
+      if (response.status === "success") {
+        setTaskId(response.task_id);
+      }
+
     } catch (error) {
       console.log(error);
     }
   };
 
-  async function pollForTaskCompletion() {
-    try {
-      const result = await getTaskId();
+  // async function pollForTaskCompletion() {
+  //   try {
+  //     const result = await getTaskId();
 
-      if (result) {
-        clearInterval(interval.current);
-      }
+  //     if (result) {
+  //       clearInterval(interval.current);
+  //     }
 
-      setTaskId(result.task_id);
-    } catch (error) {
-      console.error("Erro ao aguardar a conclusão da tarefa:", error);
-      return null;
-    }
-  }
+  //     setTaskId(result.task_id);
+  //   } catch (error) {
+  //     console.error("Erro ao aguardar a conclusão da tarefa:", error);
+  //     return null;
+  //   }
+  // }
 
   useEffect(() => {
     const item = getLyrics();
@@ -68,15 +69,15 @@ export const LyricsPage = () => {
     generateId();
   }, []);
 
-  useEffect(() => {
-    const phone = getPhoneFromCookie();
+  // useEffect(() => {
+  //   const phone = getPhoneFromCookie();
 
-    if (status && phone) {
-      interval.current = setInterval(pollForTaskCompletion, 5000);
+  //   if (status && phone) {
+  //     interval.current = setInterval(pollForTaskCompletion, 5000);
 
-      return () => clearInterval(interval.current);
-    }
-  }, [status]);
+  //     return () => clearInterval(interval.current);
+  //   }
+  // }, [status]);
 
   useEffect(() => {
     if (isBtnDisabled) {

@@ -10,21 +10,26 @@ export const generateMusicLyric = async (obj: FormData) => {
 };
 
 export const generate = async () => {
-  const lyrics = getLyrics();
-  const phone = getPhone();
+  try {
+    const lyrics = getLyrics();
+    const phone = getPhone();
 
-  const response = await axios.post(
-    `${UR_BASE}/lyrics/generate`,
-    { lyrics, phone },
-    {
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-    }
-  );
-
-  return response.data;
+    const response = await axios.post(
+      `${UR_BASE}/lyrics/generate`,
+      { lyrics, phone },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      }
+    );
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
 };
 
 export const getTaskId = async () => {

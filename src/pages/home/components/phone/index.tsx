@@ -57,7 +57,7 @@ export const Phone = forwardRef<HTMLDivElement, PhoneProps>(
       <Container>
         <div className="content" ref={ref}>
           <div className="phone">
-            <p>Antes da música ser gerada, precisamos do seu WhatsApp.</p>
+            <p>Antes da música ser gerada, precisamos do seu celular.</p>
 
             <div className="button-container">
               <div className="button">
