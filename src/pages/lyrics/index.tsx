@@ -19,7 +19,8 @@ export const LyricsPage = () => {
   const [audioUrls, setAudioUrls] = useState<string[]>([]);
   const [isBtnDisabled, setIsBtnDisabled] = useState(true);
   const [loading, setLoading] = useState(true);
-  const [buttonLoadingText, setButtonLoadingText] = useState("Coletando dados...");
+  const [buttonLoadingText, setButtonLoadingText] =
+    useState("Coletando dados...");
 
   const buttonInterval = useRef<undefined | number>();
 
@@ -32,17 +33,16 @@ export const LyricsPage = () => {
     "Pausa para uma Sagatiba...",
     "Ajustando o tom perfeito...",
     "Criando harmonia mágica...",
-    "Coletando dados..."
+    "Coletando dados...",
   ];
 
   const generateId = async () => {
     try {
       const response = await generate();
 
-      if (response.status === "success") {
+      if (response.status === "Your task has been enqueued") {
         setTaskId(response.task_id);
       }
-
     } catch (error) {
       console.log(error);
     }
@@ -140,19 +140,18 @@ export const LyricsPage = () => {
         <h1>ESTAMOS COMPONDO SUA MÚSICA. AGUARDE, VAI LEVAR POUCOS MINUTOS.</h1>
 
         <p className="description">
-          Bora seguir na saga? Você vai receber um SMS pra ouvir a música quando ela ficar pronta!
+          Bora seguir na saga? Você vai receber um SMS pra ouvir a música quando
+          ela ficar pronta!
         </p>
 
         <CustomButton
           disabled={isBtnDisabled}
           onClick={() => audioUrls.length > 0 && downloadMp3Files(audioUrls)}
         >
-          {loading ? (
-            // <><LoadingImage src={Loading} alt="Loading..." /> {buttonLoadingText}</>
-            buttonLoadingText
-          ) : (
-            buttonText
-          )}
+          {loading
+            ? // <><LoadingImage src={Loading} alt="Loading..." /> {buttonLoadingText}</>
+              buttonLoadingText
+            : buttonText}
         </CustomButton>
 
         <div className="container-info">

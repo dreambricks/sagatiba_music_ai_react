@@ -2,6 +2,12 @@ import { useState, useEffect, useRef } from "react";
 import { io, Socket } from "socket.io-client";
 import { getPhoneFromCookie } from "../../storage";
 
+// Envia request_audio_url
+
+// Espera receber audio_response
+
+// Enquanto audio_response vier null, chamar request_audio_url de X em X seg.
+
 const UR_BASE = "ws://18.229.132.107:5001";
 // const UR_BASE = "ws://localhost:5001";
 
@@ -10,6 +16,7 @@ export const useWebSocket = (task_id: number | undefined) => {
   const [isConnected, setIsConnected] = useState(false);
   const socketRef = useRef<Socket | null>(null);
   const reconnectInterval = useRef<number | undefined>(undefined);
+  const intervalRef = useRef<number | null>(null);
 
   const phone = getPhoneFromCookie();
 
@@ -33,11 +40,16 @@ export const useWebSocket = (task_id: number | undefined) => {
         console.log("Conectado ao WebSocket.");
         setIsConnected(true);
         socketRef.current?.emit("request_audio_url", { task_id, phone });
+        startPooling();
       });
 
       socketRef.current.on("audio_response", (data) => {
         console.log("Mensagem recebida:", data);
         setMessage(data);
+
+        if (intervalRef.current) {
+          clearInterval(intervalRef.current);
+        }
 
         console.log(
           "Desconectando do WebSocket após receber 'audio_response'."
@@ -90,6 +102,20 @@ export const useWebSocket = (task_id: number | undefined) => {
       }
     };
   }, [task_id]);
+
+  const startPooling = () => {
+    intervalRef.current = setInterval(() => {
+      socketRef.current?.emit("request_audio_url", { task_id, phone });
+    }, 5000);
+  };
+
+  useEffect(() => {
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef?.current);
+      }
+    };
+  }, []);
 
   return { message, isConnected };
 };
