@@ -11,7 +11,7 @@ import { toast } from "react-toastify";
 export const Player = () => {
   const location = useLocation();
   const params = new URLSearchParams(location.search);
-  const id = params.get("id");
+  const id = params.get("task_id");
   const [lyrics, setLyrics] = useState("");
   const [audioUrls, setAudioUrls] = useState<string[]>([]);
 

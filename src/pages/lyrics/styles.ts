@@ -23,7 +23,32 @@ export const Container = styled.div`
       text-align: center;
     }
 
-    button {
+    .players {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+
+      .container-player {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+
+        .socials {
+          img {
+            cursor: pointer;
+            width: 2.5rem;
+          }
+        }
+      }
+    }
+
+    .button-phrases {
       margin-top: 100px;
       margin-bottom: 50px;
       font-family: "Gopher-Bold", "sans-serif";
@@ -114,6 +139,17 @@ export const Container = styled.div`
       .description {
         max-width: 560px;
         text-align: center;
+      }
+      .players {
+        .container-player {
+          .socials {
+            display: flex;
+            gap: 10px;
+            img {
+              width: 4rem;
+            }
+          }
+        }
       }
 
       .container-info {
