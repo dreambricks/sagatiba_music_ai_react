@@ -12,6 +12,7 @@ export const Player = () => {
   const location = useLocation();
   const params = new URLSearchParams(location.search);
   const id = params.get("task_id");
+  const index = params.get("index");
   const [lyrics, setLyrics] = useState("");
   const [audioUrls, setAudioUrls] = useState<string[]>([]);
 
@@ -66,8 +67,8 @@ export const Player = () => {
     }
   };
 
-  const compartilharLink = async () => {
-    const url = `https://seguenasaga.sagatiba.com/mensagem?task_id=${id}`;
+  const compartilharLink = async (music_index: number) => {
+    const url = `https://seguenasaga.sagatiba.com/mensagem?task_id=${id}&index=${music_index}`;
 
     if (navigator.share) {
       try {
@@ -111,20 +112,13 @@ export const Player = () => {
         </p>
 
         <div className="container-player">
-          {audioUrls.length >= 1 && <AudioPlayer audioUrl={audioUrls[0]} />}
+          {audioUrls.length >= 1 && <AudioPlayer audioUrl={audioUrls[Number(index)]} />}
           <div className="socials">
-            <img src={DownloadBtn} alt="" onClick={() => audioUrls.length > 0 && downloadMp3File(audioUrls[0])} />
-            <img src={Share} alt="" onClick={compartilharLink} />
+            <img src={DownloadBtn} alt="" onClick={() => audioUrls.length > 0 && downloadMp3File(audioUrls[Number(index)])} />
+            <img src={Share} alt="" onClick={() => compartilharLink(Number(index))} />
           </div>
         </div>
 
-        <div className="container-player">
-          {audioUrls.length >= 1 && <AudioPlayer audioUrl={audioUrls[1]} />}
-          <div className="socials">
-            <img src={DownloadBtn} alt="" onClick={() => audioUrls.length > 0 && downloadMp3File(audioUrls[1])} />
-            <img src={Share} alt="" onClick={compartilharLink} />
-          </div>
-        </div>
 
         <div className="container-info">
           <div className="download-img">

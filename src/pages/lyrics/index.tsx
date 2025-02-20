@@ -53,7 +53,6 @@ export const LyricsPage = () => {
   }, []);
 
 
-
   useEffect(() => {
     if (loading) {
       let index = 0;
@@ -69,37 +68,6 @@ export const LyricsPage = () => {
     return () => clearInterval(buttonInterval.current);
   }, [loading]);
 
-
-  // const downloadMp3Files = async (urls: string[]) => {
-  //   try {
-  //     setIsBtnDisabled(true);
-
-  //     for (let i = 0; i < urls.length; i++) {
-  //       const url = urls[i];
-  //       const response = await fetch(url);
-  //       if (!response.ok) throw new Error(`Erro ao baixar arquivo ${i + 1}`);
-
-  //       const blob = await response.blob();
-  //       const blobUrl = window.URL.createObjectURL(blob);
-  //       const filename = `sagatiba_${Date.now()}_${i + 1}.mp3`;
-
-  //       const link = document.createElement("a");
-  //       link.href = blobUrl;
-  //       link.download = filename;
-  //       document.body.appendChild(link);
-  //       link.click();
-  //       document.body.removeChild(link);
-  //     }
-
-  //     setButtonText("QUERO FAZER O DOWNLOAD");
-  //     setIsBtnDisabled(false);
-  //   } catch (error) {
-  //     console.error("Erro ao baixar os arquivos:", error);
-  //     alert("Erro ao baixar os arquivos: " + (error as any).message);
-  //     setButtonText("QUERO FAZER O DOWNLOAD");
-  //     setIsBtnDisabled(false);
-  //   }
-  // };
 
   useEffect(() => {
     if ((message as any)?.audio_urls) {
@@ -132,8 +100,8 @@ export const LyricsPage = () => {
     }
   };
 
-  const compartilharLink = async () => {
-    const url = `https://seguenasaga.sagatiba.com/mensagem?task_id=${taskId}`;
+  const compartilharLink = async (music_index: number) => {
+    const url = `https://seguenasaga.sagatiba.com/mensagem?task_id=${taskId}&index=${music_index}`;
 
     if (navigator.share) {
       try {
@@ -189,7 +157,7 @@ export const LyricsPage = () => {
               {audioUrls.length >= 1 && <AudioPlayer audioUrl={audioUrls[0]} />}
               <div className="socials">
                 <img src={DownloadBtn} alt="" onClick={() => audioUrls.length > 0 && downloadMp3File(audioUrls[0])} />
-                <img src={Share} alt="" onClick={compartilharLink} />
+                <img src={Share} alt="" onClick={() => compartilharLink(0)} />
               </div>
             </div>
 
@@ -197,7 +165,7 @@ export const LyricsPage = () => {
               {audioUrls.length >= 1 && <AudioPlayer audioUrl={audioUrls[1]} />}
               <div className="socials">
                 <img src={DownloadBtn} alt="" onClick={() => audioUrls.length > 0 && downloadMp3File(audioUrls[1])} />
-                <img src={Share} alt="" onClick={compartilharLink} />
+                <img src={Share} alt="" onClick={() => compartilharLink(1)} />
               </div>
             </div>
           </div>
