@@ -23,6 +23,23 @@ export const Container = styled.div`
       text-align: center;
     }
 
+    .container-player {
+      margin-top: 40px;
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+
+      .socials {
+        img {
+          cursor: pointer;
+          width: 2.5rem;
+        }
+      }
+    }
+
     .container-info {
       margin-top: 50px;
 
@@ -82,12 +99,6 @@ export const Container = styled.div`
       margin-top: 40px;
       font-family: "Gopher-Bold", "sans-serif";
       font-size: 1.5rem;
-
-      .socials {
-        img {
-          width: 40px;
-        }
-      }
     }
 
     .advise {
@@ -103,6 +114,16 @@ export const Container = styled.div`
       .description {
         max-width: 560px;
         text-align: center;
+      }
+
+      .container-player {
+        .socials {
+          display: flex;
+          gap: 10px;
+          img {
+            width: 4rem;
+          }
+        }
       }
 
       .container-info {
