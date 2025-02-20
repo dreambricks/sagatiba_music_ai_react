@@ -5,7 +5,6 @@ export const AudioContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 50px;
   height: 100px;
   background: url(${backGroundAudio}) center center no-repeat;
   background-size: contain;
@@ -75,5 +74,5 @@ export const WaveformContainer = styled.div`
   margin-left: 20px;
   width: 100%;
   max-width: 100%;
-  height: 40px; 
+  height: 40px;
 `;

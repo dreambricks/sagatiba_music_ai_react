@@ -2,12 +2,6 @@ import { useState, useEffect, useRef } from "react";
 import { io, Socket } from "socket.io-client";
 import { getPhoneFromCookie } from "../../storage";
 
-// Envia request_audio_url
-
-// Espera receber audio_response
-
-// Enquanto audio_response vier null, chamar request_audio_url de X em X seg.
-
 const UR_BASE = "ws://18.229.132.107:5001";
 // const UR_BASE = "ws://localhost:5001";
 
