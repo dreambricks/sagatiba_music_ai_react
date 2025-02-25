@@ -30,6 +30,7 @@ export const Container = styled.div`
       align-items: center;
       margin-top: 10%;
       gap: 15px;
+      position: relative;
 
       .gerar-musica {
         width: 60%;
@@ -41,6 +42,18 @@ export const Container = styled.div`
         text-align: center;
         color: white;
         font-family: "Gopher-Medium", "sans-serif";
+      }
+
+      .loading {
+        position: absolute;
+        transform: translate(0%, 10%);
+        .loading-gif {
+        }
+
+        img {
+          width: 100%;
+          max-width: 200px;
+        }
       }
     }
   }

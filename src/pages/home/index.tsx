@@ -2,8 +2,7 @@
 import { Container } from "./styles";
 import { Sagalovers } from "./components/destination";
 import { WeekDay } from "./components/weekday/indedx";
-import { Phone } from "./components/phone";
-import { Stickers } from "./components/stickers";
+// import { Phone } from "./components/phone";
 import { Banner } from "./components/banner";
 import { InviteOptions } from "./components/invite_options";
 import { SendMessage } from "./components/sendMessage";
@@ -13,6 +12,7 @@ import { generateMusicLyric } from "../../service";
 import { toast } from "react-toastify";
 import { saveLyrics, savePhone, savePhoneToCookie } from "../../storage";
 import { useNavigate } from "react-router";
+// import { Stickers } from "./components/stickers";
 
 export const Home = () => {
   const [loadingLyrics, setLoadingLyrics] = useState(false);
@@ -80,6 +80,7 @@ export const Home = () => {
       form.append("message", message.current);
       const formattedPhone = formatPhone(phone.current);
       form.append("phone", formattedPhone);
+      addPhone("11999999999");
 
       validateForm();
 
@@ -205,11 +206,11 @@ export const Home = () => {
         ref={sectionSendMessage}
         onAddMessage={onAddMessage}
         onFill={() => {
-          if (sectionPhone.current) scrollToSection(sectionPhone, -150);
+          if (sectionGenerateMusic.current) scrollToSection(sectionGenerateMusic, 0);
         }}
       />
 
-      <Phone
+      {/* <Phone
         ref={sectionPhone}
         addPhone={addPhone}
         loading={loadingLyrics}
@@ -217,10 +218,11 @@ export const Home = () => {
           if (sectionGenerateMusic.current)
             scrollToSection(sectionGenerateMusic, 0);
         }}
-      />
+      /> */}
 
       <GenerateMusic
         ref={sectionGenerateMusic}
+        loading={loadingLyrics}
         generateMusic={generateMusic}
         onFill={() => {
           if (sectionPhone.current) scrollToSection(sectionPhone, -150);
@@ -228,7 +230,7 @@ export const Home = () => {
       />
 
 
-      <Stickers />
+      {/* <Stickers /> */}
     </Container>
   );
 };
