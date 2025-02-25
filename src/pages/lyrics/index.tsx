@@ -140,8 +140,7 @@ export const LyricsPage = () => {
         <h1>ESTAMOS COMPONDO SUA MÚSICA. AGUARDE, VAI LEVAR POUCOS MINUTOS.</h1>
 
         <p className="description">
-          Bora seguir na saga? Você vai receber um SMS pra ouvir a música quando
-          ela ficar pronta!
+          Bora seguir na saga? Aguarde enquanto geramos a sua música.
         </p>
 
         {loading
