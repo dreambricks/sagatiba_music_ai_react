@@ -39,7 +39,11 @@ export const useWebSocket = (task_id: number | undefined) => {
 
       socketRef.current.on("audio_response", (data) => {
         console.log("Mensagem recebida:", data);
-        setMessage(data);
+        
+        if (data.task_id == task_id) {
+          console.log("Mensagem recebida:", data);
+          setMessage(data);
+        }
 
         if (intervalRef.current) {
           clearInterval(intervalRef.current);
