@@ -60,3 +60,10 @@ export const getLyricsToMessage = async (id: string) => {
     return null;
   }
 };
+
+export const signIn = async (email: string, password: string) => {
+  return axios.post(`${UR_BASE}/users/login`, {
+    email,
+    password,
+  });
+};

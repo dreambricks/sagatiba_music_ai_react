@@ -51,19 +51,3 @@ export const AgeTextImg = styled.img`
     margin-bottom: 16px;
   }
 `;
-
-export const Button = styled.button`
-  background-color: #ff4b15;
-  padding: 20px;
-  width: 100%;
-  border-top-right-radius: 16px;
-  border-bottom-left-radius: 16px;
-  color: white;
-  font-size: 24px;
-  border: transparent;
-  cursor: pointer;
-
-  &:active {
-    border: 1px solid #ff4b15;
-  }
-`;
