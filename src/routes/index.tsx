@@ -6,6 +6,7 @@ import { Message } from "../pages/message";
 import { Player } from "../pages/player";
 import AgeGate from "../pages/ageGate";
 import Login from "../pages/login";
+import RecoverPasswordScreen from "../pages/recoverPassword";
 
 export const Routing = () => {
   return (
@@ -18,6 +19,7 @@ export const Routing = () => {
         <Route path="/mensagem" element={<Player />} />
         <Route path="/age-gate" element={<AgeGate />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/recover-password" element={<RecoverPasswordScreen />} />
       </Routes>
     </BrowserRouter>
   );

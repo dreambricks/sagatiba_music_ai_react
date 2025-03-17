@@ -40,21 +40,19 @@ export const Title = styled.h1`
 export const FormContainer = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 32px;
   width: 50%;
   margin-top: 64px;
   z-index: 1;
 
   @media (max-width: 1024px) {
     width: 80%;
-    padding: 16px;
   }
 `;
 
 export const FormButton = styled(CustomButton)`
   margin-top: 48px;
   width: 300px;
-  margin-left: 22%;
+  margin-left: 18%;
 
   @media (max-width: 1024px) {
     margin-top: 24px;

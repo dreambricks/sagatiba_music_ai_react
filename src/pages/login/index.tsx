@@ -55,6 +55,7 @@ const Login: React.FC = () => {
             label="E-mail:"
             placeholder="e-mail que foi utilizado no cadastro"
             errorMessage={errors.email?.message}
+            type="email"
             style={{ marginBottom: "16px" }}
           />
 
