@@ -4,6 +4,7 @@ import { LyricsPage } from "../pages/lyrics";
 import { Tampao } from "../pages/tampao";
 import { Message } from "../pages/message";
 import { Player } from "../pages/player";
+import AgeGate from "../pages/ageGate";
 
 export const Routing = () => {
   return (
@@ -14,6 +15,7 @@ export const Routing = () => {
         <Route path="/letras" element={<LyricsPage />} />
         <Route path="/baixar" element={<Message />} />
         <Route path="/mensagem" element={<Player />} />
+        <Route path="/age-gate" element={<AgeGate />} />
       </Routes>
     </BrowserRouter>
   );

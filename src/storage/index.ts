@@ -38,3 +38,9 @@ export const savePhoneToCookie = (phone: string) => {
 export const getPhoneFromCookie = () => {
   return Cookies.get(COOKIE_NAME) || null;
 };
+
+export const saveRememberMeToCookie = (remember: boolean) => {
+  Cookies.set("remember", JSON.stringify(remember), {
+    expires: EXPIRATION_DAYS,
+  });
+};
