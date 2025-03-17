@@ -54,7 +54,7 @@ export const ErrorMessage = styled.span`
   font-size: 14px;
   margin-top: 2px;
   text-align: start;
-  margin-left: 20%;
+  margin-left: 18%;
 
   @media (max-width: 1024px) {
     margin-left: 30%;
