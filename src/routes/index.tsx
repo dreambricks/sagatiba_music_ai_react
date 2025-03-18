@@ -18,7 +18,10 @@ export const Routing = () => {
       <Routes>
         <Route path="/" element={<Tampao />} />
         <Route path="/recover-password" element={<RecoverPasswordScreen />} />
-        <Route path="/reset-password" element={<ResetPasswordScreen />} />
+        <Route
+          path="/reset_password/:token"
+          element={<ResetPasswordScreen />}
+        />
         <Route path="/age-gate" element={<AgeGate />} />
 
         <Route element={<AgeMiddleware />}>

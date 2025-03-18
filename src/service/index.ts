@@ -91,3 +91,22 @@ export const registerUser = async (data: IRegisterFormField) => {
 
   return response.data;
 };
+
+export const forgotPassword = async (email: string) => {
+  const response = await axios.post<void>(`${UR_BASE}/users/forgot_password`, {
+    email,
+  });
+
+  return response.data;
+};
+
+export const resetPassword = async (newPassword: string, token: string) => {
+  const response = await axios.post<void>(
+    `${UR_BASE}/users/reset_password/${token}`,
+    {
+      new_password: newPassword,
+    }
+  );
+
+  return response.data;
+};

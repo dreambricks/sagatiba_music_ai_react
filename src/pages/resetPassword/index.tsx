@@ -4,6 +4,9 @@ import FormInput from "../components/formInput";
 import { z } from "zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { resetPassword } from "../../service";
+import { useNavigate, useParams } from "react-router";
+import { toast } from "react-toastify";
 
 interface IResetPasswordFormValues {
   password: string;
@@ -21,6 +24,9 @@ const resetPasswordFormSchema = z
   });
 
 const ResetPasswordScreen: React.FC = () => {
+  const navigate = useNavigate();
+  const { token } = useParams<{ token: string }>();
+
   const {
     register,
     handleSubmit,
@@ -35,11 +41,14 @@ const ResetPasswordScreen: React.FC = () => {
   });
 
   const onSubmit: SubmitHandler<IResetPasswordFormValues> = async (data) => {
+    if (!token) return;
+
     try {
-      console.log(data);
-      // TODO - Implementar lógica
-    } catch (error) {
-      console.log(error);
+      await resetPassword(data.password, token);
+      toast.success("Senha redefinida com sucesso");
+      navigate("/login");
+    } catch {
+      toast.error("Falha ao redefinir senha, por favor, tente novamente!");
     }
   };
 

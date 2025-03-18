@@ -4,6 +4,9 @@ import FormInput from "../components/formInput";
 import { z } from "zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { forgotPassword } from "../../service";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router";
 
 interface IRecoverPasswordFormValues {
   email: string;
@@ -14,6 +17,8 @@ const recoverPasswordFormSchema = z.object({
 });
 
 const RecoverPasswordScreen: React.FC = () => {
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -28,10 +33,11 @@ const RecoverPasswordScreen: React.FC = () => {
 
   const onSubmit: SubmitHandler<IRecoverPasswordFormValues> = async (data) => {
     try {
-      console.log(data);
-      // TODO - Implementar lógica
-    } catch (error) {
-      console.log(error);
+      await forgotPassword(data.email);
+      toast.success("E-mail de recuperação de senha enviado com sucesso!");
+      navigate("/login");
+    } catch {
+      toast.error("Falha ao recuperar senha, tente novamente!");
     }
   };
 
