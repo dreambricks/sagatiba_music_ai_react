@@ -35,6 +35,39 @@ export const Input = styled.input`
     outline: none;
   }
 
+  /* Estilos específicos para input de data */
+  &[type="date"] {
+    &::-webkit-datetime-edit {
+      color: #ffde2e; /* Amarelo para o placeholder */
+    }
+
+    /* Cor do valor (texto digitado/selecionado) */
+    &::-webkit-datetime-edit-text,
+    &::-webkit-datetime-edit-year-field,
+    &::-webkit-datetime-edit-month-field,
+    &::-webkit-datetime-edit-day-field {
+      color: #000;
+    }
+  }
+
+  /* Sobrescreve o estilo do autofill do navegador */
+  &:-webkit-autofill,
+  &:-webkit-autofill:hover,
+  &:-webkit-autofill:focus,
+  &:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px white inset !important; /* Cor de fundo */
+    -webkit-text-fill-color: #000 !important; /* Cor do texto */
+  }
+
+  /* Para Firefox */
+  &:-moz-autofill,
+  &:-moz-autofill:hover,
+  &:-moz-autofill:focus,
+  &:-moz-autofill:active {
+    background-color: white !important;
+    color: #000 !important;
+  }
+
   @media (max-width: 1024px) {
     font-size: 14px;
     flex: 0.7;
