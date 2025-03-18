@@ -7,6 +7,28 @@ export const Container = styled.div`
     grid-template-columns: 1fr 1280px 1fr;
   }
 
+  .top {
+    display: flex;
+    background-color: #f05a30;
+    width: 100%;
+
+    img {
+      margin-left: auto;
+      margin-top: -120px;
+      z-index: 1;
+
+      @media (max-width: 1024px) {
+        max-width: 50%;
+        margin-top: -60px;
+      }
+
+      @media (max-width: 768px) {
+        max-width: 70%;
+        margin-top: -20px;
+      }
+    }
+  }
+
   main {
     .content {
       grid-column: 1/4;
@@ -59,7 +81,7 @@ export const ButtonSiga = styled.button`
   display: inline-block;
   text-transform: uppercase;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  background-image: url('/path-to-your-image.jpg');
+  background-image: url("/path-to-your-image.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
