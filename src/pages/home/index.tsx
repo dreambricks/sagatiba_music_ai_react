@@ -8,9 +8,9 @@ import { InviteOptions } from "./components/invite_options";
 import { SendMessage } from "./components/sendMessage";
 import { GenerateMusic } from "./components/generateMusic";
 import { useRef, useState } from "react";
-import { generateMusicLyric } from "../../service";
+import { generate, generateMusicLyric } from "../../service";
 import { toast } from "react-toastify";
-import { saveLyrics, savePhone, savePhoneToCookie } from "../../storage";
+import { saveLyrics, saveLyricsId, savePhone, savePhoneToCookie, saveTaskId } from "../../storage";
 import { useNavigate } from "react-router";
 // import { Stickers } from "./components/stickers";
 
@@ -80,6 +80,7 @@ export const Home = () => {
       form.append("message", message.current);
       const formattedPhone = formatPhone(phone.current);
       form.append("phone", formattedPhone);
+      form.append("user_oid", "67cb085fd2dc0b78b755c700") // TODO: pegar do cookie
       addPhone("11999999999");
 
       validateForm();
@@ -89,9 +90,10 @@ export const Home = () => {
       savePhone(phone.current);
       savePhoneToCookie(phone.current);
       saveLyrics(response.lyrics);
+      saveLyricsId(response.lyrics_oid);
 
       window.scrollTo(0, 0);
-
+      await generateId();
       navigate("/letras");
     } catch (error: any) {
       if (error.status === 403) {
@@ -110,7 +112,7 @@ export const Home = () => {
       }
 
       if (error.message) {
-        toast.error(error.message);
+        toast.error("Erro inesperado. Tente novamente mais tarde!");
         return;
       }
     } finally {
@@ -118,18 +120,18 @@ export const Home = () => {
     }
   };
 
-  // const scrollToSection = (
-  //   sectionRef: React.RefObject<HTMLDivElement>,
-  //   offset: number = 0
-  // ) => {
-  //   if (sectionRef.current) {
-  //     const top =
-  //       sectionRef.current.getBoundingClientRect().top +
-  //       window.scrollY +
-  //       offset;
-  //     window.scrollTo({ top, behavior: "smooth" });
-  //   }
-  // };
+  const generateId = async () => {
+    try {
+      const response = await generate();
+      console.log(response);
+
+      if (response.status === "Sua tarefa foi enfileirada") {
+        saveTaskId(response.task_id);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const scrollToSection = (
     sectionRef: React.RefObject<HTMLDivElement>,
