@@ -71,3 +71,7 @@ export const saveAccessTokenToCookie = (token: string) => {
 export const getAccessTokenFromCookie = () => {
   return Cookies.get("accessToken") || null;
 };
+
+export const clearAccessToken = () => {
+  return Cookies.remove("accessToken");
+};

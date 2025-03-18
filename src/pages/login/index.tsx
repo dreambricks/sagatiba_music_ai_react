@@ -8,6 +8,8 @@ import { signIn } from "../../service";
 import { toast } from "react-toastify";
 import { saveAccessTokenToCookie } from "../../storage";
 import { useNavigate } from "react-router";
+import { useSession } from "../../context/sessionContext";
+import { jwtDecode } from "jwt-decode";
 
 interface ILoginFormValues {
   email: string;
@@ -22,6 +24,7 @@ const loginFormSchema = z.object({
 type ILoginFormField = z.infer<typeof loginFormSchema>;
 
 const Login: React.FC = () => {
+  const { updateUser } = useSession();
   const navigate = useNavigate();
 
   const {
@@ -43,6 +46,16 @@ const Login: React.FC = () => {
 
       saveAccessTokenToCookie(response.token);
 
+      const decodedToken = jwtDecode<{
+        email: string;
+        user_oid: string;
+        exp: number;
+      }>(response.token);
+
+      updateUser({
+        email: decodedToken.email,
+        userOid: decodedToken.user_oid,
+      });
       navigate("/gerar-musica");
     } catch {
       toast.error("Credencias incorretas, tente novamente");

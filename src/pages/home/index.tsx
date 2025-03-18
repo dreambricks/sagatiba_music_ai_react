@@ -10,11 +10,19 @@ import { GenerateMusic } from "./components/generateMusic";
 import { useRef, useState } from "react";
 import { generate, generateMusicLyric } from "../../service";
 import { toast } from "react-toastify";
-import { saveLyrics, saveLyricsId, savePhone, savePhoneToCookie, saveTaskId } from "../../storage";
+import {
+  saveLyrics,
+  saveLyricsId,
+  savePhone,
+  savePhoneToCookie,
+  saveTaskId,
+} from "../../storage";
 import { useNavigate } from "react-router";
+import { useSession } from "../../context/sessionContext";
 // import { Stickers } from "./components/stickers";
 
 export const Home = () => {
+  const { user } = useSession();
   const [loadingLyrics, setLoadingLyrics] = useState(false);
 
   const navigate = useNavigate();
@@ -58,7 +66,10 @@ export const Home = () => {
           throw new Error(`Campo obrigatório: ${field.name}`);
         }
       } else {
-        if (typeof field.ref.current !== "string" || !field.ref.current.trim()) {
+        if (
+          typeof field.ref.current !== "string" ||
+          !field.ref.current.trim()
+        ) {
           throw new Error(`Campo obrigatório: ${field.name}`);
         }
       }
@@ -80,7 +91,7 @@ export const Home = () => {
       form.append("message", message.current);
       const formattedPhone = formatPhone(phone.current);
       form.append("phone", formattedPhone);
-      form.append("user_oid", "67cb085fd2dc0b78b755c700") // TODO: pegar do cookie
+      form.append("user_oid", user?.userOid ?? "");
       addPhone("11999999999");
 
       validateForm();
@@ -97,10 +108,8 @@ export const Home = () => {
       navigate("/letras");
     } catch (error: any) {
       if (error.status === 403) {
-        console.log(error.request.response)
-        toast.error(
-          error.response.data.error
-        );
+        console.log(error.request.response);
+        toast.error(error.response.data.error);
 
         return;
       } else if (error.status === 429) {
@@ -208,7 +217,8 @@ export const Home = () => {
         ref={sectionSendMessage}
         onAddMessage={onAddMessage}
         onFill={() => {
-          if (sectionGenerateMusic.current) scrollToSection(sectionGenerateMusic, 0);
+          if (sectionGenerateMusic.current)
+            scrollToSection(sectionGenerateMusic, 0);
         }}
       />
 
@@ -230,7 +240,6 @@ export const Home = () => {
           if (sectionPhone.current) scrollToSection(sectionPhone, -150);
         }}
       />
-
 
       {/* <Stickers /> */}
     </Container>

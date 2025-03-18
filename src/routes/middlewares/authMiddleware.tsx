@@ -1,10 +1,14 @@
 import { Navigate, Outlet } from "react-router";
-import { getAccessTokenFromCookie } from "../../storage";
+import { useSession } from "../../context/sessionContext";
 
 const AuthMiddleware = () => {
-  const accessToken = getAccessTokenFromCookie();
+  const { user, loading } = useSession();
 
-  if (!accessToken) {
+  if (loading) {
+    return <div />;
+  }
+
+  if (!user) {
     return <Navigate to="/login" replace />;
   }
 
