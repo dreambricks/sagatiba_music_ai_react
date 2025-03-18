@@ -10,11 +10,8 @@ import {
   applyPhoneMask,
 } from "../../utils/MaskUtils";
 import { registerUser } from "../../service";
-
-interface IRegisterFormValues {
-  email: string;
-  password: string;
-}
+import { useNavigate } from "react-router";
+import { useSession } from "../../context/sessionContext";
 
 // Expressão regular para validar CPF
 const cpfRegex = /^\d{3}\.\d{3}\.\d{3}-\d{2}$/;
@@ -78,9 +75,12 @@ const registerFormSchema = z
     path: ["confirmPassword"],
   });
 
-type IRegisterFormField = z.infer<typeof registerFormSchema>;
+export type IRegisterFormField = z.infer<typeof registerFormSchema>;
 
 const Register: React.FC = () => {
+  const navigate = useNavigate();
+  const { setAgeVerified } = useSession();
+
   const {
     register,
     handleSubmit,
@@ -119,11 +119,13 @@ const Register: React.FC = () => {
     setValue("birthDate", applyDateMask(birthDateValue));
   }, [birthDateValue]);
 
-  const onSubmit: SubmitHandler<IRegisterFormValues> = async (data) => {
+  const onSubmit: SubmitHandler<IRegisterFormField> = async (data) => {
     try {
-      console.log(data);
+      await registerUser(data);
 
-      await registerUser();
+      setAgeVerified(true);
+
+      navigate("/login");
     } catch (error) {
       console.log(error);
     }

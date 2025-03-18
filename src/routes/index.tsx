@@ -20,10 +20,10 @@ export const Routing = () => {
         <Route path="/recover-password" element={<RecoverPasswordScreen />} />
         <Route path="/reset-password" element={<ResetPasswordScreen />} />
         <Route path="/age-gate" element={<AgeGate />} />
-        <Route path="/register" element={<Register />} />
 
         <Route element={<AgeMiddleware />}>
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
         </Route>
 
         <Route element={<AuthMiddleware />}>

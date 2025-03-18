@@ -1,9 +1,10 @@
-import { Navigate, Outlet } from "react-router";
+import { Navigate, Outlet, useLocation } from "react-router";
 import { useSession } from "../../context/sessionContext";
 import { getRememberMeFromCookie } from "../../storage";
 
 const AgeMiddleware = () => {
   const { ageVerified } = useSession();
+  const location = useLocation();
 
   const rememberUser = getRememberMeFromCookie();
 
@@ -11,7 +12,9 @@ const AgeMiddleware = () => {
     return <Outlet />;
   }
 
-  return <Navigate to="/age-gate" replace />;
+  return (
+    <Navigate to="/age-gate" state={{ from: location.pathname }} replace />
+  );
 };
 
 export default AgeMiddleware;

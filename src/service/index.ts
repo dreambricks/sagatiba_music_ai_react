@@ -1,6 +1,8 @@
 import axios from "axios";
 import { getLyricsId, getPhone } from "../storage";
-import { IUserJson } from "./types";
+import { IRegisterUserBody, IUserJson } from "./types";
+import { IRegisterFormField } from "../pages/register";
+import { applyNumberOnly } from "../utils/MaskUtils";
 
 const UR_BASE = "http://18.229.132.107:5001/api";
 // const UR_BASE = "http://localhost:5001";
@@ -71,6 +73,21 @@ export const signIn = async (email: string, password: string) => {
   return response.data;
 };
 
-export const registerUser = async () => {
-  return axios.post(`${UR_BASE}/users/register`, {});
+export const registerUser = async (data: IRegisterFormField) => {
+  const { email, password, fullName, cpf, birthDate, whatsapp } = data;
+
+  const digitsOnlyCpf = applyNumberOnly(cpf);
+  const digitsOnlyPhone = applyNumberOnly(whatsapp);
+
+  const userInfoHash = `${fullName},${digitsOnlyCpf},${birthDate},${email},${digitsOnlyPhone}`;
+
+  const body: IRegisterUserBody = {
+    email: email,
+    password_hash: password,
+    user_info_hash: userInfoHash,
+  };
+
+  const response = await axios.post<void>(`${UR_BASE}/users/register`, body);
+
+  return response.data;
 };

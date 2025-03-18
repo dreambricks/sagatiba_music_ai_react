@@ -6,12 +6,13 @@ import Checkbox from "./components/checkbox";
 import BirthDateInput from "./components/birthDateInput";
 import { saveRememberMeToCookie } from "../../storage";
 import CustomButton from "../components/customButton";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { useSession } from "../../context/sessionContext";
 
 const AgeGate: React.FC = () => {
   const navigate = useNavigate();
   const { setAgeVerified } = useSession();
+  const location = useLocation();
 
   const [remember, setRemember] = useState(false);
   const [date, setDate] = useState({ day: "", month: "", year: "" });
@@ -44,7 +45,8 @@ const AgeGate: React.FC = () => {
     saveRememberMeToCookie(remember);
     setAgeVerified(true);
 
-    navigate("/login");
+    const desiredUrl = location.state?.from || "/login";
+    navigate(desiredUrl);
   };
 
   return (

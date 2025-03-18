@@ -37,3 +37,7 @@ export const applyDateMask = (value: string): string => {
 
   return maskedValue;
 };
+
+export const applyNumberOnly = (value: string) => {
+  return value.replace(/\D/g, "");
+};
