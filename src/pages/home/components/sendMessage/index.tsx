@@ -30,7 +30,7 @@ export const SendMessage = forwardRef<HTMLDivElement, SendMessageProps>(
             id=""
             placeholder="MANDE SEU RECADO AQUI"
             onChange={(e) => onAddMessage(e.target.value)}
-            maxLength={300}
+            maxLength={150}
           ></textarea>
           <img className="send" src={Send} alt="Siga para o próximo passo" onClick={onFill}/>  
           
