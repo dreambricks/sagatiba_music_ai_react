@@ -4,12 +4,20 @@ export const saveLyrics = (lyrics: string) => {
   localStorage.setItem("lyrics", lyrics);
 };
 
+export const saveLyricsId = (lyricsId: string) => {
+  localStorage.setItem("lyricsId", lyricsId);
+};
+
 export const savePhone = (phone: string) => {
   localStorage.setItem("phone", phone);
 };
 
 export const getLyrics = () => {
   return localStorage.getItem("lyrics");
+};
+
+export const getLyricsId = () => {
+  return localStorage.getItem("lyricsId");
 };
 
 export const getPhone = () => {
@@ -26,6 +34,10 @@ export const saveTaskId = (id: string) => {
 
 export const getTaskId = () => {
   return localStorage.getItem("task_id");
+};
+
+export const clearLocalStorage = () => {
+  localStorage.clear();
 };
 
 const COOKIE_NAME = "phone";

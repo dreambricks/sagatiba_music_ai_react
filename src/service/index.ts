@@ -1,7 +1,7 @@
 import axios from "axios";
-import { getLyrics, getPhone } from "../storage";
+import { getLyricsId, getPhone } from "../storage";
 
-const UR_BASE = "https://sagatibamusicapi.zapto.org";
+const UR_BASE = "http://18.229.132.107:5001/";
 // const UR_BASE = "http://localhost:5001";
 
 export const generateMusicLyric = async (obj: FormData) => {
@@ -11,12 +11,12 @@ export const generateMusicLyric = async (obj: FormData) => {
 
 export const generate = async () => {
   try {
-    const lyrics = getLyrics();
+    const lyrics_oid = getLyricsId();
     const phone = getPhone();
 
     const response = await axios.post(
       `${UR_BASE}/lyrics/generate`,
-      { lyrics, phone },
+      { lyrics_oid, phone },
       {
         headers: {
           "Content-Type": "application/json",
@@ -24,7 +24,6 @@ export const generate = async () => {
         },
       }
     );
-    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error(error);

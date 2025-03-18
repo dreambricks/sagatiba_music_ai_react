@@ -2,8 +2,7 @@
 import { Container } from "./styles";
 import Download from "../../assets/download_lyric.gif";
 import { useEffect, useRef, useState } from "react";
-import { getLyrics } from "../../storage";
-import { generate } from "../../service";
+import { clearLocalStorage, getLyrics, getTaskId } from "../../storage";
 import { useWebSocket } from "./useSocket";
 import { CustomButton } from "./components/custom-button";
 import { toast } from "react-toastify";
@@ -33,23 +32,30 @@ export const LyricsPage = () => {
     "Coletando dados...",
   ];
 
-  const generateId = async () => {
-    try {
-      const response = await generate();
+  // const generateId = async () => {
+  //   try {
+  //     const response = await generate();
 
-      if (response.status === "Your task has been enqueued") {
-        setTaskId(response.task_id);
-      }
-    } catch (error) {
-      console.log(error);
+  //     if (response.status === "Sua tarefa foi enfileirada") {
+  //       setTaskId(response.task_id);
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
+  const getTask =  () => {
+    const taskId =  getTaskId();
+    console.log(taskId);
+    if (taskId != null) {
+      setTaskId(taskId as any);
     }
-  };
-
+  }
 
   useEffect(() => {
+    getTask();
     const item = getLyrics();
     if (item) setLyrics(item);
-    generateId();
   }, []);
 
 
@@ -73,6 +79,7 @@ export const LyricsPage = () => {
     if ((message as any)?.audio_urls) {
       setAudioUrls((message as any).audio_urls);
       setLoading(false);
+      clearLocalStorage();
     }
   }, [message]);
 
