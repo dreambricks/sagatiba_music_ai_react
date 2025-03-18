@@ -47,6 +47,7 @@ export const Sagalovers = forwardRef<HTMLDivElement, SagaloverProps>(
               type="text"
               name="username"
               placeholder="Nome do convidado"
+              maxLength={40}
               onChange={(e) => {
                 setUsername(e.target.value);
                 changeIg(e.target.value);

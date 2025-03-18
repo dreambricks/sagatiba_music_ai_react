@@ -44,8 +44,8 @@ export const LyricsPage = () => {
   //   }
   // };
 
-  const getTask =  () => {
-    const taskId =  getTaskId();
+  const getTask = () => {
+    const taskId = getTaskId();
     console.log(taskId);
     if (taskId != null) {
       setTaskId(taskId as any);
@@ -184,18 +184,14 @@ export const LyricsPage = () => {
 
           <div className="lyrics">
             <div className="lyrics-holder">
-              <pre>{lyrics}</pre>
+              <pre>{lyrics.replace(/\[(intro|verse|outro)\]/gi, "").trim()}</pre>
             </div>
           </div>
         </div>
 
-        <div className="share">
-          <p>compartilhe </p>
-        </div>
-
         <p className="advise">
-          Mas não esquece: rolê bom, é rolê consciente. <br />
-          Só compartilhe com maiores de 18 anos.
+          Beba com moderação. <br />
+          Não compartilhe com menores de 18 anos.
         </p>
       </div>
     </Container>
