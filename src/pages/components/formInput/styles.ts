@@ -13,8 +13,8 @@ export const Label = styled.label`
   font-family: "Gopher-Bold";
 
   @media (max-width: 1024px) {
-    font-size: 14px;
     flex: 0.3;
+    font-size: 12px;
   }
 `;
 
@@ -33,21 +33,6 @@ export const Input = styled.input`
 
   &:focus {
     outline: none;
-  }
-
-  /* Estilos específicos para input de data */
-  &[type="date"] {
-    &::-webkit-datetime-edit {
-      color: #ffde2e; /* Amarelo para o placeholder */
-    }
-
-    /* Cor do valor (texto digitado/selecionado) */
-    &::-webkit-datetime-edit-text,
-    &::-webkit-datetime-edit-year-field,
-    &::-webkit-datetime-edit-month-field,
-    &::-webkit-datetime-edit-day-field {
-      color: #000;
-    }
   }
 
   /* Sobrescreve o estilo do autofill do navegador */
@@ -69,9 +54,9 @@ export const Input = styled.input`
   }
 
   @media (max-width: 1024px) {
-    font-size: 14px;
+    font-size: 12px;
     flex: 0.7;
-    padding: 8px 16px;
+    padding: 8px;
   }
 `;
 
@@ -80,6 +65,10 @@ export const InputContainer = styled.div`
   width: 100%;
   gap: 16px;
   align-items: center;
+
+  @media (max-width: 1024px) {
+    gap: 8px;
+  }
 `;
 
 export const ErrorMessage = styled.span`

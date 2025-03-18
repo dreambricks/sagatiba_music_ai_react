@@ -1,5 +1,6 @@
 import React, { CSSProperties } from "react";
 import * as Styled from "./styles";
+import { useNavigate } from "react-router";
 
 type Props = {
   className?: string;
@@ -7,8 +8,10 @@ type Props = {
 };
 
 const ForgotPassword: React.FC<Props> = ({ className, style }) => {
+  const navigate = useNavigate();
+
   const handleRecoverPassword = () => {
-    alert("Redirecionando para recuperação de senha...");
+    navigate("/recover-password");
   };
 
   return (

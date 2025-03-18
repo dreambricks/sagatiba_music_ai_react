@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import SunSvg from "../../assets/sol.svg";
 import CustomButton from "../components/customButton";
+import FormCheckbox from "./components/formCheckbox";
 
 export const Container = styled.div`
   display: flex;
@@ -39,19 +40,22 @@ export const Title = styled.h1`
 
   @media (max-width: 1024px) {
     margin-top: 32px;
-    font-size: 32px;
+    margin-left: 16px;
+    margin-right: 16px;
+    font-size: 24px;
   }
 `;
 
 export const FormContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 50%;
+  width: 70%;
   margin-top: 64px;
   z-index: 1;
 
   @media (max-width: 1024px) {
-    width: 80%;
+    width: 95%;
+    margin-top: 32px;
   }
 `;
 
@@ -67,5 +71,13 @@ export const FormButton = styled(CustomButton)`
     margin-left: 30%;
     padding: 14px;
     font-size: 14px;
+  }
+`;
+
+export const CheckBox = styled(FormCheckbox)`
+  margin-left: 18%;
+
+  @media (max-width: 1024px) {
+    margin-left: 30%;
   }
 `;
