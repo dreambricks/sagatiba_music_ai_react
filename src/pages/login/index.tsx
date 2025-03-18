@@ -5,6 +5,9 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { signIn } from "../../service";
+import { toast } from "react-toastify";
+import { saveAccessTokenToCookie } from "../../storage";
+import { useNavigate } from "react-router";
 
 interface ILoginFormValues {
   email: string;
@@ -19,6 +22,8 @@ const loginFormSchema = z.object({
 type ILoginFormField = z.infer<typeof loginFormSchema>;
 
 const Login: React.FC = () => {
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -34,9 +39,13 @@ const Login: React.FC = () => {
 
   const onSubmit: SubmitHandler<ILoginFormValues> = async (data) => {
     try {
-      await signIn(data.email, data.password);
-    } catch (error) {
-      console.log(error);
+      const response = await signIn(data.email, data.password);
+
+      saveAccessTokenToCookie(response.token);
+
+      navigate("/gerar-musica");
+    } catch {
+      toast.error("Credencias incorretas, tente novamente");
     }
   };
 

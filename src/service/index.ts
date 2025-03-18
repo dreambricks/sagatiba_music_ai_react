@@ -1,7 +1,8 @@
 import axios from "axios";
 import { getLyricsId, getPhone } from "../storage";
+import { IUserJson } from "./types";
 
-const UR_BASE = "http://18.229.132.107:5001/";
+const UR_BASE = "http://18.229.132.107:5001/api";
 // const UR_BASE = "http://localhost:5001";
 // URL para Testes = http://18.229.132.107:5001
 
@@ -62,8 +63,14 @@ export const getLyricsToMessage = async (id: string) => {
 };
 
 export const signIn = async (email: string, password: string) => {
-  return axios.post(`${UR_BASE}/users/login`, {
+  const response = await axios.post<IUserJson>(`${UR_BASE}/users/login`, {
     email,
     password,
   });
+
+  return response.data;
+};
+
+export const registerUser = async () => {
+  return axios.post(`${UR_BASE}/users/register`, {});
 };

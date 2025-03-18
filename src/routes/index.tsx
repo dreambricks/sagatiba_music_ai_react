@@ -9,21 +9,29 @@ import Login from "../pages/login";
 import RecoverPasswordScreen from "../pages/recoverPassword";
 import ResetPasswordScreen from "../pages/resetPassword";
 import Register from "../pages/register";
+import AgeMiddleware from "./middlewares/ageMiddleware";
+import AuthMiddleware from "./middlewares/authMiddleware";
 
 export const Routing = () => {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Tampao />} />
-        <Route path="/gerar-musica" element={<Home />} />
-        <Route path="/letras" element={<LyricsPage />} />
-        <Route path="/baixar" element={<Message />} />
-        <Route path="/mensagem" element={<Player />} />
-        <Route path="/age-gate" element={<AgeGate />} />
-        <Route path="/login" element={<Login />} />
         <Route path="/recover-password" element={<RecoverPasswordScreen />} />
         <Route path="/reset-password" element={<ResetPasswordScreen />} />
+        <Route path="/age-gate" element={<AgeGate />} />
         <Route path="/register" element={<Register />} />
+
+        <Route element={<AgeMiddleware />}>
+          <Route path="/login" element={<Login />} />
+        </Route>
+
+        <Route element={<AuthMiddleware />}>
+          <Route path="/gerar-musica" element={<Home />} />
+          <Route path="/letras" element={<LyricsPage />} />
+          <Route path="/baixar" element={<Message />} />
+          <Route path="/mensagem" element={<Player />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );

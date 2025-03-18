@@ -56,3 +56,18 @@ export const saveRememberMeToCookie = (remember: boolean) => {
     expires: EXPIRATION_DAYS,
   });
 };
+
+export const getRememberMeFromCookie = () => {
+  const cookieValue = Cookies.get("remember") || null;
+  return cookieValue === "true";
+};
+
+export const saveAccessTokenToCookie = (token: string) => {
+  Cookies.set("accessToken", token, {
+    expires: EXPIRATION_DAYS,
+  });
+};
+
+export const getAccessTokenFromCookie = () => {
+  return Cookies.get("accessToken") || null;
+};

@@ -9,6 +9,7 @@ import {
   applyDateMask,
   applyPhoneMask,
 } from "../../utils/MaskUtils";
+import { registerUser } from "../../service";
 
 interface IRegisterFormValues {
   email: string;
@@ -121,7 +122,8 @@ const Register: React.FC = () => {
   const onSubmit: SubmitHandler<IRegisterFormValues> = async (data) => {
     try {
       console.log(data);
-      // await signIn(data.email, data.password);
+
+      await registerUser();
     } catch (error) {
       console.log(error);
     }

@@ -1,8 +1,9 @@
+import { SessionProvider } from "./context/sessionContext";
 import { Routing } from "./routes";
 import { ToastContainer, Bounce } from "react-toastify";
 function App() {
   return (
-    <>
+    <SessionProvider>
       <Routing />
       <ToastContainer
         position="bottom-center"
@@ -17,7 +18,7 @@ function App() {
         theme="light"
         transition={Bounce}
       />
-    </>
+    </SessionProvider>
   );
 }
 
