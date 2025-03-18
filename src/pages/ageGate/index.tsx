@@ -5,6 +5,7 @@ import * as Styled from "././styles";
 import Checkbox from "./components/checkbox";
 import BirthDateInput from "./components/birthDateInput";
 import { saveRememberMeToCookie } from "../../storage";
+import CustomButton from "../components/customButton";
 
 const AgeGate: React.FC = () => {
   const [remember, setRemember] = useState(false);
@@ -66,7 +67,7 @@ const AgeGate: React.FC = () => {
             style={{ marginTop: "24px", marginBottom: "24px" }}
           />
 
-          <Styled.Button onClick={handleSigIn}>ENTRAR</Styled.Button>
+          <CustomButton onClick={handleSigIn} title="ENTRAR" />
         </Styled.ContentContainer>
       </Styled.WhiteContainer>
     </Styled.Container>
