@@ -13,9 +13,7 @@ import { registerUser } from "../../service";
 import { useNavigate } from "react-router";
 import { useSession } from "../../context/sessionContext";
 import { ModalInfo } from "../home/components/destination/Modal";
-
-// Expressão regular para validar CPF
-const cpfRegex = /^\d{3}\.\d{3}\.\d{3}-\d{2}$/;
+import { validateCpfDigits } from "../../utils/ValidatorUtils";
 
 // Expressão regular para validar número de WhatsApp
 const whatsappRegex = /^\(\d{2}\) \d{5}-\d{4}$/;
@@ -27,7 +25,9 @@ const registerFormSchema = z
       .min(5, "Informe o nome completo")
       .max(100, "O nome completo é muito longo"),
 
-    cpf: z.string().regex(cpfRegex, "CPF inválido"),
+    cpf: z.string().refine((value) => {
+      return validateCpfDigits(value);
+    }, "Informe um CPF válido"),
 
     birthDate: z.string().refine((date) => {
       // Converte a data do formato dd/mm/yyyy para yyyy-mm-dd
