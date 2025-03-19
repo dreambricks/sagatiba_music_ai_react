@@ -8,6 +8,7 @@ import { saveRememberMeToCookie } from "../../storage";
 import CustomButton from "../components/customButton";
 import { useLocation, useNavigate } from "react-router";
 import { useSession } from "../../context/sessionContext";
+import { toast } from "react-toastify";
 
 const AgeGate: React.FC = () => {
   const navigate = useNavigate();
@@ -19,7 +20,10 @@ const AgeGate: React.FC = () => {
 
   const validateAge = (): boolean => {
     const { day, month, year } = date;
-    if (!day || !month || !year || year.length < 4) return false;
+    if (!day || !month || !year || year.length < 4) {
+      toast.error("Data inválida");
+      return false;
+    }
 
     const birthDate = new Date(Number(year), Number(month) - 1, Number(day));
     const today = new Date();
@@ -32,6 +36,11 @@ const AgeGate: React.FC = () => {
     // Ajusta a idade se ainda não fez aniversário este ano
     if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
       age--;
+    }
+
+    if (age < 18) {
+      toast.error("É necessário ter mais de 18 anos para participar");
+      return false;
     }
 
     return age >= 18;
