@@ -244,7 +244,7 @@ const Register: React.FC = () => {
           isOpen={showTerms}
           onClose={() => toggleModal("terms", false)}
           onAccept={() => {
-            setValue("acceptTerms", true);
+            setValue("acceptTerms", true, { shouldValidate: true });
             toggleModal("terms", false);
           }}
         />
@@ -255,7 +255,7 @@ const Register: React.FC = () => {
           isOpen={showPolicy}
           onClose={() => toggleModal("policy", false)}
           onAccept={() => {
-            setValue("acceptPolicy", true);
+            setValue("acceptPolicy", true, { shouldValidate: true });
             toggleModal("policy", false);
           }}
         />
