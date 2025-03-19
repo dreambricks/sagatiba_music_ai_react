@@ -2,7 +2,6 @@ import { useState, useEffect, forwardRef } from "react";
 import Sagalover from "../../../../assets/nome_do_sagalover.png";
 import { Container } from "./styles";
 import Mountains from "../../../../assets/mountains.png";
-import { ModalInfo } from "./Modal";
 import NextButton from "../../../components/nextButton";
 
 interface SagaloverProps {
@@ -12,23 +11,18 @@ interface SagaloverProps {
 
 export const Sagalovers = forwardRef<HTMLDivElement, SagaloverProps>(
   ({ changeIg, onFill }, ref) => {
-    const [modalOpen, setModalOpen] = useState(false);
     const [username, setUsername] = useState("");
-    // const [termsAccepted, setTermsAccepted] = useState(false);
     const [hasFilled, setHasFilled] = useState(false);
 
-    // const openModal = () => setModalOpen(true);
-    const closeModal = () => setModalOpen(false);
 
     useEffect(() => {
       if (!hasFilled && username.trim() !== "") {
-        setHasFilled(true); // Evita chamadas repetidas
+        setHasFilled(true);
       }
     }, [username, hasFilled]);
 
     return (
       <Container>
-        {modalOpen && <ModalInfo isOpen={modalOpen} onClose={closeModal} />}
         <div className="top">
           <img src={Mountains} alt="" />
         </div>

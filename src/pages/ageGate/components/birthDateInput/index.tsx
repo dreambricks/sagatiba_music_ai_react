@@ -72,7 +72,7 @@ export const BirthDateInput: React.FC<Props> = ({ date, onDateChange }) => {
         ref={yearRef}
         type="text"
         maxLength={4}
-        placeholder="YY"
+        placeholder="AAAA"
         value={date.year}
         onChange={(e) => handleChange(e, "year")}
       />

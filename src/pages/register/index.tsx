@@ -14,8 +14,8 @@ import { useNavigate } from "react-router";
 import { useSession } from "../../context/sessionContext";
 import { ModalInfo } from "../home/components/destination/Modal";
 import { validateCpfDigits } from "../../utils/ValidatorUtils";
+import { toast } from "react-toastify";
 
-// Expressão regular para validar número de WhatsApp
 const whatsappRegex = /^\(\d{2}\) \d{5}-\d{4}$/;
 
 const registerFormSchema = z
@@ -137,9 +137,13 @@ const Register: React.FC = () => {
 
       setAgeVerified(true);
 
+      toast.success("Cadastro realizado com sucesso! Verifique seu e-mail para validar a conta.");
+
       navigate("/login");
-    } catch (error) {
-      console.log(error);
+    } catch (error: unknown) {
+      const errorMessage = (error as { response?: { data?: { error?: string } } })?.response?.data?.error || "Ocorreu um erro inesperado. Tente novamente.";
+      toast.error(errorMessage);
+
     }
   };
 
@@ -210,7 +214,7 @@ const Register: React.FC = () => {
           <FormInput
             {...register("confirmPassword")}
             label="Confirmar senha:"
-            placeholder="Confirme a senha"
+            placeholder="confirme a senha"
             type="password"
             errorMessage={errors.confirmPassword?.message}
             style={{ marginBottom: "16px" }}

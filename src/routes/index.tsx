@@ -11,6 +11,7 @@ import ResetPasswordScreen from "../pages/resetPassword";
 import Register from "../pages/register";
 import AgeMiddleware from "./middlewares/ageMiddleware";
 import AuthMiddleware from "./middlewares/authMiddleware";
+import { Erro } from "../pages/erro";
 
 export const Routing = () => {
   return (
@@ -24,6 +25,15 @@ export const Routing = () => {
         />
         <Route path="/age-gate" element={<AgeGate />} />
         <Route path="/gerar-musica" element={<Home />} />
+        <Route
+          path="/erro/:message"
+          element={<Erro />}
+        />
+
+        <Route
+          path="/erro"
+          element={<Erro />}
+        />
 
         <Route element={<AgeMiddleware />}>
           <Route path="/login" element={<Login />} />
