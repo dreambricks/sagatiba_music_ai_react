@@ -4,7 +4,7 @@ import { IRegisterUserBody, IUserJson } from "./types";
 import { IRegisterFormField } from "../pages/register";
 import { applyNumberOnly } from "../utils/MaskUtils";
 
-const UR_BASE = "http://18.229.132.107:5001/api";
+const UR_BASE = "http://18.229.132.107:5001";
 // const UR_BASE = "http://localhost:5001";
 // URL para Testes = http://18.229.132.107:5001
 
@@ -65,7 +65,7 @@ export const getLyricsToMessage = async (id: string) => {
 };
 
 export const signIn = async (email: string, password: string) => {
-  const response = await axios.post<IUserJson>(`${UR_BASE}/users/login`, {
+  const response = await axios.post<IUserJson>(`${UR_BASE}/api/users/login`, {
     email,
     password,
   });
@@ -87,22 +87,28 @@ export const registerUser = async (data: IRegisterFormField) => {
     user_info_hash: userInfoHash,
   };
 
-  const response = await axios.post<void>(`${UR_BASE}/users/register`, body);
+  const response = await axios.post<void>(
+    `${UR_BASE}/api/users/register`,
+    body
+  );
 
   return response.data;
 };
 
 export const forgotPassword = async (email: string) => {
-  const response = await axios.post<void>(`${UR_BASE}/users/forgot_password`, {
-    email,
-  });
+  const response = await axios.post<void>(
+    `${UR_BASE}/api/users/forgot_password`,
+    {
+      email,
+    }
+  );
 
   return response.data;
 };
 
 export const resetPassword = async (newPassword: string, token: string) => {
   const response = await axios.post<void>(
-    `${UR_BASE}/users/reset_password/${token}`,
+    `${UR_BASE}/api/users/reset_password/${token}`,
     {
       new_password: newPassword,
     }

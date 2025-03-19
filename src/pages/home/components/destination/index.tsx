@@ -7,7 +7,6 @@ import NextButton from "../../../components/nextButton";
 
 interface SagaloverProps {
   changeIg: (val: string) => void;
-  onAacceptTerm: (val: boolean) => void;
   onFill: () => void;
 }
 
@@ -16,7 +15,7 @@ export const Sagalovers = forwardRef<HTMLDivElement, SagaloverProps>(
     const [modalOpen, setModalOpen] = useState(false);
     const [username, setUsername] = useState("");
     // const [termsAccepted, setTermsAccepted] = useState(false);
-    const [hasFilled, setHasFilled] = useState(false); // Novo estado para controle
+    const [hasFilled, setHasFilled] = useState(false);
 
     // const openModal = () => setModalOpen(true);
     const closeModal = () => setModalOpen(false);

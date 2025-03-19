@@ -29,7 +29,6 @@ export const Home = () => {
   const navigate = useNavigate();
 
   const ig = useRef("");
-  const acceptTerm = useRef<boolean>(false);
   const invite = useRef("");
   const day = useRef("");
   const message = useRef("");
@@ -44,7 +43,6 @@ export const Home = () => {
   const sectionPhone = useRef<HTMLDivElement | null>(null);
 
   const changeIg = (value: string) => (ig.current = value);
-  const onAacceptTerm = (value: boolean) => (acceptTerm.current = value);
   const onInvite = (value: string) => (invite.current = value);
   const onWeekdays = (value: string) => (day.current = value);
   const onAddMessage = (value: string) => (message.current = value);
@@ -53,28 +51,12 @@ export const Home = () => {
   const validateForm = () => {
     const fields = [
       { ref: ig, name: "Usuário" },
-      { ref: acceptTerm, name: "Termo de responsabilidade", isCheckbox: true },
       { ref: invite, name: "Convite" },
       { ref: day, name: "Dia" },
       { ref: message, name: "Mensagem" },
       { ref: phone, name: "Telefone" },
     ];
     console.log(fields);
-
-    for (const field of fields) {
-      if (field.isCheckbox) {
-        if (!field.ref.current) {
-          throw new Error(`Campo obrigatório: ${field.name}`);
-        }
-      } else {
-        if (
-          typeof field.ref.current !== "string" ||
-          !field.ref.current.trim()
-        ) {
-          throw new Error(`Campo obrigatório: ${field.name}`);
-        }
-      }
-    }
   };
 
   const formatPhone = (phone: string) => {
@@ -104,10 +86,11 @@ export const Home = () => {
       saveLyrics(response.lyrics);
       saveLyricsId(response.lyrics_oid);
 
-      window.scrollTo(0, 0);
       await generateId();
+      window.scrollTo(0, 0);
       navigate("/letras");
     } catch (error: any) {
+      console.log(error);
       if (error.status === 403) {
         console.log(error.request.response);
         toast.error(error.response.data.error);
@@ -195,7 +178,6 @@ export const Home = () => {
 
       <Sagalovers
         changeIg={changeIg}
-        onAacceptTerm={onAacceptTerm}
         ref={sectionSagalovers}
         onFill={() => {
           if (inviteOptions.current) scrollToSection(inviteOptions, 0);
