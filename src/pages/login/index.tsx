@@ -30,7 +30,7 @@ const Login: React.FC = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<ILoginFormField>({
     defaultValues: {
       email: "",
@@ -89,7 +89,11 @@ const Login: React.FC = () => {
             errorMessage={errors.password?.message}
           />
 
-          <Styled.FormButton title="ENTRAR" type="submit" />
+          <Styled.FormButton
+            title="ENTRAR"
+            type="submit"
+            loading={isSubmitting}
+          />
         </form>
       </Styled.FormContainer>
     </Styled.Container>

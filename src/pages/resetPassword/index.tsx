@@ -30,7 +30,7 @@ const ResetPasswordScreen: React.FC = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<IResetPasswordFormValues>({
     mode: "onChange",
     defaultValues: {
@@ -77,7 +77,11 @@ const ResetPasswordScreen: React.FC = () => {
             type="password"
           />
 
-          <Styled.FormButton type="submit" title="REDEFINIR SENHA" />
+          <Styled.FormButton
+            type="submit"
+            title="REDEFINIR SENHA"
+            loading={isSubmitting}
+          />
         </form>
       </Styled.FormContainer>
     </Styled.Container>

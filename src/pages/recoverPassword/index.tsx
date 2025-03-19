@@ -22,7 +22,7 @@ const RecoverPasswordScreen: React.FC = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<IRecoverPasswordFormValues>({
     mode: "onChange",
     defaultValues: {
@@ -57,7 +57,11 @@ const RecoverPasswordScreen: React.FC = () => {
             type="email"
           />
 
-          <Styled.FormButton type="submit" title="RECUPERAR SENHA" />
+          <Styled.FormButton
+            type="submit"
+            title="RECUPERAR SENHA"
+            loading={isSubmitting}
+          />
         </form>
       </Styled.FormContainer>
     </Styled.Container>

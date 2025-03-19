@@ -33,8 +33,6 @@ export const FormButton = styled(CustomButton)`
   @media (max-width: 1024px) {
     width: 150px;
     margin-left: 30%;
-    padding: 4px;
-    font-size: 12px;
   }
 `;
 

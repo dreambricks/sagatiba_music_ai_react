@@ -86,7 +86,7 @@ const Register: React.FC = () => {
     handleSubmit,
     watch,
     setValue,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<IRegisterFormField>({
     defaultValues: {
       email: "",
@@ -140,6 +140,8 @@ const Register: React.FC = () => {
       </Styled.Title>
 
       <Styled.FormContainer>
+        <Styled.RegisteredButton />
+
         <form onSubmit={handleSubmit(onSubmit)}>
           <FormInput
             {...register("fullName")}
@@ -215,7 +217,11 @@ const Register: React.FC = () => {
             errorMessage={errors.acceptPolicy?.message}
           />
 
-          <Styled.FormButton title="ENTRAR" type="submit" />
+          <Styled.FormButton
+            title="CADASTRAR"
+            type="submit"
+            loading={isSubmitting}
+          />
         </form>
       </Styled.FormContainer>
     </Styled.Container>

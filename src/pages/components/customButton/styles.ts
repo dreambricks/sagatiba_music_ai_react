@@ -1,13 +1,14 @@
 import styled from "styled-components";
+import Spinner from "../spinner";
 
 export const Container = styled.button`
   background-color: #ff4b15;
-  padding: 20px;
+  padding: 16px;
   width: 100%;
   border-top-right-radius: 16px;
   border-bottom-left-radius: 16px;
   color: white;
-  font-size: 24px;
+  font-size: 16px;
   border: transparent;
   cursor: pointer;
   font-family: "Gopher-Bold";
@@ -15,4 +16,22 @@ export const Container = styled.button`
   &:active {
     border: 1px solid #ff4b15;
   }
+
+  @media (max-width: 1024px) {
+    padding: 8px;
+    font-size: 12px;
+  }
+`;
+
+export const TextRow = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+`;
+
+export const ButtonSpinner = styled(Spinner)`
+  height: 12px;
+  width: 12px;
 `;

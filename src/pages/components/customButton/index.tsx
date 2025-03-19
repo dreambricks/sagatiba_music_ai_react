@@ -6,6 +6,7 @@ type Props = {
   style?: CSSProperties;
   className?: string;
   type?: "button" | "submit" | "reset" | undefined;
+  loading?: boolean;
   onClick?: () => void;
 };
 
@@ -14,6 +15,7 @@ const CustomButton: React.FC<Props> = ({
   style,
   className,
   type,
+  loading,
   onClick,
 }) => {
   return (
@@ -21,9 +23,13 @@ const CustomButton: React.FC<Props> = ({
       type={type}
       className={className}
       onClick={onClick}
+      disabled={loading}
       style={style}
     >
-      {title}
+      <Styled.TextRow>
+        {title}
+        {loading && <Styled.ButtonSpinner />}
+      </Styled.TextRow>
     </Styled.Container>
   );
 };

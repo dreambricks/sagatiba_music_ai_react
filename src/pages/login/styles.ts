@@ -56,16 +56,14 @@ export const FormButton = styled(CustomButton)`
 
   @media (max-width: 1024px) {
     margin-top: 24px;
-    width: 200px;
     margin-left: 30%;
-    padding: 14px;
-    font-size: 14px;
+    width: 120px;
   }
 `;
 
 export const RecoverPassword = styled(ForgotPassword)`
   align-self: flex-end;
-  margin-bottom: 64px;
+  margin-bottom: 24px;
 
   @media (max-width: 1024px) {
     margin-bottom: 16px;

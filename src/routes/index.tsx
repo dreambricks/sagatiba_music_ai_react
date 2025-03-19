@@ -35,6 +35,8 @@ export const Routing = () => {
           <Route path="/baixar" element={<Message />} />
           <Route path="/mensagem" element={<Player />} />
         </Route>
+
+        <Route path="*" element={<Home />} />
       </Routes>
     </BrowserRouter>
   );
