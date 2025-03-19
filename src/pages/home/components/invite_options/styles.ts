@@ -34,6 +34,12 @@ export const InviteForContainer = styled.div`
       padding: 50px 0;
       width: 100%;
 
+      .nextBtn {
+        display: flex;
+        justify-content: center;
+        margin-top: 50px;
+      }
+
       .option-check {
         display: grid;
         grid-template-columns: repeat(12, 1fr);

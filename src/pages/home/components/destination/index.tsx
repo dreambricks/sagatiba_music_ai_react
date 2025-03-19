@@ -3,7 +3,7 @@ import Sagalover from "../../../../assets/nome_do_sagalover.png";
 import { Container } from "./styles";
 import Mountains from "../../../../assets/mountains.png";
 import { ModalInfo } from "./Modal";
-import Siga from "../../../../assets/SIGA_PASSO.svg";
+import NextButton from "../../../components/nextButton";
 
 interface SagaloverProps {
   changeIg: (val: string) => void;
@@ -12,20 +12,20 @@ interface SagaloverProps {
 }
 
 export const Sagalovers = forwardRef<HTMLDivElement, SagaloverProps>(
-  ({ changeIg, onAacceptTerm, onFill }, ref) => {
+  ({ changeIg, onFill }, ref) => {
     const [modalOpen, setModalOpen] = useState(false);
     const [username, setUsername] = useState("");
-    const [termsAccepted, setTermsAccepted] = useState(false);
+    // const [termsAccepted, setTermsAccepted] = useState(false);
     const [hasFilled, setHasFilled] = useState(false); // Novo estado para controle
 
-    const openModal = () => setModalOpen(true);
+    // const openModal = () => setModalOpen(true);
     const closeModal = () => setModalOpen(false);
 
     useEffect(() => {
-      if (!hasFilled && username.trim() !== "" && termsAccepted) {
+      if (!hasFilled && username.trim() !== "") {
         setHasFilled(true); // Evita chamadas repetidas
       }
-    }, [username, termsAccepted, hasFilled]);
+    }, [username, hasFilled]);
 
     return (
       <Container>
@@ -60,7 +60,7 @@ export const Sagalovers = forwardRef<HTMLDivElement, SagaloverProps>(
               compartilhe o convite com maiores de 18 anos.
             </p>
 
-            <div className="terms">
+            {/* <div className="terms">
               <input
                 type="checkbox"
                 onChange={(e) => {
@@ -71,9 +71,9 @@ export const Sagalovers = forwardRef<HTMLDivElement, SagaloverProps>(
               <p onClick={openModal}>
                 EU ACEITO OS TERMOS DE USO E RESPONSABILIDADE DE COMPARTILHAMENTO
               </p>
-            </div>
+            </div> */}
 
-            <img className="SigaBtn" src={Siga} alt="Siga para o próximo passo" onClick={onFill} />
+            <NextButton title="PRÓXIMO" onClick={onFill} />
 
           </div>
         </div>

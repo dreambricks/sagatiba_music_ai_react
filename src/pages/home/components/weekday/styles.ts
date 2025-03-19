@@ -44,6 +44,7 @@ export const Container = styled.section`
       display: flex;
       width: 100%;
       justify-content: center;
+      margin-bottom: 50px;
 
       .select-days {
         display: grid;
