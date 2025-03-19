@@ -32,6 +32,7 @@ export const Text = styled.p`
   color: black;
   text-decoration: underline;
   font-family: "Gopher-Bold";
+  cursor: pointer;
 
   @media (max-width: 1024px) {
     font-size: 10px;

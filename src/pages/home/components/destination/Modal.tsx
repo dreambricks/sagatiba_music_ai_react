@@ -5,11 +5,12 @@ import { ModalStyles } from "./styles";
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
+  onAccept: () => void;
 }
 
 ReactModal.setAppElement("#root");
 
-export const ModalInfo = ({ isOpen, onClose }: ModalProps) => {
+export const ModalInfo = ({ isOpen, onClose, onAccept }: ModalProps) => {
   useEffect(() => {
     document.body.style.overflow = "hidden";
 
@@ -21,12 +22,15 @@ export const ModalInfo = ({ isOpen, onClose }: ModalProps) => {
   return (
     <ReactModal
       isOpen={isOpen}
+      shouldCloseOnEsc={true}
+      shouldCloseOnOverlayClick={true}
+      onRequestClose={onClose}
       style={{
         overlay: {
-          backgroundColor: "#ffde2f",
+          backgroundColor: "#00000020",
         },
         content: {
-          backgroundColor: "#ffde2f",
+          backgroundColor: "white",
           top: "50%",
           left: "50%",
           right: "auto",
@@ -101,7 +105,7 @@ export const ModalInfo = ({ isOpen, onClose }: ModalProps) => {
             </p>
           </div>
         </div>
-        <button onClick={onClose}>
+        <button onClick={onAccept}>
           <strong>Aceitar</strong>
         </button>
       </ModalStyles>

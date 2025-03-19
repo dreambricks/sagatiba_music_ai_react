@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import * as Styled from "./styles";
 import FormInput from "../components/formInput";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -12,6 +12,7 @@ import {
 import { registerUser } from "../../service";
 import { useNavigate } from "react-router";
 import { useSession } from "../../context/sessionContext";
+import { ModalInfo } from "../home/components/destination/Modal";
 
 // Expressão regular para validar CPF
 const cpfRegex = /^\d{3}\.\d{3}\.\d{3}-\d{2}$/;
@@ -80,6 +81,17 @@ export type IRegisterFormField = z.infer<typeof registerFormSchema>;
 const Register: React.FC = () => {
   const navigate = useNavigate();
   const { setAgeVerified } = useSession();
+
+  const [showTerms, setShowTerms] = useState(false);
+  const [showPolicy, setShowPolicy] = useState(false);
+
+  const toggleModal = (modal: "policy" | "terms", value: boolean) => {
+    if (modal === "policy") {
+      setShowPolicy(value);
+    } else {
+      setShowTerms(value);
+    }
+  };
 
   const {
     register,
@@ -208,12 +220,14 @@ const Register: React.FC = () => {
             {...register("acceptTerms")}
             text="EU ACEITO OS TERMOS DE USO E RESPONSABILIDADE DE COMPARTILHAMENTO"
             errorMessage={errors.acceptTerms?.message}
+            onTextClick={() => toggleModal("terms", true)}
             style={{ marginBottom: "8px" }}
           />
 
           <Styled.CheckBox
             {...register("acceptPolicy")}
             text="ESTOU DE ACORDO COM A POLÍTICA DE PRIVACIDADE"
+            onTextClick={() => toggleModal("policy", true)}
             errorMessage={errors.acceptPolicy?.message}
           />
 
@@ -224,6 +238,28 @@ const Register: React.FC = () => {
           />
         </form>
       </Styled.FormContainer>
+
+      {showTerms && (
+        <ModalInfo
+          isOpen={showTerms}
+          onClose={() => toggleModal("terms", false)}
+          onAccept={() => {
+            setValue("acceptTerms", true);
+            toggleModal("terms", false);
+          }}
+        />
+      )}
+
+      {showPolicy && (
+        <ModalInfo
+          isOpen={showPolicy}
+          onClose={() => toggleModal("policy", false)}
+          onAccept={() => {
+            setValue("acceptPolicy", true);
+            toggleModal("policy", false);
+          }}
+        />
+      )}
     </Styled.Container>
   );
 };

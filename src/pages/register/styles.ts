@@ -52,7 +52,7 @@ export const FormContainer = styled.div`
   flex-direction: column;
   width: 70%;
   margin-top: 64px;
-  z-index: 1;
+  z-index: 0;
 
   @media (max-width: 1024px) {
     width: 95%;
