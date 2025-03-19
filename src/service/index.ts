@@ -3,6 +3,7 @@ import { getLyricsId, getPhone } from "../storage";
 import { IRegisterUserBody, IUserJson } from "./types";
 import { IRegisterFormField } from "../pages/register";
 import { applyNumberOnly } from "../utils/MaskUtils";
+import { encryptText } from "../utils/CryptUtils";
 
 const UR_BASE = "http://18.229.132.107:5001";
 // const UR_BASE = "http://localhost:5001";
@@ -81,10 +82,12 @@ export const registerUser = async (data: IRegisterFormField) => {
 
   const userInfoHash = `${fullName},${digitsOnlyCpf},${birthDate},${email},${digitsOnlyPhone}`;
 
+  const encryptedUserInfo = encryptText(userInfoHash);
+
   const body: IRegisterUserBody = {
     email: email,
     password_hash: password,
-    user_info_hash: userInfoHash,
+    user_info_hash: encryptedUserInfo,
   };
 
   const response = await axios.post<void>(

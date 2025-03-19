@@ -10,6 +10,7 @@ import { saveAccessTokenToCookie } from "../../storage";
 import { useNavigate } from "react-router";
 import { useSession } from "../../context/sessionContext";
 import { jwtDecode } from "jwt-decode";
+import { AxiosError } from "axios";
 
 interface ILoginFormValues {
   email: string;
@@ -57,7 +58,14 @@ const Login: React.FC = () => {
         userOid: decodedToken.user_oid,
       });
       navigate("/gerar-musica");
-    } catch {
+    } catch (err) {
+      const error = err as AxiosError<{ error: string }>;
+
+      if (error.status === 403) {
+        toast.error(error.response?.data.error ?? "Erro inesperado");
+        return;
+      }
+
       toast.error("Credencias incorretas, tente novamente");
     }
   };
