@@ -13,6 +13,8 @@ export const Container = styled.div`
   min-height: 100vh;
   height: auto;
   align-items: center;
+  overflow-x: hidden;
+  max-width: 100%;
 `;
 
 export const SunImageContainer = styled.div`
