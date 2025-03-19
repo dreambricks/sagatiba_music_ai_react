@@ -19,7 +19,7 @@ import {
 } from "../../storage";
 import { useNavigate } from "react-router";
 import { useSession } from "../../context/sessionContext";
-import Mountains from "../../assets/MONTANHA2.png";
+import { GuestUserBanner } from "./components/guestUserBanner";
 // import { Stickers } from "./components/stickers";
 
 export const Home = () => {
@@ -179,17 +179,7 @@ export const Home = () => {
 
   if (!user) {
     return (
-      <Container>
-        <Banner
-          sectionId="banner"
-          ref={sectionBanner}
-          onCreateMusic={() => {}}
-        />
-
-        <div className="top">
-          <img src={Mountains} alt="" />
-        </div>
-      </Container>
+      <GuestUserBanner />
     );
   }
 

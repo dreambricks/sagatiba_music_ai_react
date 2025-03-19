@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Container = styled.button`
   background-color: #ff4b15;
   padding: 0.4rem;
-  width: 60%;
+  width: 45%;
   border-top-right-radius: 24px;
   border-bottom-left-radius: 24px;
   color: white;
@@ -25,17 +25,15 @@ export const Container = styled.button`
   }
 
   @media (min-width: 768px) {
-    padding: 1rem;
-    width: 60%;
-    font-size: 2rem;
+    padding: 0.6rem;
+    font-size: 1.6rem;
 
     span {
-      font-size: 2rem;
+      font-size: 1.6rem;
     }
   }
 
   @media (min-width: 1024px) {
-    padding: 0.8rem;
     span {
       font-size: 2.5rem;
     }
