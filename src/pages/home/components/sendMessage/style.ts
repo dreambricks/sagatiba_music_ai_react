@@ -36,6 +36,7 @@ export const Container = styled.div`
     flex-direction: column;
     justify-content: center;
     margin-top: 40%;
+    text-align: center;
 
     .text-content {
       width: 100%;
@@ -43,6 +44,8 @@ export const Container = styled.div`
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      z-index: 2;
+      margin-bottom: 30px;
 
       h1,
       h2 {
@@ -51,7 +54,7 @@ export const Container = styled.div`
 
       h2 {
         font-weight: 700;
-        font-family: "Gopher-Medium", "sans-serif";
+        font-family: "Gopher-Bold", "sans-serif";
       }
 
       h3 {
@@ -86,12 +89,6 @@ export const Container = styled.div`
         color: rgb(165, 165, 165);
         text-align: center;
       }
-
-      .send {
-        cursor: pointer;
-        margin-top: 15px;
-        width: 20%;
-      }
     }
   }
 
@@ -114,7 +111,7 @@ export const Container = styled.div`
   }
 
   @media (min-width: 600px) {
-    grid-template-columns: 120px 1fr 120px;
+    grid-template-columns: 120px 1fr 120px !important;
 
     .content {
       .text-content {
@@ -142,23 +139,28 @@ export const Container = styled.div`
     }
 
     .content {
-      margin-top: 5%;
+      margin-top: 2%;
       .text-content {
         h1,
         h2 {
-          font-size: 1.5rem;
+          font-size: 1.2rem;
         }
         h3 {
-          font-size: 1.3rem;
+          font-size: 1rem;
         }
         textarea {
-          width: 55%;
+          padding: 30px 30px 120px;
+          font-size: 0.8rem;
+          margin-top: 10px;
+          height: 150px;
         }
+        margin-bottom: 10px;
       }
     }
   }
 
   @media (min-width: 1024px) {
+    grid-template-columns: 240px 1fr 240px !important;
     .content {
       margin-top: 8%;
       .text-content {
@@ -170,14 +172,16 @@ export const Container = styled.div`
           font-size: 1.5rem;
         }
         textarea {
-          padding: 30px 50px 200px;
-          width: 55%;
+          padding: 30px 50px 180px;
+          height: 140px;
         }
+        margin-bottom: 20px;
       }
     }
   }
 
   @media (min-width: 1360px) {
+    grid-template-columns: 240px 1fr 240px !important;
     .content {
       .text-content {
         h1,
@@ -188,15 +192,17 @@ export const Container = styled.div`
           font-size: 1.6rem;
         }
         textarea {
-          padding: 30px 50px;
-          width: 55%;
+          padding: 30px 50px 250px;
           font-size: 1.6rem;
+          height: 200px;
         }
       }
     }
   }
 
   @media (min-width: 1520px) {
+    grid-template-columns: 360px 1fr 360px !important;
+
     .content {
       .text-content {
         h1,
@@ -208,9 +214,8 @@ export const Container = styled.div`
         }
         textarea {
           margin-top: 60px;
-          padding: 50px 50px 330px;
-          width: 55%;
-          font-size: 2.3rem;
+          padding: 50px 50px 280px;
+          font-size: 2rem;
         }
 
         .send {

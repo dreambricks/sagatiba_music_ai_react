@@ -41,6 +41,7 @@ export const Container = styled.div<{ selected: boolean }>`
   p {
     text-transform: uppercase;
     font-size: 0.5rem;
+    font-family: "Gopher-Bold";
     font-weight: 600;
   }
 
