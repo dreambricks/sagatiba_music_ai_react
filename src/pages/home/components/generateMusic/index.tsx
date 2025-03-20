@@ -1,4 +1,4 @@
-import { forwardRef } from "react";
+import { forwardRef, useEffect } from "react";
 import GerarMusica from "../../../../assets/gerar-musica.svg";
 import { Container } from "./style";
 import Loading from "../../../../assets/spinner_sem_fundo_ver2.gif";
@@ -12,6 +12,18 @@ interface GenerateMusicProps {
 
 export const GenerateMusic = forwardRef<HTMLDivElement, GenerateMusicProps>(
   ({ generateMusic, loading, onFill }, ref) => {
+
+    const preloadImages = (images: string[]) => {
+      images.forEach((image: string) => {
+        const img = new Image();
+        img.src = image;
+      });
+    };
+
+    useEffect(() => {
+      preloadImages([Cristalina, GerarMusica]);
+    }, []);
+
     return (
       <Container>
         <section className="generate-music">

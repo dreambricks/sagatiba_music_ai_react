@@ -87,6 +87,7 @@ export const registerUser = async (data: IRegisterFormField) => {
   const body: IRegisterUserBody = {
     email: email,
     password_hash: password,
+    phone: digitsOnlyPhone,
     user_info_hash: encryptedUserInfo,
   };
 

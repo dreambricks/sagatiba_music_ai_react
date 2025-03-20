@@ -75,7 +75,7 @@ export const Home = () => {
       const formattedPhone = formatPhone(phone.current);
       form.append("phone", formattedPhone);
       form.append("user_oid", user?.userOid ?? "");
-      addPhone("11999999999");
+      addPhone(user?.phone ?? "11999999999");
 
       validateForm();
 

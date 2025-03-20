@@ -11,6 +11,7 @@ import { jwtDecode } from "jwt-decode";
 export type IUser = {
   email: string;
   userOid: string;
+  phone: string;
 };
 
 interface SessionContextType {
@@ -53,6 +54,7 @@ export const SessionProvider: React.FC<SessionProviderProps> = ({
     const decodedToken = jwtDecode<{
       email: string;
       user_oid: string;
+      phone: string;
       exp: number;
     }>(accessToken);
 
@@ -67,6 +69,7 @@ export const SessionProvider: React.FC<SessionProviderProps> = ({
     setUser({
       email: decodedToken.email,
       userOid: decodedToken.user_oid,
+      phone: decodedToken.phone,
     });
 
     setLoading(false);

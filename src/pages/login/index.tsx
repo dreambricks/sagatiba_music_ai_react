@@ -50,12 +50,14 @@ const Login: React.FC = () => {
       const decodedToken = jwtDecode<{
         email: string;
         user_oid: string;
+        phone: string;
         exp: number;
       }>(response.token);
 
       updateUser({
         email: decodedToken.email,
         userOid: decodedToken.user_oid,
+        phone: decodedToken.phone,
       });
       navigate("/gerar-musica");
     } catch (err) {
