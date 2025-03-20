@@ -35,11 +35,10 @@ export const Routing = () => {
           element={<Erro />}
         />
 
-        <Route path="/mensagem" element={<Player />} />
-
         <Route element={<AgeMiddleware />}>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/mensagem" element={<Player />} />
         </Route>
 
         <Route element={<AuthMiddleware />}>
