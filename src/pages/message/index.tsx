@@ -1,6 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import Insta from "../../assets/icone_insta.png";
-import Whats from "../../assets/icone_whats.png";
 import Download from "../../assets/download-music.png";
 import { Container } from "./styles";
 import { useEffect, useState } from "react";
@@ -8,52 +6,52 @@ import { getLyricsToMessage } from "../../service";
 import { useLocation } from "react-router";
 
 export const Message = () => {
-    const location = useLocation();
-    const params = new URLSearchParams(location.search);
-    const id = params.get("id");
-    const [lyrics, setLyrics] = useState("");
-    const [audioUrls, setAudioUrls] = useState<string[]>([]);
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const id = params.get("id");
+  const [lyrics, setLyrics] = useState("");
+  const [audioUrls, setAudioUrls] = useState<string[]>([]);
 
-    useEffect(() => {
-        console.log("Executando busca de letras...");
-  
-        const fetchLyrics = async () => {
-            try {
-                if (id) {
-                    const response = await getLyricsToMessage(id);
+  useEffect(() => {
+    console.log("Executando busca de letras...");
 
-                    if (response) {
-                        setLyrics(response.lyrics);
-                        setAudioUrls(response.audio_urls);
-                    } else {
-                        console.error("Resposta nula recebida");
-                    }
-                } else {
-                    console.error("ID não fornecido");
-                }
-            } catch (error) {
-                console.error("Erro ao buscar letras:", error);
-            }
-
-        };
+    const fetchLyrics = async () => {
+      try {
         if (id) {
-            fetchLyrics();
+          const response = await getLyricsToMessage(id);
+
+          if (response) {
+            setLyrics(response.lyrics);
+            setAudioUrls(response.audio_urls);
+          } else {
+            console.error("Resposta nula recebida");
+          }
+        } else {
+          console.error("ID não fornecido");
         }
-    }, [id]);
+      } catch (error) {
+        console.error("Erro ao buscar letras:", error);
+      }
+
+    };
+    if (id) {
+      fetchLyrics();
+    }
+  }, [id]);
 
 
   const downloadMp3Files = async (urls: string[]) => {
     try {
-  
+
       for (let i = 0; i < urls.length; i++) {
         const url = urls[i];
         const response = await fetch(url);
         if (!response.ok) throw new Error(`Erro ao baixar arquivo ${i + 1}`);
-  
+
         const blob = await response.blob();
         const blobUrl = window.URL.createObjectURL(blob);
         const filename = `sagatiba_${Date.now()}_${i + 1}.mp3`;
-  
+
         const link = document.createElement("a");
         link.href = blobUrl;
         link.download = filename;
@@ -61,7 +59,7 @@ export const Message = () => {
         link.click();
         document.body.removeChild(link);
       }
-  
+
     } catch (error) {
       console.error("Erro ao baixar os arquivos:", error);
       alert("Erro ao baixar os arquivos: " + (error as any).message);
@@ -76,7 +74,7 @@ export const Message = () => {
         <h1>BORA ESCUTAR UMA MÚSICA?</h1>
 
         <p className="description">
-        Seu amigo Sagalover te mandou uma música feita especialmente pra você, pra que você consiga sentir o ritmo da Sagatiba com Maiara e Maraisa!
+          Seu amigo Sagalover te mandou uma música feita especialmente pra você, pra que você consiga sentir o ritmo da Sagatiba com Maiara e Maraisa!
         </p>
 
         <button
@@ -92,23 +90,15 @@ export const Message = () => {
 
           <div className="lyrics">
             <div className="lyrics-holder">
-              <pre>{lyrics}</pre>
+              <pre>{lyrics.replace(/\[(intro|verse|outro)\]/gi, "").trim()}</pre>
             </div>
           </div>
         </div>
 
-        <div className="share">
-          <p>compartilhe </p>
-
-          <div className="socials">
-            <img src={Whats} alt="" />
-            <img src={Insta} alt="" />
-          </div>
-        </div>
 
         <p className="advise">
-          Mas não esquece: rolê bom, é rolê consciente. <br />
-          Só compartilhe com maiores de 18 anos.
+          Beba com moderação. <br />
+          Não compartilhe com menores de 18 anos.
         </p>
       </div>
     </Container>

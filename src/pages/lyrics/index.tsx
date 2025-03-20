@@ -113,7 +113,6 @@ export const LyricsPage = () => {
     if (navigator.share) {
       try {
         await navigator.share({
-          title: "Sagalover, olha quem tem um convite para você!",
           url,
         });
         console.log("Link compartilhado com sucesso!");

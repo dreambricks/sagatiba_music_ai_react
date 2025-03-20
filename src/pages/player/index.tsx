@@ -73,7 +73,6 @@ export const Player = () => {
     if (navigator.share) {
       try {
         await navigator.share({
-          text: "Sagalover, olha quem tem um convite para você!",
           url,
         });
         console.log("Link compartilhado com sucesso!");
@@ -126,19 +125,15 @@ export const Player = () => {
           </div>
           <div className="lyrics">
             <div className="lyrics-holder">
-              <pre>{lyrics}</pre>
+              <pre>{lyrics.replace(/\[(intro|verse|outro)\]/gi, "").trim()}</pre>
             </div>
           </div>
         </div>
 
-        <div className="share">
-          <p>compartilhe </p>
-
-        </div>
 
         <p className="advise">
-          Mas não esquece: rolê bom, é rolê consciente. <br />
-          Só compartilhe com maiores de 18 anos.
+          Beba com moderação. <br />
+          Não compartilhe com menores de 18 anos.
         </p>
       </div>
     </Container>
