@@ -4,7 +4,7 @@ import { Container } from "./styles";
 import { useEffect, useState } from "react";
 import { getLyricsToMessage } from "../../service";
 import { useLocation } from "react-router";
-import Download from "../../assets/download-music.png";
+import Download from "../../assets/download_lyric.gif";
 import { AudioPlayer } from "./Player";
 import { toast } from "react-toastify";
 
@@ -110,13 +110,27 @@ export const Player = () => {
           pra que você consiga sentir o ritmo da Sagatiba com Maiara e Maraisa!
         </p>
 
-        <div className="container-player">
-          {audioUrls.length >= 1 && <AudioPlayer audioUrl={audioUrls[Number(index)]} />}
-          <div className="socials">
-            <img src={DownloadBtn} alt="" onClick={() => audioUrls.length > 0 && downloadMp3File(audioUrls[Number(index)])} />
-            <img src={Share} alt="" onClick={() => compartilharLink(Number(index))} />
+        {index !== null ? (
+          <div className="container-player">
+            {audioUrls.length >= 1 && <AudioPlayer audioUrl={audioUrls[Number(index)]} />}
+            <div className="socials">
+              <img src={DownloadBtn} alt="" onClick={() => audioUrls.length > 0 && downloadMp3File(audioUrls[Number(index)])} />
+              <img src={Share} alt="" onClick={() => compartilharLink(Number(index))} />
+            </div>
           </div>
-        </div>
+        ) : (
+          <div className="players">
+            {audioUrls.slice(0, 2).map((url, idx) => (
+              <div key={idx} className="container-player">
+                {audioUrls.length >= 1 && <AudioPlayer audioUrl={url} />}
+                <div className="socials">
+                  <img src={DownloadBtn} alt="" onClick={() => audioUrls.length > 0 && downloadMp3File(url)} />
+                  <img src={Share} alt="" onClick={() => compartilharLink(idx)} />
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
 
 
         <div className="container-info">

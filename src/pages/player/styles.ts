@@ -23,19 +23,27 @@ export const Container = styled.div`
       text-align: center;
     }
 
-    .container-player {
-      margin-top: 40px;
+    .players {
       width: 100%;
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 20px;
+      gap: 40px;
 
-      .socials {
-        img {
-          cursor: pointer;
-          width: 2.5rem;
+      .container-player {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+
+        .socials {
+          img {
+            cursor: pointer;
+            width: 2.5rem;
+          }
         }
       }
     }
@@ -116,12 +124,14 @@ export const Container = styled.div`
         text-align: center;
       }
 
-      .container-player {
-        .socials {
-          display: flex;
-          gap: 10px;
-          img {
-            width: 4rem;
+      .players {
+        .container-player {
+          .socials {
+            display: flex;
+            gap: 10px;
+            img {
+              width: 4rem;
+            }
           }
         }
       }
