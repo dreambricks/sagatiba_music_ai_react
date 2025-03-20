@@ -4,7 +4,7 @@ import FormInput from "../components/formInput";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { signIn } from "../../service";
+import { resetSendEmail, signIn } from "../../service";
 import { toast } from "react-toastify";
 import { saveAccessTokenToCookie } from "../../storage";
 import { useNavigate } from "react-router";
@@ -62,14 +62,24 @@ const Login: React.FC = () => {
       const error = err as AxiosError<{ error: string }>;
 
       if (error.status === 403) {
-        toast.error(error.response?.data.error ?? "Erro inesperado");
+        const errorMessage = error.response?.data.error || "Erro inesperado";
+        const toastId = toast.error(`${errorMessage}. Clique aqui para reenviar o link ao e-mail`, {
+          onClick: async () => {
+            toast.dismiss(toastId);
+            const response = await resetSendEmail(data.email);
+            if (response.status === 200) {
+              toast.success("Link enviado com sucesso");
+            } else {
+              toast.error("Erro ao enviar link");
+            }
+          },
+        });
         return;
       }
 
       toast.error("Credencias incorretas, tente novamente");
     }
   };
-
   return (
     <Styled.Container>
       <Styled.SunImage />

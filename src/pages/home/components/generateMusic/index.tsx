@@ -2,6 +2,7 @@ import { forwardRef } from "react";
 import GerarMusica from "../../../../assets/gerar-musica.svg";
 import { Container } from "./style";
 import Loading from "../../../../assets/spinner_sem_fundo_ver2.gif";
+import Cristalina from "../../../../assets/cristalina.png";
 
 interface GenerateMusicProps {
   generateMusic: () => void;
@@ -19,7 +20,7 @@ export const GenerateMusic = forwardRef<HTMLDivElement, GenerateMusicProps>(
           <div className="content" ref={ref}>
             <p>Tá na hora de Sagatibar!</p>
 
-            <img className="gerar-musica" src={GerarMusica} alt="" onClick={() => {
+            <img className={loading ? "cristalina" : "gerar-musica"} src={loading ? Cristalina : GerarMusica} alt="" onClick={() => {
               generateMusic();
               onFill();
             }} />

@@ -37,6 +37,10 @@ export const Container = styled.div`
         cursor: pointer;
       }
 
+      .cristalina {
+        width: 35%;
+      }
+
       p {
         width: 100%;
         text-align: center;
@@ -52,7 +56,7 @@ export const Container = styled.div`
 
         img {
           width: 100%;
-          max-width: 200px;
+          max-width: 150px;
         }
       }
     }
@@ -76,6 +80,13 @@ export const Container = styled.div`
         p {
           font-size: 1.5rem;
         }
+
+        .loading {
+          img {
+            width: 100%;
+            max-width: 200px;
+          }
+        }
       }
     }
   }
@@ -91,6 +102,13 @@ export const Container = styled.div`
 
         p {
           font-size: 1.6rem;
+        }
+
+        .loading {
+          img {
+            width: 100%;
+            max-width: 250px;
+          }
         }
       }
     }
@@ -112,8 +130,19 @@ export const Container = styled.div`
   @media (min-width: 1024px) {
     .generate-music {
       .content {
+        .cristalina {
+          width: 20%;
+        }
+
         p {
           font-size: 1.8rem;
+        }
+
+        .loading {
+          img {
+            width: 100%;
+            max-width: 240px;
+          }
         }
       }
     }
@@ -132,6 +161,9 @@ export const Container = styled.div`
   @media (min-width: 1540px) {
     .generate-music {
       .content {
+        .cristalina {
+          width: 15%;
+        }
         .gerar-musica {
           width: 30%;
         }
