@@ -13,11 +13,7 @@ const AgeMiddleware = () => {
   }
 
   return (
-    <Navigate
-      to={`/age-gate${location.search}`}
-      state={{ from: location.pathname + location.search }}
-      replace
-    />
+    <Navigate to="/age-gate" state={{ from: location.pathname }} replace />
   );
 };
 
