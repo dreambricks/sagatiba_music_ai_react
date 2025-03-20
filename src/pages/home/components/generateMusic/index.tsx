@@ -2,7 +2,7 @@ import { forwardRef, useEffect } from "react";
 import GerarMusica from "../../../../assets/gerar-musica.svg";
 import { Container } from "./style";
 import Loading from "../../../../assets/spinner_sem_fundo_ver2.gif";
-import Cristalina from "../../../../assets/cristalina.png";
+import Cristalina from "../../../../assets/CRISTALINA.png";
 
 interface GenerateMusicProps {
   generateMusic: () => void;
