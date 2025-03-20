@@ -55,7 +55,9 @@ const AgeGate: React.FC = () => {
     setAgeVerified(true);
 
     const desiredUrl = location.state?.from || "/login";
-    navigate(desiredUrl);
+    const searchParams = location.search;
+
+    navigate(desiredUrl + searchParams);
   };
 
   return (
