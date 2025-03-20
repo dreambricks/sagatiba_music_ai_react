@@ -198,7 +198,7 @@ export const Container = styled.div`
         padding: 85px 99px 21px 161px;
 
         .lyrics-holder {
-          font-size: 1.4rem;
+          font-size: 1.8rem;
         }
       }
     }
@@ -209,7 +209,8 @@ export const Container = styled.div`
 
     .content {
       h1 {
-        font-size: 6rem;
+        font-size: 4.5rem;
+        text-align: center;
       }
 
       .description {
@@ -226,13 +227,14 @@ export const Container = styled.div`
       .container-info {
         gap: 2px;
         height: 1059px;
+        grid-template-rows: 1059px;
 
         .download-img {
           max-width: 697px;
         }
 
         .lyrics {
-          border-radius: 113px;
+          border-radius: 80px;
           padding: 61px 19px 50px 82px;
 
           .lyrics-holder {

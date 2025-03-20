@@ -111,11 +111,13 @@ export const Player = () => {
         </p>
 
         {index !== null ? (
-          <div className="container-player">
-            {audioUrls.length >= 1 && <AudioPlayer audioUrl={audioUrls[Number(index)]} />}
-            <div className="socials">
-              <img src={DownloadBtn} alt="" onClick={() => audioUrls.length > 0 && downloadMp3File(audioUrls[Number(index)])} />
-              <img src={Share} alt="" onClick={() => compartilharLink(Number(index))} />
+          <div className="players">
+            <div className="container-player">
+              {audioUrls.length >= 1 && <AudioPlayer audioUrl={audioUrls[Number(index)]} />}
+              <div className="socials">
+                <img src={DownloadBtn} alt="" onClick={() => audioUrls.length > 0 && downloadMp3File(audioUrls[Number(index)])} />
+                <img src={Share} alt="" onClick={() => compartilharLink(Number(index))} />
+              </div>
             </div>
           </div>
         ) : (
