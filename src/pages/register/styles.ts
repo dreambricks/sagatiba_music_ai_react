@@ -40,6 +40,7 @@ export const Title = styled.h1`
   text-align: center;
   font-size: 52px;
   font-family: "Gopher-Bold";
+  z-index: 1;
 
   @media (max-width: 1024px) {
     margin-top: 32px;
