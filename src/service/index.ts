@@ -5,7 +5,7 @@ import { IRegisterFormField } from "../pages/register";
 import { applyNumberOnly } from "../utils/MaskUtils";
 import { encryptText } from "../utils/CryptUtils";
 
-const UR_BASE = "http://18.229.132.107:5001";
+const UR_BASE = "https://sagatibamusicapi.zapto.org";
 // const UR_BASE = "http://localhost:5001";
 // URL para Testes = http://18.229.132.107:5001
 
