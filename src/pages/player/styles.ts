@@ -48,6 +48,18 @@ export const Container = styled.div`
       }
     }
 
+    .loading {
+      margin-top: 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 24px;
+      img {
+        width: 80%;
+        max-width: 490px;
+      }
+    }
+
     .container-info {
       margin-top: 50px;
 

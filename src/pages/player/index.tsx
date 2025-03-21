@@ -7,6 +7,7 @@ import { useLocation } from "react-router";
 import Download from "../../assets/download_lyric.gif";
 import { AudioPlayer } from "./Player";
 import { toast } from "react-toastify";
+import Loading from "../../assets/spinner_sem_fundo_ver2.gif";
 
 export const Player = () => {
   const location = useLocation();
@@ -15,6 +16,7 @@ export const Player = () => {
   const index = params.get("index");
   const [lyrics, setLyrics] = useState("");
   const [audioUrls, setAudioUrls] = useState<string[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     console.log("Executando busca de letras...");
@@ -27,6 +29,7 @@ export const Player = () => {
           if (response) {
             setLyrics(response.lyrics);
             setAudioUrls(response.audio_urls);
+            setLoading(false);
           } else {
             console.error("Resposta nula recebida");
           }
@@ -134,17 +137,21 @@ export const Player = () => {
           </div>
         )}
 
-
-        <div className="container-info">
-          <div className="download-img">
-            <img src={Download} alt="" />
-          </div>
-          <div className="lyrics">
-            <div className="lyrics-holder">
-              <pre>{lyrics.replace(/\[(intro|verse|outro)\]|\*/gi, "").trim()}</pre>
+        {loading == false ? (
+          <div className="container-info">
+            <div className="download-img">
+              <img src={Download} alt="" />
             </div>
+            <div className="lyrics">
+              <div className="lyrics-holder">
+                <pre>{lyrics.replace(/\[(intro|verse|outro)\]|\*/gi, "").trim()}</pre>
+              </div>
+            </div>
+          </div>) : (
+          <div className="loading">
+            <img src={Loading} alt="" />
           </div>
-        </div>
+        )}
 
 
         <p className="advise">
