@@ -12,8 +12,8 @@ interface SendMessageProps {
 export const SendMessage = forwardRef<HTMLDivElement, SendMessageProps>(
   ({ onAddMessage, onFill }, ref) => {
     return (
-      <Container>
-        <div className="top" ref={ref}>
+      <Container  ref={ref}>
+        <div className="top">
           <img src={Lemon} alt="" className="lemon" />
         </div>
         <img alt="" className="banner" />

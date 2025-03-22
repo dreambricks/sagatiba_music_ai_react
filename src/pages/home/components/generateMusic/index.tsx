@@ -25,11 +25,11 @@ export const GenerateMusic = forwardRef<HTMLDivElement, GenerateMusicProps>(
     }, []);
 
     return (
-      <Container>
+      <Container ref={ref}>
         <section className="generate-music">
           <img className="banner" alt="" />
 
-          <div className="content" ref={ref}>
+          <div className="content" >
             <p>Tá na hora de Sagatibar!</p>
 
             <img className={loading ? "cristalina" : "gerar-musica"} src={loading ? Cristalina : GerarMusica} alt="" onClick={() => {

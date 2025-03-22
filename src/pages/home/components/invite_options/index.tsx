@@ -20,16 +20,16 @@ export const InviteOptions = forwardRef<HTMLDivElement, InviteOptionsProps>(
     };
 
     return (
-      <InviteForContainer>
+      <InviteForContainer >
         <div className="content">
           <img src={Balde} alt="" className="banner" />
         </div>
 
-        <div className="invite">
+        <div className="invite" ref={ref}>
           <img src={Sun} alt="" className="sun" />
 
           <div className="content">
-            <div className="texts" ref={ref}>
+            <div className="texts" >
               <div className="invite_options_text_blue">
                 <h2>Conta pra gente:</h2>
                 <h2>qual o convite do rolê?</h2>

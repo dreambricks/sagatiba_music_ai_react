@@ -129,14 +129,19 @@ export const Home = () => {
   const scrollToSection = (
     sectionRef: React.RefObject<HTMLDivElement>,
     offset: number = 0,
-    duration: number = 1000 // Tempo total em milissegundos
+    duration: number = 1000
   ) => {
     if (sectionRef.current) {
       const startPosition = window.scrollY;
-      const targetPosition =
-        sectionRef.current.getBoundingClientRect().top +
-        window.scrollY +
-        offset;
+
+      const element = sectionRef.current;
+      const elementTop = element.getBoundingClientRect().top + window.scrollY;
+      const elementHeight = element.offsetHeight;
+      const viewportHeight = window.innerHeight;
+
+      // Centraliza o elemento no meio da tela
+      const targetPosition = elementTop - (viewportHeight / 2) + (elementHeight / 2) + offset;
+
       const distance = targetPosition - startPosition;
       const startTime = performance.now();
 

@@ -27,8 +27,8 @@ export const Sagalovers = forwardRef<HTMLDivElement, SagaloverProps>(
           <img src={Mountains} alt="" />
         </div>
 
-        <div className="content" ref={ref}>
-          <div className="body">
+        <div className="content" >
+          <div className="body" ref={ref}>
             <p className="sagalover-name">Primeiro, o nome do</p>
             <img src={Sagalover} alt="" />
 
@@ -52,19 +52,6 @@ export const Sagalovers = forwardRef<HTMLDivElement, SagaloverProps>(
               Mas, pra Seguir na Saga, tem que ter responsa, hein? Só
               compartilhe o convite com maiores de 18 anos.
             </p>
-
-            {/* <div className="terms">
-              <input
-                type="checkbox"
-                onChange={(e) => {
-                  setTermsAccepted(e.target.checked);
-                  onAacceptTerm(e.target.checked);
-                }}
-              />
-              <p onClick={openModal}>
-                EU ACEITO OS TERMOS DE USO E RESPONSABILIDADE DE COMPARTILHAMENTO
-              </p>
-            </div> */}
 
             <NextButton title="PRÓXIMO" onClick={onFill} />
 
