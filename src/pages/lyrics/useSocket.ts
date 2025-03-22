@@ -3,11 +3,11 @@ import { io, Socket } from "socket.io-client";
 import { getPhoneFromCookie } from "../../storage";
 
 const UR_BASE = "wss://sagatibamusicapi.zapto.org";
-// const UR_BASE = "ws://localhost:5001";
 
 export const useWebSocket = (task_id: number | undefined) => {
   const [message, setMessage] = useState(null);
   const [isConnected, setIsConnected] = useState(false);
+  const [hasReceivedAudio, setHasReceivedAudio] = useState(false);
   const socketRef = useRef<Socket | null>(null);
   const reconnectInterval = useRef<number | undefined>(undefined);
   const intervalRef = useRef<number | null>(null);
@@ -15,7 +15,7 @@ export const useWebSocket = (task_id: number | undefined) => {
   const phone = getPhoneFromCookie();
 
   useEffect(() => {
-    if (!task_id) return;
+    if (!task_id || hasReceivedAudio) return;
 
     const connectWebSocket = () => {
       console.log("Conectando ao WebSocket...");
@@ -38,11 +38,10 @@ export const useWebSocket = (task_id: number | undefined) => {
       });
 
       socketRef.current.on("audio_response", (data) => {
-        console.log("Mensagem recebida:", data);
-
-        if (data.task_id == task_id) {
+        if (data.task_id === task_id) {
           console.log("Mensagem recebida:", data);
           setMessage(data);
+          setHasReceivedAudio(true);
 
           if (intervalRef.current) {
             clearInterval(intervalRef.current);
@@ -52,15 +51,12 @@ export const useWebSocket = (task_id: number | undefined) => {
             "Desconectando do WebSocket após receber 'audio_response'."
           );
           socketRef.current?.disconnect();
+
+          if (reconnectInterval.current) {
+            clearInterval(reconnectInterval.current);
+            reconnectInterval.current = undefined;
+          }
         }
-      });
-
-      socketRef.current.on("message", (message_received) => {
-        console.log("Mensagem recebida:", message_received);
-      });
-
-      socketRef.current.on("error_message", (error_message_received) => {
-        console.log("Mensagem de erro recebida:", error_message_received);
       });
 
       socketRef.current.on("disconnect", () => {
@@ -68,14 +64,14 @@ export const useWebSocket = (task_id: number | undefined) => {
         setIsConnected(false);
       });
 
-      socketRef.current.on("connect_error", (error) => {
-        console.error("Erro na conexão WebSocket:", error);
+      socketRef.current.on("connect_error", () => {
+        console.error("Erro na conexão WebSocket.");
         attemptReconnect();
       });
     };
 
     const attemptReconnect = () => {
-      if (!reconnectInterval.current) {
+      if (!reconnectInterval.current && !hasReceivedAudio) {
         reconnectInterval.current = setInterval(() => {
           if (!isConnected) {
             console.log("Tentando reconectar ao WebSocket...");
@@ -88,6 +84,12 @@ export const useWebSocket = (task_id: number | undefined) => {
       }
     };
 
+    // const startPooling = () => {
+    //   intervalRef.current = setInterval(() => {
+    //     socketRef.current?.emit("request_audio_url", { task_id, phone });
+    //   }, 5000);
+    // };
+
     connectWebSocket();
 
     return () => {
@@ -99,18 +101,12 @@ export const useWebSocket = (task_id: number | undefined) => {
         clearInterval(reconnectInterval.current);
       }
     };
-  }, [task_id]);
-
-  // const startPooling = () => {
-  //   intervalRef.current = setInterval(() => {
-  //     socketRef.current?.emit("request_audio_url", { task_id, phone });
-  //   }, 5000);
-  // };
+  }, [task_id, hasReceivedAudio]);
 
   useEffect(() => {
     return () => {
       if (intervalRef.current) {
-        clearInterval(intervalRef?.current);
+        clearInterval(intervalRef.current);
       }
     };
   }, []);
