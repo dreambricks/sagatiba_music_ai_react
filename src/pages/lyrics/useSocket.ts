@@ -51,8 +51,8 @@ export const useWebSocket = (task_id: number | undefined) => {
           console.log(
             "Desconectando do WebSocket após receber 'audio_response'."
           );
+          socketRef.current?.disconnect();
         }
-        socketRef.current?.disconnect();
       });
 
       socketRef.current.on("message", (message_received) => {
