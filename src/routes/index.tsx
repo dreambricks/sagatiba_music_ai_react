@@ -12,41 +12,46 @@ import Register from "../pages/register";
 import AgeMiddleware from "./middlewares/ageMiddleware";
 import AuthMiddleware from "./middlewares/authMiddleware";
 import { Erro } from "../pages/erro";
+import OverBookMiddleware from "./middlewares/overBookMiddleware";
+import { Overbook } from "../pages/overBook";
 
 export const Routing = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Tampao />} />
-        <Route path="/recover-password" element={<RecoverPasswordScreen />} />
-        <Route
-          path="/reset_password/:token"
-          element={<ResetPasswordScreen />}
-        />
-        <Route path="/age-gate" element={<AgeGate />} />
-        <Route path="/gerar-musica" element={<Home />} />
-        <Route
-          path="/erro/:message"
-          element={<Erro />}
-        />
+        <Route path="/overbook" element={<Overbook />} />
+        <Route element={<OverBookMiddleware />}>
+          <Route path="/" element={<Tampao />} />
+          <Route path="/recover-password" element={<RecoverPasswordScreen />} />
+          <Route
+            path="/reset_password/:token"
+            element={<ResetPasswordScreen />}
+          />
+          <Route path="/age-gate" element={<AgeGate />} />
+          <Route path="/gerar-musica" element={<Home />} />
+          <Route
+            path="/erro/:message"
+            element={<Erro />}
+          />
 
-        <Route
-          path="/erro"
-          element={<Erro />}
-        />
+          <Route
+            path="/erro"
+            element={<Erro />}
+          />
 
-        <Route element={<AgeMiddleware />}>
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/mensagem" element={<Player />} />
+          <Route element={<AgeMiddleware />}>
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/mensagem" element={<Player />} />
+          </Route>
+
+          <Route element={<AuthMiddleware />}>
+            <Route path="/letras" element={<LyricsPage />} />
+            <Route path="/baixar" element={<Message />} />
+          </Route>
+
+          <Route path="*" element={<Home />} />
         </Route>
-
-        <Route element={<AuthMiddleware />}>
-          <Route path="/letras" element={<LyricsPage />} />
-          <Route path="/baixar" element={<Message />} />
-        </Route>
-
-        <Route path="*" element={<Home />} />
       </Routes>
     </BrowserRouter>
   );
