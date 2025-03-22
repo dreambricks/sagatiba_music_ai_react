@@ -79,7 +79,7 @@ export const LyricsPage = () => {
     if ((message as any)?.audio_urls) {
       setAudioUrls((message as any).audio_urls);
       setLoading(false);
-      clearLocalStorage();
+      // clearLocalStorage();
     }
   }, [message]);
 
