@@ -2,7 +2,7 @@
 import { Container } from "./styles";
 import Download from "../../assets/download_lyric.gif";
 import { useEffect, useRef, useState } from "react";
-import { clearLocalStorage, getLyrics, getTaskId } from "../../storage";
+import { getLyrics, getTaskId } from "../../storage";
 import { useWebSocket } from "./useSocket";
 import { CustomButton } from "./components/custom-button";
 import { toast } from "react-toastify";
