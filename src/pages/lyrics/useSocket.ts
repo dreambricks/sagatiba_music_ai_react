@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { io, Socket } from "socket.io-client";
 import { getPhoneFromCookie } from "../../storage";
 
-const UR_BASE = "wss://sagatibamusicapi.zapto.org";
+const UR_BASE = "wss://sagatibamusicapi.zapto.org:5001";
 
 export const useWebSocket = (task_id: number | undefined) => {
   const [message, setMessage] = useState(null);
