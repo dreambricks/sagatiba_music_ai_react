@@ -137,9 +137,9 @@ const Register: React.FC = () => {
 
       setAgeVerified(true);
 
-      toast.success("Cadastro realizado com sucesso! Verifique seu e-mail para validar a conta.");
+      // toast.success("Cadastro realizado com sucesso! Verifique seu e-mail para validar a conta.");
 
-      navigate("/login");
+      navigate("/email");
     } catch (error: unknown) {
       const errorMessage = (error as { response?: { data?: { error?: string } } })?.response?.data?.error || "Ocorreu um erro inesperado. Tente novamente.";
       toast.error(errorMessage);

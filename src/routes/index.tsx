@@ -14,6 +14,7 @@ import AuthMiddleware from "./middlewares/authMiddleware";
 import { Erro } from "../pages/erro";
 import OverBookMiddleware from "./middlewares/overBookMiddleware";
 import { Overbook } from "../pages/overBook";
+import { EmailSent } from "../pages/emailSent";
 
 export const Routing = () => {
   return (
@@ -43,6 +44,7 @@ export const Routing = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/mensagem" element={<Player />} />
+            <Route path="/email" element={<EmailSent />} />
           </Route>
 
           <Route element={<AuthMiddleware />}>

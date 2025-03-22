@@ -34,7 +34,7 @@ export const useWebSocket = (task_id: number | undefined) => {
         console.log("Conectado ao WebSocket.");
         setIsConnected(true);
         socketRef.current?.emit("request_audio_url", { task_id, phone });
-        startPooling();
+        // startPooling();
       });
 
       socketRef.current.on("audio_response", (data) => {
@@ -101,11 +101,11 @@ export const useWebSocket = (task_id: number | undefined) => {
     };
   }, [task_id]);
 
-  const startPooling = () => {
-    intervalRef.current = setInterval(() => {
-      socketRef.current?.emit("request_audio_url", { task_id, phone });
-    }, 5000);
-  };
+  // const startPooling = () => {
+  //   intervalRef.current = setInterval(() => {
+  //     socketRef.current?.emit("request_audio_url", { task_id, phone });
+  //   }, 5000);
+  // };
 
   useEffect(() => {
     return () => {
