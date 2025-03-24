@@ -8,13 +8,13 @@ export const Container = styled.div`
 
   .content {
     grid-column: 2/3;
-    padding: 100px 0 60px;
+    padding: 60px 0 60px;
     display: flex;
     flex-direction: column;
     align-items: center;
 
     h1 {
-      font-size: 1.3rem;
+      font-size: 2rem;
       font-family: "Gopher-Bold", "sans-serif";
     }
 
@@ -49,7 +49,7 @@ export const Container = styled.div`
     }
 
     .button-phrases {
-      margin-top: 100px;
+      margin-top: 80px;
       margin-bottom: 50px;
       font-family: "Gopher-Bold", "sans-serif";
       cursor: pointer;
@@ -60,8 +60,6 @@ export const Container = styled.div`
     }
 
     .container-info {
-      margin-top: 50px;
-
       .download-img {
         border-radius: 40px;
         overflow: hidden;
@@ -74,7 +72,7 @@ export const Container = styled.div`
       }
 
       .lyrics {
-        margin-top: 40px;
+        margin-top: 20px;
         background: #32c034;
         border-radius: 40px;
         height: 320px;

@@ -144,7 +144,7 @@ export const Player = () => {
             </div>
             <div className="lyrics">
               <div className="lyrics-holder">
-                <pre>{lyrics.replace(/\[(intro|verse|outro)\]|\*/gi, "").trim()}</pre>
+                <pre>{lyrics.replace(/\[(intro|verse|outro)\]|\*|markdown/gi, "").trim()}</pre>
               </div>
             </div>
           </div>) : (

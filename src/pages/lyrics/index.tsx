@@ -143,11 +143,18 @@ export const LyricsPage = () => {
   return (
     <Container>
       <div className="content">
-        <h1>ESTAMOS COMPONDO SUA MÚSICA. AGUARDE, VAI LEVAR POUCOS MINUTOS.</h1>
-
-        <p className="description">
-          Bora seguir na saga? Aguarde enquanto geramos a sua música.
-        </p>
+        {loading &&
+          <h1>ESTAMOS COMPONDO SUA MÚSICA. AGUARDE, VAI LEVAR POUCOS MINUTOS.</h1>
+        }
+        {loading ?
+          < p className="description">
+            Bora seguir na saga? Aguarde enquanto geramos a sua música.
+          </p>
+          :
+          <div className="content">
+            <h1>Sua música está pronta!</h1>
+          </div>
+        }
 
         {loading
           ?
@@ -183,7 +190,7 @@ export const LyricsPage = () => {
 
           <div className="lyrics">
             <div className="lyrics-holder">
-              <pre>{lyrics.replace(/\[(intro|verse|outro)\]|\*/gi, "").trim()}</pre>
+              <pre>{lyrics.replace(/\[(intro|verse|outro)\]|\*|markdown/gi, "").trim()}</pre>
             </div>
           </div>
         </div>
@@ -193,6 +200,6 @@ export const LyricsPage = () => {
           Não compartilhe com menores de 18 anos.
         </p>
       </div>
-    </Container>
+    </Container >
   );
 };
