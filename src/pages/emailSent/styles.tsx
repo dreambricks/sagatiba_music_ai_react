@@ -57,6 +57,10 @@ export const Container = styled.section`
         font-size: 1.4rem;
         color: #333;
       }
+      span {
+        color: #333;
+        
+      }
     }
   }
 

@@ -13,7 +13,7 @@ export const EmailSent = () => {
         <div className="card">
           <div className="body">
             <h1 className="type">Um link de validação foi enviado para sua caixa de mensagens </h1>
-            <p>Você já pode fechar esta página</p>
+            <span>Verifique sua caixa de spam</span>
           </div>
         </div>
       </div>
