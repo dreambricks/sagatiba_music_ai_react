@@ -143,16 +143,24 @@ export const LyricsPage = () => {
   return (
     <Container>
       <div className="content">
-        {loading &&
-          <h1>ESTAMOS COMPONDO SUA MÚSICA. AGUARDE, VAI LEVAR POUCOS MINUTOS.</h1>
-        }
+
         {loading ?
-          < p className="description">
-            Bora seguir na saga? Aguarde enquanto geramos a sua música.
-          </p>
+          <div className="tittle">
+            <h1>ma.I.A.ra e mar.A.I.sa estão aquecendo a voz!</h1>
+            <h1>Sua música será gerada em até 10 minutinhos</h1>
+            < p className="description">
+              Fica de boa que, quando ela estiver pronta, a gente te manda uma mensagem.
+            </p>
+          </div>
           :
-          <div className="content">
-            <h1>Sua música está pronta!</h1>
+          <div className="tittle">
+            <h1>
+              Bora seguir na saga? Sua música tá pronta!
+            </h1>
+            <div className="description">
+              <p>Mas como  a inteligência artificial ainda tá aprendendo a viver, geramos duas versões. </p>
+              <p>Assim você escolhe a que mais combina com seu rolê</p>
+            </div>
           </div>
         }
 

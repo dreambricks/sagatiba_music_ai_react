@@ -13,14 +13,23 @@ export const Container = styled.div`
     flex-direction: column;
     align-items: center;
 
-    h1 {
-      font-size: 2rem;
-      font-family: "Gopher-Bold", "sans-serif";
-    }
+    .tittle {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      max-width: 90%;
 
-    .description {
-      margin-top: 40px;
-      text-align: center;
+      h1 {
+        text-align: center;
+        font-size: 1.5rem;
+        font-family: "Gopher-Bold", "sans-serif";
+      }
+
+      .description {
+        margin-top: 30px;
+        text-align: center;
+      }
     }
 
     .players {
@@ -72,7 +81,7 @@ export const Container = styled.div`
       }
 
       .lyrics {
-        margin-top: 20px;
+        margin-top: 40px;
         background: #32c034;
         border-radius: 40px;
         height: 320px;
@@ -134,9 +143,11 @@ export const Container = styled.div`
     grid-template-columns: 1fr 560px 1fr !important;
 
     .content {
-      .description {
-        max-width: 560px;
-        text-align: center;
+      .tittle {
+        max-width: 80%;
+        .description {
+          text-align: center;
+        }
       }
       .players {
         .container-player {
@@ -188,7 +199,6 @@ export const Container = styled.div`
 
     .content {
       .description {
-        max-width: 560px;
         text-align: center;
       }
 
@@ -203,7 +213,6 @@ export const Container = styled.div`
 
     .content {
       .description {
-        max-width: 560px;
         text-align: center;
       }
 
@@ -222,14 +231,16 @@ export const Container = styled.div`
     grid-template-columns: 1fr 1626px 1fr !important;
 
     .content {
-      h1 {
-        font-size: 4.5rem;
-        text-align: center;
-      }
+      .tittle {
+        max-width: 80%;
+        h1 {
+          font-size: 4.5rem;
+          text-align: center;
+        }
 
-      .description {
-        font-size: 2.56rem;
-        max-width: 968px;
+        .description {
+          font-size: 2.56rem;
+        }
       }
 
       /* button {
