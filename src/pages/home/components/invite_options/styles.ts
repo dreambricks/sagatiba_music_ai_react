@@ -186,10 +186,78 @@ export const InviteForContainer = styled.div`
   @media (min-width: 1280px) {
     .invite {
       .content {
-        padding: 130px 0;
+        padding: 50px 0;
         .option-check {
           gap: 50px;
-          margin-top: 120px;
+          margin-top: 50px;
+          .button {
+            background: black;
+            font-size: 3rem;
+            border: none;
+            padding: 17px 0;
+            border-radius: 41px;
+            cursor: pointer;
+
+            &.selected {
+              outline: 6px solid #fff;
+            }
+
+            &:nth-child(1) {
+              color: #f8e711;
+              grid-column: 1 / 5;
+            }
+
+            &:nth-child(2) {
+              color: #ff9900;
+              grid-column: 5 / 13;
+            }
+
+            &:nth-child(3) {
+              color: #0091d0;
+              grid-column: 1 / 7;
+            }
+
+            &:nth-child(4) {
+              color: #73bf44;
+              grid-column: 7 / 13;
+            }
+
+            &:nth-child(5) {
+              color: #73bf44;
+              grid-column: 1 / 6;
+            }
+
+            &:nth-child(6) {
+              color: #ff9900;
+              grid-column: 6 / 9;
+            }
+
+            &:nth-child(7) {
+              color: #0091d0;
+              grid-column: 9 / 13;
+            }
+          }
+        }
+
+        .texts {
+          gap: 20px;
+
+          .invite_options_text_black,
+          .invite_options_text_blue {
+            font-size: 1.8rem;
+          }
+        }
+      }
+    }
+  }
+
+  @media (min-width: 1920px) {
+    .invite {
+      .content {
+        padding: 50px 0;
+        .option-check {
+          gap: 50px;
+          margin-top: 50px;
           .button {
             background: black;
             font-size: 4rem;
