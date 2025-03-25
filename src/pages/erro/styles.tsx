@@ -28,7 +28,6 @@ export const Container = styled.section`
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px;
     height: 100vh;
 
     .error-card {
@@ -40,6 +39,7 @@ export const Container = styled.section`
       max-width: 400px;
       width: 90%;
       z-index: 2;
+      margin: 20px;
     }
 
     .type {
@@ -92,5 +92,29 @@ export const Container = styled.section`
         max-width: 600px;
       }
     }
+  }
+`;
+
+
+export const Button = styled.button`
+  background-color: #ff4b15;
+  padding: 16px;
+  width: 70%;
+  border-top-right-radius: 16px;
+  border-bottom-left-radius: 16px;
+  text-transform: uppercase;
+  color: white;
+  font-size: 16px;
+  border: transparent;
+  cursor: pointer;
+  font-family: "Gopher-Bold";
+
+  &:hover {
+    background-color: #cc3c10;
+  }
+
+  @media (max-width: 1024px) {
+    padding: 8px;
+    font-size: 12px;
   }
 `;

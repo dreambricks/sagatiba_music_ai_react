@@ -1,4 +1,4 @@
-import { Container } from "./styles";
+import { Button, Container } from "./styles";
 import Mountains from "../../../src/assets/mountains.png";
 import { useParams } from "react-router";
 
@@ -18,6 +18,10 @@ export const Erro = () => {
               <>
                 <h1 className="type">Aconteceu um erro!</h1>
                 <p>{message}</p>
+
+                {message === "Usuário não encontrado ou já validado." && (
+                  <Button onClick={() => window.location.href = "/register"}>cadastre-se ou faça o login</Button>
+                )}
               </>
             ) : (
               <h1 className="type">Erro inesperado!</h1>
