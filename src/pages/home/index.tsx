@@ -53,10 +53,17 @@ export const Home = () => {
       { ref: ig, name: "Usuário" },
       { ref: invite, name: "Convite" },
       { ref: day, name: "Dia" },
-      { ref: message, name: "Mensagem" },
-      { ref: phone, name: "Telefone" },
+      { ref: message, name: "Mensagem" }
     ];
-    console.log(fields);
+
+    for (const field of fields) {
+      if (!field.ref.current || field.ref.current.trim() === "") {
+        toast.error(`O campo ${field.name} é obrigatório!`);
+        return false;
+      }
+    }
+
+    return true;
   };
 
   const formatPhone = (phone: string) => {
@@ -66,8 +73,13 @@ export const Home = () => {
   const generateMusic = async () => {
     try {
       setLoadingLyrics(true);
-      const form = new FormData();
 
+      if (!validateForm()) {
+        setLoadingLyrics(false);
+        return;
+      }
+
+      const form = new FormData();
       form.append("destination", ig.current);
       form.append("invite_options", invite.current);
       form.append("weekdays", day.current);
@@ -76,8 +88,6 @@ export const Home = () => {
       form.append("phone", formattedPhone);
       form.append("user_oid", user?.userOid ?? "");
       addPhone(user?.phone ?? "11999999999");
-
-      validateForm();
 
       const response = await generateMusicLyric(form);
 
@@ -92,22 +102,16 @@ export const Home = () => {
     } catch (error: any) {
       console.log(error);
       if (error.status === 403) {
-        console.log(error.request.response);
         toast.error(error.response.data.error);
-
         return;
       } else if (error.status === 429) {
         toast.error(
           "Você atingiu o limite de geração de músicas. Tente novamente mais tarde!"
         );
-
         return;
       }
 
-      if (error.message) {
-        toast.error("Erro inesperado. Tente novamente mais tarde!");
-        return;
-      }
+      toast.error("Erro inesperado. Tente novamente mais tarde!");
     } finally {
       setLoadingLyrics(false);
     }
