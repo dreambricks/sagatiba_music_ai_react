@@ -2,29 +2,18 @@ import PlayIcon from "../../../assets/play-btn.svg";
 import PauseIcon from "../../../assets/btn-pause.png";
 
 import { AudioContainer, PlayButton, WaveformContainer } from "./styles";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import WaveSurfer from "wavesurfer.js";
 
 interface AudioPlayerProps {
   audioUrl: string;
+  isActive: boolean;
+  onPlay: () => void;
 }
 
-export const AudioPlayer = ({ audioUrl }: AudioPlayerProps) => {
+export const AudioPlayer = ({ audioUrl, isActive, onPlay }: AudioPlayerProps) => {
   const waveformRef = useRef<HTMLDivElement>(null);
   const wavesurferRef = useRef<WaveSurfer | null>(null);
-
-  const [isPlaying, setIsPlaying] = useState(false);
-
-  const togglePlay = () => {
-    if (wavesurferRef.current) {
-      wavesurferRef.current.playPause();
-      setIsPlaying(false);
-
-      if (wavesurferRef.current?.isPlaying()) {
-        setIsPlaying(true);
-      }
-    }
-  };
 
   useEffect(() => {
     if (!waveformRef.current) return;
@@ -43,19 +32,33 @@ export const AudioPlayer = ({ audioUrl }: AudioPlayerProps) => {
       fillParent: true,
     });
 
-    wavesurferRef?.current?.load(audioUrl);
+    wavesurferRef.current.load(audioUrl);
 
-    return () => wavesurferRef?.current?.destroy();
-  }, []);
+    return () => wavesurferRef.current?.destroy();
+  }, [audioUrl]);
+
+  useEffect(() => {
+    if (wavesurferRef.current) {
+      if (isActive) {
+        wavesurferRef.current.play();
+      } else {
+        wavesurferRef.current.pause();
+      }
+    }
+  }, [isActive]);
+
+  const handleClick = () => {
+    onPlay();
+  };
 
   return (
     <AudioContainer>
       <div className="controls">
-        <PlayButton onClick={togglePlay}>
-          {isPlaying ? (
-            <img src={PauseIcon} alt="" className="play-img" />
+        <PlayButton onClick={handleClick}>
+          {isActive ? (
+            <img src={PauseIcon} alt="Pause" className="play-img" />
           ) : (
-            <img src={PlayIcon} alt="" className="play-img" />
+            <img src={PlayIcon} alt="Play" className="play-img" />
           )}
         </PlayButton>
         <WaveformContainer ref={waveformRef} />
