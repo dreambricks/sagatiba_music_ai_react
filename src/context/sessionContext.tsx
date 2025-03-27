@@ -44,6 +44,27 @@ export const SessionProvider: React.FC<SessionProviderProps> = ({
   };
 
   const checkForUserSession = () => {
+
+   
+  // =====================================================
+  // MODO DEV: força login com usuário fake no ambiente local
+  // ATENÇÃO: remover este bloco ou comentar antes de subir para o repositório
+  // =====================================================
+  const isDev = import.meta.env.MODE === "development";
+
+  if (isDev) {
+    setUser({
+      email: "dev@local",
+      userOid: "fake-user-oid",
+      phone: "000000000",
+    });
+    setLoading(false);
+    return;
+  }
+  // =====================================================
+
+  // Lógica original de verificação do token JWT
+  
     const accessToken = getAccessTokenFromCookie();
 
     if (!accessToken) {
