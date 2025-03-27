@@ -9,16 +9,17 @@ interface AudioPlayerProps {
   audioUrl: string;
   isActive: boolean;
   onPlay: () => void;
+  onFinish?: () => void;
 }
 
-export const AudioPlayer = ({ audioUrl, isActive, onPlay }: AudioPlayerProps) => {
+export const AudioPlayer = ({ audioUrl, isActive, onPlay, onFinish }: AudioPlayerProps) => {
   const waveformRef = useRef<HTMLDivElement>(null);
   const wavesurferRef = useRef<WaveSurfer | null>(null);
 
   useEffect(() => {
     if (!waveformRef.current) return;
 
-    wavesurferRef.current = WaveSurfer.create({
+    const wavesurfer = WaveSurfer.create({
       container: waveformRef.current,
       waveColor: "#fde047",
       progressColor: "#f97316",
@@ -32,9 +33,15 @@ export const AudioPlayer = ({ audioUrl, isActive, onPlay }: AudioPlayerProps) =>
       fillParent: true,
     });
 
-    wavesurferRef.current.load(audioUrl);
+    wavesurfer.load(audioUrl);
+    wavesurferRef.current = wavesurfer;
 
-    return () => wavesurferRef.current?.destroy();
+    wavesurfer.on("finish", () => {
+      wavesurfer.seekTo(0);
+      onFinish?.();
+    });
+
+    return () => wavesurfer.destroy();
   }, [audioUrl]);
 
   useEffect(() => {

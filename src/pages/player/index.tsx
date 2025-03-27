@@ -116,6 +116,7 @@ export const Player = () => {
                   audioUrl={audioUrls[Number(index)]}
                   isActive={activeIndex === Number(index)}
                   onPlay={() => setActiveIndex(prev => (prev === Number(index) ? null : Number(index)))}
+                  onFinish={() => setActiveIndex(null)}
                 />
               )}
               <div className="socials">
@@ -132,6 +133,7 @@ export const Player = () => {
                   audioUrl={url}
                   isActive={activeIndex === idx}
                   onPlay={() => setActiveIndex(prev => (prev === idx ? null : idx))}
+                  onFinish={() => setActiveIndex(null)}
                 />
                 <div className="socials">
                   <img src={DownloadBtn} alt="Download" onClick={() => downloadMp3File(url)} />

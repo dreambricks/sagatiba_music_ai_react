@@ -166,6 +166,7 @@ export const LyricsPage = () => {
                   audioUrl={url}
                   isActive={activeIndex === idx}
                   onPlay={() => setActiveIndex(prev => (prev === idx ? null : idx))}
+                  onFinish={() => setActiveIndex(null)}
                 />
                 <div className="socials">
                   <img src={DownloadBtn} alt="Download" onClick={() => downloadMp3File(url)} />
