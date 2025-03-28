@@ -1,16 +1,23 @@
 import styled from "styled-components";
-import fundoSol from "../../assets/fundo_sol.svg";
+import fundoSol from "../../assets/age_gate_bg.png";
+import fundoSolMobile from "../../assets/mobile/age_gate_bg_mobile.png";
 
 export const Container = styled.div`
   display: flex;
   background-image: url(${fundoSol});
+  background-color: #ffef00;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
+
+  @media (max-width: 768px) {
+    background-image: url(${fundoSolMobile});
+  }
 `;
 
 export const WhiteContainer = styled.div`
