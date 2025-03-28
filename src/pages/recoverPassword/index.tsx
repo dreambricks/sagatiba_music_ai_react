@@ -43,11 +43,8 @@ const RecoverPasswordScreen: React.FC = () => {
 
   return (
     <Styled.Container>
-      <Styled.SunImage />
-
-      <Styled.Title>Recuperação de senha</Styled.Title>
-
       <Styled.FormContainer>
+        <Styled.Title>Recuperação de senha</Styled.Title>
         <form onSubmit={handleSubmit(onSubmit)}>
           <FormInput
             {...register("email")}

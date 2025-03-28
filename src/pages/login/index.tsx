@@ -65,17 +65,20 @@ const Login: React.FC = () => {
 
       if (error.status === 403) {
         const errorMessage = error.response?.data.error || "Erro inesperado";
-        const toastId = toast.error(`${errorMessage}. Clique aqui para reenviar o link ao e-mail`, {
-          onClick: async () => {
-            toast.dismiss(toastId);
-            const response = await resetSendEmail(data.email);
-            if (response.status === 200) {
-              toast.success("Link enviado com sucesso");
-            } else {
-              toast.error("Erro ao enviar link");
-            }
-          },
-        });
+        const toastId = toast.error(
+          `${errorMessage}. Clique aqui para reenviar o link ao e-mail`,
+          {
+            onClick: async () => {
+              toast.dismiss(toastId);
+              const response = await resetSendEmail(data.email);
+              if (response.status === 200) {
+                toast.success("Link enviado com sucesso");
+              } else {
+                toast.error("Erro ao enviar link");
+              }
+            },
+          }
+        );
         return;
       }
 
@@ -84,11 +87,9 @@ const Login: React.FC = () => {
   };
   return (
     <Styled.Container>
-      <Styled.SunImage />
-
-      <Styled.Title>Faça seu login</Styled.Title>
-
       <Styled.FormContainer>
+        <Styled.Title>Faça seu login</Styled.Title>
+
         <Styled.RecoverPassword />
 
         <form onSubmit={handleSubmit(onSubmit)}>

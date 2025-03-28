@@ -54,8 +54,6 @@ const ResetPasswordScreen: React.FC = () => {
 
   return (
     <Styled.Container>
-      <Styled.SunImage />
-
       <Styled.Title>Recuperação de senha</Styled.Title>
 
       <Styled.FormContainer>

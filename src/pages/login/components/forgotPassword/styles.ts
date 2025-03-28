@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  font-size: 16px;
+  font-size: 14px;
   color: black;
   text-transform: uppercase;
 

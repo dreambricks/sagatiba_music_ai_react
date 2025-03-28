@@ -1,27 +1,27 @@
 import styled from "styled-components";
 import CustomButton from "../components/customButton";
-import SunSvg from "../../assets/sol.svg";
 
 export const Container = styled.div`
   display: flex;
-  position: relative;
   flex-direction: column;
   height: 100vh;
   width: 100vw;
-  background-color: #ffde2e;
+  background-color: white;
   align-items: center;
   overflow: hidden;
 `;
 
 export const Title = styled.h1`
-  margin-top: 64px;
   text-align: center;
-  font-size: 52px;
   font-family: "Gopher-Bold";
+  margin-bottom: 120px;
 
   @media (max-width: 1024px) {
     margin-top: 32px;
-    font-size: 24px;
+    font-size: 18px;
+    margin-bottom: 64px;
+    text-align: start;
+    color: #f15a31;
   }
 `;
 
@@ -32,7 +32,7 @@ export const FormButton = styled(CustomButton)`
 
   @media (max-width: 1024px) {
     width: 170px;
-    margin-left: 30%;
+    margin-top: 64px;
   }
 `;
 
@@ -40,20 +40,10 @@ export const FormContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 50%;
-  margin-top: 64px;
+  margin-top: 120px;
 
   @media (max-width: 1024px) {
+    margin-top: 64px;
     width: 80%;
-  }
-`;
-
-export const SunImage = styled.img.attrs({ src: SunSvg })`
-  position: absolute;
-  bottom: -105px;
-  right: 0;
-
-  @media (max-width: 1024px) {
-    bottom: -64px;
-    height: 40%;
   }
 `;

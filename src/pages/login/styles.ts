@@ -1,39 +1,34 @@
 import styled from "styled-components";
-import SunSvg from "../../assets/sol.svg";
 import CustomButton from "../components/customButton";
 import ForgotPassword from "./components/forgotPassword";
 
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  position: relative;
-  background-color: #ffde2e;
+  background-color: white;
   width: 100vw;
   height: 100vh;
   align-items: center;
   overflow: hidden;
-`;
-
-export const SunImage = styled.img.attrs({ src: SunSvg })`
-  position: absolute;
-  bottom: -105px;
-  right: 0;
 
   @media (max-width: 1024px) {
-    bottom: -64px;
-    height: 40%;
+    justify-content: center;
   }
 `;
 
 export const Title = styled.h1`
-  margin-top: 64px;
   text-align: center;
-  font-size: 52px;
   font-family: "Gopher-Bold";
+  color: black;
+  margin-bottom: 120px;
+  margin-top: 120px;
 
   @media (max-width: 1024px) {
-    margin-top: 32px;
-    font-size: 40px;
+    margin-top: 0;
+    margin-bottom: 32px;
+    font-size: 24px;
+    text-align: start;
+    color: #f15a31;
   }
 `;
 
@@ -42,7 +37,6 @@ export const FormContainer = styled.div`
   flex-direction: column;
   width: 50%;
   margin-top: 64px;
-  z-index: 1;
 
   @media (max-width: 1024px) {
     width: 80%;
@@ -50,12 +44,11 @@ export const FormContainer = styled.div`
 `;
 
 export const FormButton = styled(CustomButton)`
-  margin-top: 48px;
+  margin-top: 24px;
   width: 300px;
   margin-left: 18%;
 
   @media (max-width: 1024px) {
-    margin-top: 24px;
     margin-left: 30%;
     width: 120px;
   }
@@ -66,6 +59,7 @@ export const RecoverPassword = styled(ForgotPassword)`
   margin-bottom: 24px;
 
   @media (max-width: 1024px) {
-    margin-bottom: 16px;
+    margin-bottom: 32px;
+    align-self: flex-start;
   }
 `;
