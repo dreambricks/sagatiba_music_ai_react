@@ -28,6 +28,7 @@ export const ModalInfo = ({ isOpen, onClose, onAccept }: ModalProps) => {
       style={{
         overlay: {
           backgroundColor: "#00000020",
+          zIndex: 1000,
         },
         content: {
           backgroundColor: "white",
@@ -38,6 +39,7 @@ export const ModalInfo = ({ isOpen, onClose, onAccept }: ModalProps) => {
           marginRight: "-50%",
           transform: "translate(-50%, -50%)",
           border: "none",
+          zIndex: 1001,
         },
       }}
     >
