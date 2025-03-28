@@ -11,10 +11,10 @@ export const Checkbox = styled.input.attrs({ type: "checkbox" })`
   width: 20px;
   height: 20px;
   appearance: none;
-  border: 2px solid white;
+  border: 2px solid #f9f5ed;
   border-radius: 4px;
   cursor: pointer;
-  background-color: white;
+  background-color: #f9f5ed;
   justify-content: center;
   align-items: center;
 
