@@ -1,72 +1,10 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  main,
-  section {
-    display: grid;
-    grid-template-columns: 1fr 1280px 1fr;
-  }
-
-  .top {
-    display: flex;
-    background-color: #f05a30;
-    width: 100%;
-
-    img {
-      margin-left: auto;
-      margin-top: -120px;
-      z-index: 1;
-
-      @media (max-width: 1024px) {
-        max-width: 50%;
-        margin-top: -60px;
-      }
-
-      @media (max-width: 768px) {
-        max-width: 70%;
-        margin-top: -20px;
-      }
-    }
-  }
-
-  main {
-    .content {
-      grid-column: 1/4;
-      position: relative;
-
-      .banner {
-        display: block;
-        width: 100%;
-      }
-
-      .invite {
-        position: absolute;
-        top: 0;
-        width: 100%;
-        max-width: 648px;
-        right: 50%;
-        top: 50%;
-        transform: translate(50%, -50%);
-      }
-    }
-  }
-
-  .banner-three {
-    width: 100%;
-
-    .content {
-      grid-column: 1/4;
-      position: relative;
-
-      .banner {
-        display: block;
-        width: 100%;
-      }
-    }
-  }
-
-  @media (min-width: 768px) {
-  }
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
 `;
 
 export const ButtonSiga = styled.button`

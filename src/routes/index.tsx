@@ -30,15 +30,9 @@ export const Routing = () => {
           />
           <Route path="/age-gate" element={<AgeGate />} />
           <Route path="/gerar-musica" element={<Home />} />
-          <Route
-            path="/erro/:message"
-            element={<Erro />}
-          />
+          <Route path="/erro/:message" element={<Erro />} />
 
-          <Route
-            path="/erro"
-            element={<Erro />}
-          />
+          <Route path="/erro" element={<Erro />} />
 
           <Route element={<AgeMiddleware />}>
             <Route path="/login" element={<Login />} />

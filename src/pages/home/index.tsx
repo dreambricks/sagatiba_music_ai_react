@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Container } from "./styles";
-import { Sagalovers } from "./components/destination";
 import { WeekDay } from "./components/weekday/indedx";
 // import { Phone } from "./components/phone";
 import { Banner } from "./components/banner";
@@ -20,13 +19,21 @@ import {
 import { useNavigate } from "react-router";
 import { useSession } from "../../context/sessionContext";
 import { GuestUserBanner } from "./components/guestUserBanner";
+import GuestNameSection, {
+  IGuestNameInputData,
+} from "./components/guestNameSection";
 // import { Stickers } from "./components/stickers";
 
 export const Home = () => {
-  const { user } = useSession();
-  const [loadingLyrics, setLoadingLyrics] = useState(false);
-
   const navigate = useNavigate();
+  const { user } = useSession();
+
+  const [loadingLyrics, setLoadingLyrics] = useState(false);
+  const [guestNameInputData, setGuestNameInputData] =
+    useState<IGuestNameInputData>({
+      value: "",
+      errorMessage: "",
+    });
 
   const ig = useRef("");
   const invite = useRef("");
@@ -42,18 +49,31 @@ export const Home = () => {
   const sectionGenerateMusic = useRef<HTMLDivElement | null>(null);
   const sectionPhone = useRef<HTMLDivElement | null>(null);
 
-  const changeIg = (value: string) => (ig.current = value);
+  // const changeIg = (value: string) => (ig.current = value);
   const onInvite = (value: string) => (invite.current = value);
   const onWeekdays = (value: string) => (day.current = value);
   const onAddMessage = (value: string) => (message.current = value);
   const addPhone = (value: string) => (phone.current = value);
+
+  const handleChangeGuestName = (value: string) => {
+    let errorMessage = "";
+
+    if (!value) {
+      errorMessage = "Informe o nome do convidado";
+    }
+
+    setGuestNameInputData({
+      value,
+      errorMessage,
+    });
+  };
 
   const validateForm = () => {
     const fields = [
       { ref: ig, name: "Usuário" },
       { ref: invite, name: "Convite" },
       { ref: day, name: "Dia" },
-      { ref: message, name: "Mensagem" }
+      { ref: message, name: "Mensagem" },
     ];
 
     for (const field of fields) {
@@ -144,7 +164,8 @@ export const Home = () => {
       const viewportHeight = window.innerHeight;
 
       // Centraliza o elemento no meio da tela
-      const targetPosition = elementTop - (viewportHeight / 2) + (elementHeight / 2) + offset;
+      const targetPosition =
+        elementTop - viewportHeight / 2 + elementHeight / 2 + offset;
 
       const distance = targetPosition - startPosition;
       const startTime = performance.now();
@@ -169,10 +190,8 @@ export const Home = () => {
     }
   };
 
-  if (!user) {
-    return (
-      <GuestUserBanner />
-    );
+  if (user) {
+    return <GuestUserBanner />;
   }
 
   return (
@@ -185,13 +204,18 @@ export const Home = () => {
         }}
       />
 
-      <Sagalovers
+      <GuestNameSection
+        guestNameInputData={guestNameInputData}
+        onChangeGuestName={handleChangeGuestName}
+      />
+
+      {/* <Sagalovers
         changeIg={changeIg}
         ref={sectionSagalovers}
         onFill={() => {
           if (inviteOptions.current) scrollToSection(inviteOptions, 0);
         }}
-      />
+      /> */}
 
       <InviteOptions
         ref={inviteOptions}
