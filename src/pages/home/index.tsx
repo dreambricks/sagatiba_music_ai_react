@@ -1,8 +1,6 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Container } from "./styles";
 import { WeekDay } from "./components/weekday/indedx";
 // import { Phone } from "./components/phone";
-import { Banner } from "./components/banner";
 import { InviteOptions } from "./components/invite_options";
 import { SendMessage } from "./components/sendMessage";
 import { GenerateMusic } from "./components/generateMusic";
@@ -18,10 +16,11 @@ import {
 } from "../../storage";
 import { useNavigate } from "react-router";
 import { useSession } from "../../context/sessionContext";
-import { GuestUserBanner } from "./components/guestUserBanner";
 import GuestNameSection, {
   IGuestNameInputData,
 } from "./components/guestNameSection";
+import MainSection from "./components/mainSection";
+import { AxiosError } from "axios";
 // import { Stickers } from "./components/stickers";
 
 export const Home = () => {
@@ -41,8 +40,8 @@ export const Home = () => {
   const message = useRef("");
   const phone = useRef("");
 
-  const sectionBanner = useRef<HTMLDivElement | null>(null);
-  const sectionSagalovers = useRef<HTMLDivElement | null>(null);
+  const guestNameSectionRef = useRef<HTMLDivElement | null>(null);
+  // const sectionSagalovers = useRef<HTMLDivElement | null>(null);
   const inviteOptions = useRef<HTMLDivElement | null>(null);
   const sectionWeekDay = useRef<HTMLDivElement | null>(null);
   const sectionSendMessage = useRef<HTMLDivElement | null>(null);
@@ -54,6 +53,13 @@ export const Home = () => {
   const onWeekdays = (value: string) => (day.current = value);
   const onAddMessage = (value: string) => (message.current = value);
   const addPhone = (value: string) => (phone.current = value);
+
+  const scrollToSection = (
+    targetRef: React.MutableRefObject<HTMLElement | null>
+  ) => {
+    if (!targetRef.current) return;
+    targetRef.current.scrollIntoView({ behavior: "smooth" });
+  };
 
   const handleChangeGuestName = (value: string) => {
     let errorMessage = "";
@@ -119,19 +125,25 @@ export const Home = () => {
       await generateId();
       window.scrollTo(0, 0);
       navigate("/letras");
-    } catch (error: any) {
+    } catch (err) {
+      const error = err as AxiosError<{ error: string }>;
       console.log(error);
-      if (error.status === 403) {
-        toast.error(error.response.data.error);
-        return;
-      } else if (error.status === 429) {
-        toast.error(
-          "Você atingiu o limite de geração de músicas. Tente novamente mais tarde!"
-        );
-        return;
-      }
 
-      toast.error("Erro inesperado. Tente novamente mais tarde!");
+      switch (error.status) {
+        case 403: {
+          toast.error(error.response?.data.error);
+          return;
+        }
+        case 429: {
+          toast.error(
+            "Você atingiu o limite de geração de músicas. Tente novamente mais tarde!"
+          );
+          return;
+        }
+        default: {
+          toast.error("Erro inesperado. Tente novamente mais tarde!");
+        }
+      }
     } finally {
       setLoadingLyrics(false);
     }
@@ -150,64 +162,59 @@ export const Home = () => {
     }
   };
 
-  const scrollToSection = (
-    sectionRef: React.RefObject<HTMLDivElement>,
-    offset: number = 0,
-    duration: number = 1000
-  ) => {
-    if (sectionRef.current) {
-      const startPosition = window.scrollY;
+  // const scrollToSection = (
+  //   sectionRef: React.RefObject<HTMLDivElement>,
+  //   offset: number = 0,
+  //   duration: number = 1000
+  // ) => {
+  //   if (sectionRef.current) {
+  //     const startPosition = window.scrollY;
 
-      const element = sectionRef.current;
-      const elementTop = element.getBoundingClientRect().top + window.scrollY;
-      const elementHeight = element.offsetHeight;
-      const viewportHeight = window.innerHeight;
+  //     const element = sectionRef.current;
+  //     const elementTop = element.getBoundingClientRect().top + window.scrollY;
+  //     const elementHeight = element.offsetHeight;
+  //     const viewportHeight = window.innerHeight;
 
-      // Centraliza o elemento no meio da tela
-      const targetPosition =
-        elementTop - viewportHeight / 2 + elementHeight / 2 + offset;
+  //     // Centraliza o elemento no meio da tela
+  //     const targetPosition =
+  //       elementTop - viewportHeight / 2 + elementHeight / 2 + offset;
 
-      const distance = targetPosition - startPosition;
-      const startTime = performance.now();
+  //     const distance = targetPosition - startPosition;
+  //     const startTime = performance.now();
 
-      const easeInOutQuad = (t: number) => {
-        return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
-      };
+  //     const easeInOutQuad = (t: number) => {
+  //       return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+  //     };
 
-      const scrollAnimation = (currentTime: number) => {
-        const timeElapsed = currentTime - startTime;
-        const progress = Math.min(timeElapsed / duration, 1);
-        const ease = easeInOutQuad(progress);
-        const scrollStep = startPosition + distance * ease;
-        window.scrollTo(0, scrollStep);
+  //     const scrollAnimation = (currentTime: number) => {
+  //       const timeElapsed = currentTime - startTime;
+  //       const progress = Math.min(timeElapsed / duration, 1);
+  //       const ease = easeInOutQuad(progress);
+  //       const scrollStep = startPosition + distance * ease;
+  //       window.scrollTo(0, scrollStep);
 
-        if (progress < 1) {
-          requestAnimationFrame(scrollAnimation);
-        }
-      };
+  //       if (progress < 1) {
+  //         requestAnimationFrame(scrollAnimation);
+  //       }
+  //     };
 
-      requestAnimationFrame(scrollAnimation);
-    }
-  };
+  //     requestAnimationFrame(scrollAnimation);
+  //   }
+  // };
 
-  if (user) {
-    return <GuestUserBanner />;
+  if (!user) {
+    return <MainSection />;
   }
 
   return (
     <Container>
-      <Banner
+      {/* <Banner
         sectionId="banner"
         ref={sectionBanner}
         onCreateMusic={() => {
           if (sectionSagalovers.current) scrollToSection(sectionSagalovers);
         }}
-      />
-
-      <GuestNameSection
-        guestNameInputData={guestNameInputData}
-        onChangeGuestName={handleChangeGuestName}
-      />
+      /> */}
 
       {/* <Sagalovers
         changeIg={changeIg}
@@ -217,11 +224,23 @@ export const Home = () => {
         }}
       /> */}
 
+      <MainSection
+        onGenerateMusic={() => {
+          scrollToSection(guestNameSectionRef);
+        }}
+      />
+
+      <GuestNameSection
+        ref={guestNameSectionRef}
+        guestNameInputData={guestNameInputData}
+        onChangeGuestName={handleChangeGuestName}
+      />
+
       <InviteOptions
         ref={inviteOptions}
         onInvite={onInvite}
         onFill={() => {
-          if (sectionWeekDay.current) scrollToSection(sectionWeekDay, 0);
+          scrollToSection(sectionWeekDay);
         }}
       />
 
@@ -229,8 +248,7 @@ export const Home = () => {
         ref={sectionWeekDay}
         onWeekdays={onWeekdays}
         onFill={() => {
-          if (sectionSendMessage.current)
-            scrollToSection(sectionSendMessage, 0);
+          scrollToSection(sectionSendMessage);
         }}
       />
 
@@ -238,8 +256,7 @@ export const Home = () => {
         ref={sectionSendMessage}
         onAddMessage={onAddMessage}
         onFill={() => {
-          if (sectionGenerateMusic.current)
-            scrollToSection(sectionGenerateMusic, 0);
+          scrollToSection(sectionGenerateMusic);
         }}
       />
 
@@ -258,7 +275,7 @@ export const Home = () => {
         loading={loadingLyrics}
         generateMusic={generateMusic}
         onFill={() => {
-          if (sectionPhone.current) scrollToSection(sectionPhone, -150);
+          scrollToSection(sectionPhone);
         }}
       />
 

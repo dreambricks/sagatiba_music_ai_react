@@ -1,4 +1,4 @@
-import React from "react";
+import { forwardRef } from "react";
 import * as Styled from "./styles";
 import GuestNameInput from "../guestNameInput";
 
@@ -12,41 +12,40 @@ type Props = {
   onChangeGuestName: (value: string) => void;
 };
 
-const GuestNameSection: React.FC<Props> = ({
-  guestNameInputData,
-  onChangeGuestName,
-}) => {
-  const handleNext = () => {};
+const GuestNameSection = forwardRef<HTMLDivElement, Props>(
+  ({ guestNameInputData, onChangeGuestName }, ref) => {
+    const handleNext = () => {};
 
-  return (
-    <Styled.Container>
-      <Styled.WhiteContainer>
-        <div>
-          <Styled.OrangeText>Primeiro, o nome do</Styled.OrangeText>
+    return (
+      <Styled.Container ref={ref}>
+        <Styled.WhiteContainer>
+          <div>
+            <Styled.OrangeText>Primeiro, o nome do</Styled.OrangeText>
 
-          <Styled.Logo alt="Logomarca Sagalover" />
+            <Styled.Logo alt="Logomarca Sagalover" />
 
-          <Styled.OrangeText style={{ marginTop: "16px" }}>
-            Digite abaixo o nome da pessoa <br /> que você quer convidar
-          </Styled.OrangeText>
-        </div>
+            <Styled.OrangeText style={{ marginTop: "16px" }}>
+              Digite abaixo o nome da pessoa <br /> que você quer convidar
+            </Styled.OrangeText>
+          </div>
 
-        <GuestNameInput
-          placeholder="nome do convidado"
-          value={guestNameInputData.value}
-          errorMessage={guestNameInputData.errorMessage}
-          onChange={onChangeGuestName}
-        />
+          <GuestNameInput
+            placeholder="nome do convidado"
+            value={guestNameInputData.value}
+            errorMessage={guestNameInputData.errorMessage}
+            onChange={onChangeGuestName}
+          />
 
-        <Styled.RegularText>
-          Mas, pra Seguir na Saga, tem que ter response, hein? <br /> Só
-          compartilhe o convite com maiores de 18 anos
-        </Styled.RegularText>
+          <Styled.RegularText>
+            Mas, pra Seguir na Saga, tem que ter response, hein? <br /> Só
+            compartilhe o convite com maiores de 18 anos
+          </Styled.RegularText>
 
-        <Styled.Button title="PRÓXIMO >" onClick={handleNext} />
-      </Styled.WhiteContainer>
-    </Styled.Container>
-  );
-};
+          <Styled.Button title="PRÓXIMO >" onClick={handleNext} />
+        </Styled.WhiteContainer>
+      </Styled.Container>
+    );
+  }
+);
 
 export default GuestNameSection;
