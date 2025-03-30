@@ -2,37 +2,37 @@ export const tagOptions = [
   {
     option: "BAR",
     id: 1,
-    tagClass: "yellow",
-  },
-  {
-    option: "ROLÊ EM CASA",
-    id: 2,
-    tagClass: "orange",
-  },
-  {
-    option: "HAPPY HOUR",
-    id: 3,
-    tagClass: "blue",
-  },
-  {
-    option: "SEXTOU",
-    id: 4,
-    tagClass: "green",
-  },
-  {
-    option: "ANIVERSÁRIO",
-    id: 5,
-    tagClass: "orange",
-  },
-  {
-    option: "FESTA",
-    id: 6,
-    tagClass: "blue",
+    color: "#f8e711",
   },
   {
     option: "SHOW",
     id: 7,
-    tagClass: "green",
+    color: "#73bf44",
+  },
+  {
+    option: "HAPPY HOUR",
+    id: 3,
+    color: "#0091d0",
+  },
+  {
+    option: "SEXTOU",
+    id: 4,
+    color: "#73bf44",
+  },
+  {
+    option: "FESTA",
+    id: 6,
+    color: "#0091d0",
+  },
+  {
+    option: "ANIVERSÁRIO",
+    id: 5,
+    color: "#ff9900",
+  },
+  {
+    option: "ROLÊ EM CASA",
+    id: 2,
+    color: "#ff9900",
   },
 ];
 

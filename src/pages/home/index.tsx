@@ -33,23 +33,24 @@ export const Home = () => {
       value: "",
       errorMessage: "",
     });
+  const [inviteFor, setInviteFor] = useState("");
 
-  const ig = useRef("");
-  const invite = useRef("");
+  // const ig = useRef("");
+  // const invite = useRef("");
   const day = useRef("");
   const message = useRef("");
   const phone = useRef("");
 
   const guestNameSectionRef = useRef<HTMLDivElement | null>(null);
   // const sectionSagalovers = useRef<HTMLDivElement | null>(null);
-  const inviteOptions = useRef<HTMLDivElement | null>(null);
+  const inviteOptionsSectionRef = useRef<HTMLDivElement | null>(null);
   const sectionWeekDay = useRef<HTMLDivElement | null>(null);
   const sectionSendMessage = useRef<HTMLDivElement | null>(null);
   const sectionGenerateMusic = useRef<HTMLDivElement | null>(null);
   const sectionPhone = useRef<HTMLDivElement | null>(null);
 
   // const changeIg = (value: string) => (ig.current = value);
-  const onInvite = (value: string) => (invite.current = value);
+  // const onInvite = (value: string) => (invite.current = value);
   const onWeekdays = (value: string) => (day.current = value);
   const onAddMessage = (value: string) => (message.current = value);
   const addPhone = (value: string) => (phone.current = value);
@@ -76,8 +77,8 @@ export const Home = () => {
 
   const validateForm = () => {
     const fields = [
-      { ref: ig, name: "Usuário" },
-      { ref: invite, name: "Convite" },
+      // { ref: ig, name: "Usuário" },
+      // { ref: invite, name: "Convite" },
       { ref: day, name: "Dia" },
       { ref: message, name: "Mensagem" },
     ];
@@ -106,8 +107,8 @@ export const Home = () => {
       }
 
       const form = new FormData();
-      form.append("destination", ig.current);
-      form.append("invite_options", invite.current);
+      form.append("destination", guestNameInputData.value);
+      form.append("invite_options", inviteFor);
       form.append("weekdays", day.current);
       form.append("message", message.current);
       const formattedPhone = formatPhone(phone.current);
@@ -237,9 +238,10 @@ export const Home = () => {
       />
 
       <InviteOptions
-        ref={inviteOptions}
-        onInvite={onInvite}
-        onFill={() => {
+        ref={inviteOptionsSectionRef}
+        value={inviteFor}
+        onInviteSelected={setInviteFor}
+        handleNextPress={() => {
           scrollToSection(sectionWeekDay);
         }}
       />
