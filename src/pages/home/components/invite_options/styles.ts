@@ -1,25 +1,15 @@
 import styled from "styled-components";
+import Balde from "../../../../assets/balde_background.png";
+import CustomButton from "../../../components/customButton";
 
-export const InviteForContainer = styled.div`
+export const Container = styled.section`
+  display: flex;
   width: 100%;
-  display: grid;
-  grid-template-columns: 35px 1fr 35px !important;
+  height: 100vh;
   overflow: hidden;
-  position: relative;
-  width: 100%;
-  background: #ffdd2e;
+  background-color: #faf5ed;
 
-  .content {
-    grid-column: 1/4;
-    position: relative;
-
-    .banner {
-      display: block;
-      width: 100%;
-    }
-  }
-
-  .invite {
+  /* .invite {
     grid-column: 2/3;
     .sun {
       width: 35%;
@@ -317,5 +307,36 @@ export const InviteForContainer = styled.div`
         }
       }
     }
-  }
+  } */
+`;
+
+export const ImageContainer = styled.div`
+  display: flex;
+  width: 50%;
+  height: 100%;
+`;
+
+export const OptionsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  height: 100%;
+`;
+
+export const LeftImage = styled.img.attrs({ src: Balde })`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: left;
+`;
+
+export const Title = styled.h2`
+  font-family: "Gopher-Bold";
+  color: #f15a31;
+`;
+
+export const ChooseDayText = styled.h5``;
+
+export const NextButton = styled(CustomButton)`
+  width: 200px;
 `;

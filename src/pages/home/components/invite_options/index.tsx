@@ -1,9 +1,6 @@
 import { forwardRef, useState } from "react";
-import Balde from "../../../../assets/balde_background.png";
-import Sun from "../../../../assets/sol_lua.png";
 import { tagOptions } from "../../../../pages/home/helper";
-import { InviteForContainer } from "./styles";
-import NextButton from "../../../components/nextButton";
+import * as Styled from "./styles";
 
 interface InviteOptionsProps {
   onInvite: (id: string) => void;
@@ -20,49 +17,40 @@ export const InviteOptions = forwardRef<HTMLDivElement, InviteOptionsProps>(
     };
 
     return (
-      <InviteForContainer >
-        <div className="content">
-          <img src={Balde} alt="" className="banner" />
-        </div>
+      <Styled.Container ref={ref}>
+        <Styled.ImageContainer>
+          <Styled.LeftImage />
+        </Styled.ImageContainer>
 
-        <div className="invite" ref={ref}>
-          <img src={Sun} alt="" className="sun" />
+        <Styled.OptionsContainer>
+          <Styled.Title>
+            Conta pra gente:
+            <br />
+            qual o convite do rolê?
+          </Styled.Title>
 
-          <div className="content">
-            <div className="texts" >
-              <div className="invite_options_text_blue">
-                <h2>Conta pra gente:</h2>
-                <h2>qual o convite do rolê?</h2>
-              </div>
+          <Styled.ChooseDayText>
+            Escolha uma das alternativas abaixo.
+          </Styled.ChooseDayText>
 
-              <div className="invite_options_text_black">
-                <h2>Escolha uma das</h2>
-                <h2>alternativas abaixo.</h2>
-              </div>
-            </div>
-
-            <div className="option-check">
-              {tagOptions.map(({ option, tagClass }) => (
-                <button
-                  className={`button ${tagClass} ${inviteFor === option ? "selected" : ""
-                    }`}
-                  key={option}
-                  onClick={() => addInviteFor(option)}
-                >
-                  {option}{" "}
-                </button>
-              ))}
-            </div>
-
-            <div className="nextBtn">
-              <NextButton title="PRÓXIMO" onClick={onFill} />
-            </div>
-
+          <div className="option-check">
+            {tagOptions.map(({ option, tagClass }) => (
+              <button
+                className={`button ${tagClass} ${
+                  inviteFor === option ? "selected" : ""
+                }`}
+                key={option}
+                onClick={() => addInviteFor(option)}
+              >
+                {option}{" "}
+              </button>
+            ))}
           </div>
 
-        </div>
-
-      </InviteForContainer>
+          <Styled.NextButton title="PRÓXIMO" onClick={onFill} />
+          {/* <NextButton title="PRÓXIMO" onClick={onFill} /> */}
+        </Styled.OptionsContainer>
+      </Styled.Container>
     );
   }
 );
