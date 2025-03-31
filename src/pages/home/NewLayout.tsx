@@ -3,7 +3,7 @@ import { Sagalovers } from "./components/destinationNewLayout";
 import { WeekDay } from "./components/weekday/indedx";
 // import { Phone } from "./components/phone";
 import BannerNewLayout from "./components/bannerNewLayout";
-import { InviteOptions } from "./components/invite_options";
+import { InviteOptions } from "./components/inviteOptionsNewLayout";
 import { SendMessage } from "./components/sendMessage";
 import { GenerateMusic } from "./components/generateMusic";
 import { useRef, useState } from "react";

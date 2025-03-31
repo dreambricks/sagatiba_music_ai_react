@@ -5,9 +5,9 @@ export const tagOptions = [
     tagClass: "yellow",
   },
   {
-    option: "ROLÊ EM CASA",
-    id: 2,
-    tagClass: "orange",
+    option: "SHOW",
+    id: 7,
+    tagClass: "green",
   },
   {
     option: "HAPPY HOUR",
@@ -20,20 +20,24 @@ export const tagOptions = [
     tagClass: "green",
   },
   {
-    option: "ANIVERSÁRIO",
-    id: 5,
-    tagClass: "orange",
-  },
-  {
     option: "FESTA",
     id: 6,
     tagClass: "blue",
   },
   {
-    option: "SHOW",
-    id: 7,
-    tagClass: "green",
+    option: "ANIVERSÁRIO",
+    id: 5,
+    tagClass: "orange",
   },
+  {
+    option: "ROLÊ EM CASA",
+    id: 2,
+    tagClass: "orange",
+  },
+
+ 
+
+
 ];
 
 export const weekDays = [

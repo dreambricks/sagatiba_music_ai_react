@@ -33,7 +33,7 @@ export const Sagalovers = forwardRef<HTMLDivElement, SagaloverProps>(
         </div>
 
         <div className="content">
-          <div className="body w-full max-w-md p-4 flex flex-col items-center gap-4" ref={ref}>
+          <div className="body w-full max-w-md p-4 flex flex-col items-center gap-4 xl:scale-md:scale-105 lg:scale-110 xl:scale-125" ref={ref}>
             <p className="sagalover-name text-orangeCustom text-center font-gopher">Primeiro, o nome do</p>
             <img src={Sagalover} alt="" />
             <p className="type text-orangeCustom text-center font-gopher ">
