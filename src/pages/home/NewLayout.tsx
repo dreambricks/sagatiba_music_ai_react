@@ -1,5 +1,5 @@
 import { Container } from "./styles";
-import { Sagalovers } from "./components/destination";
+import { Sagalovers } from "./components/destinationNewLayout";
 import { WeekDay } from "./components/weekday/indedx";
 // import { Phone } from "./components/phone";
 import BannerNewLayout from "./components/bannerNewLayout";
