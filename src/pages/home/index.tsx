@@ -1,5 +1,5 @@
 import { Container } from "./styles";
-import { WeekDay } from "./components/weekday/indedx";
+import { WeekDay } from "./components/weekday";
 // import { Phone } from "./components/phone";
 import { InviteOptions } from "./components/invite_options";
 import { SendMessage } from "./components/sendMessage";
@@ -34,10 +34,11 @@ export const Home = () => {
       errorMessage: "",
     });
   const [inviteFor, setInviteFor] = useState("");
+  const [day, setDay] = useState("");
 
   // const ig = useRef("");
   // const invite = useRef("");
-  const day = useRef("");
+  // const day = useRef("");
   const message = useRef("");
   const phone = useRef("");
 
@@ -51,7 +52,7 @@ export const Home = () => {
 
   // const changeIg = (value: string) => (ig.current = value);
   // const onInvite = (value: string) => (invite.current = value);
-  const onWeekdays = (value: string) => (day.current = value);
+  // const onWeekdays = (value: string) => (day.current = value);
   const onAddMessage = (value: string) => (message.current = value);
   const addPhone = (value: string) => (phone.current = value);
 
@@ -79,7 +80,7 @@ export const Home = () => {
     const fields = [
       // { ref: ig, name: "Usuário" },
       // { ref: invite, name: "Convite" },
-      { ref: day, name: "Dia" },
+      // { ref: day, name: "Dia" },
       { ref: message, name: "Mensagem" },
     ];
 
@@ -109,7 +110,7 @@ export const Home = () => {
       const form = new FormData();
       form.append("destination", guestNameInputData.value);
       form.append("invite_options", inviteFor);
-      form.append("weekdays", day.current);
+      form.append("weekdays", day);
       form.append("message", message.current);
       const formattedPhone = formatPhone(phone.current);
       form.append("phone", formattedPhone);
@@ -248,8 +249,9 @@ export const Home = () => {
 
       <WeekDay
         ref={sectionWeekDay}
-        onWeekdays={onWeekdays}
-        onFill={() => {
+        selectedDay={day}
+        onDaySelected={setDay}
+        onNextPress={() => {
           scrollToSection(sectionSendMessage);
         }}
       />

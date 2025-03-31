@@ -1,120 +1,68 @@
 import styled from "styled-components";
 
-export const Container = styled.div<{ selected: boolean }>`
+export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
 
-  button {
-    background: #ffdd2e;
+  @media (max-width: 768px) {
+    width: 20%;
+  }
+`;
 
-    &.red {
-      background: #f3592f;
-    }
+export const Button = styled.button<{
+  color: string;
+  selected: boolean;
+}>`
+  display: flex;
+  background-color: ${(props) => props.color ?? "white"};
+  border: ${(props) => (props.selected ? "2px solid black" : "none")};
+  padding: 0px 24px;
+  font-size: 2rem;
+  font-family: "Gopher-Bold";
+  color: black;
+  text-transform: uppercase;
+  border-radius: 24px;
+  cursor: pointer;
+  height: 165px;
+  aspect-ratio: 0.85;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
 
-    padding: 0px 25px;
-    font-size: 1rem;
-    color: black;
-    text-transform: uppercase;
-    border: ${(props) => (props.selected ? "2px solid black" : "none")};
-    margin-bottom: 10px;
+  @media (max-width: 1400px) {
+    height: 110px;
+  }
+
+  @media (max-width: 1024px) {
+    height: 90px;
+  }
+
+  @media (max-width: 900px) {
+    height: 80px;
+  }
+
+  @media (max-width: 768px) {
+    aspect-ratio: 0.8;
     border-radius: 20px;
-    cursor: pointer;
-    height: 82px;
-    width: 62px;
-
-    &.btn-img {
-      padding-bottom: 0;
-      padding-top: 0;
-      height: 82px;
-      display: flex;
-      justify-content: center;
-
-      img {
-        display: block;
-        width: 20px;
-        height: 82px;
-      }
-    }
+    font-size: 1.2rem;
   }
+`;
 
-  p {
-    text-transform: uppercase;
-    font-size: 0.5rem;
-    font-family: "Gopher-Bold";
-    font-weight: 600;
+export const Description = styled.p`
+  margin-top: 16px;
+  text-align: center;
+  text-transform: uppercase;
+  font-family: "Gopher-Bold";
+
+  @media (max-width: 768px) {
+    font-size: 12px;
+    font-family: "Gopher-Regular";
   }
+`;
 
-  @media (min-width: 620px) {
-    button {
-      font-size: 1.2rem;
-      margin-bottom: 20px;
-      height: 92px;
-      width: 72px;
-
-      &.btn-img {
-        height: 92px;
-
-        img {
-          display: block;
-          width: 20px;
-          height: 92px;
-        }
-      }
-    }
-
-    p {
-      font-size: 0.7rem;
-    }
-  }
-
-  @media (min-width: 1024px) {
-    button {
-      font-size: 1.5rem;
-      margin-bottom: 30px;
-      height: 152px;
-      width: 100px;
-
-      &.btn-img {
-        height: 152px;
-
-        img {
-          width: 50px;
-          height: 152px;
-        }
-      }
-    }
-
-    p {
-      font-size: 0.8rem;
-    }
-  }
-
-  @media (min-width: 1280px) {
-    button {
-      width: 120px;
-    }
-  }
-
-  @media (min-width: 1920px) {
-    button {
-      font-size: 5rem;
-      margin-bottom: 30px;
-      height: 273px;
-      width: 211px;
-
-      &.btn-img {
-        height: 273px;
-
-        img {
-          width: 100px;
-          height: 273px;
-        }
-      }
-    }
-
-    p {
-      font-size: 1.125rem;
-    }
-  }
+export const Image = styled.img`
+  display: flex;
+  align-self: flex-end;
+  height: 95%;
 `;

@@ -36,6 +36,12 @@ export const tagOptions = [
   },
 ];
 
+export type IWeekDay = {
+  day: string;
+  short: string;
+  isImage?: boolean;
+};
+
 export const weekDays = [
   {
     day: "Qualquer dia é dia",

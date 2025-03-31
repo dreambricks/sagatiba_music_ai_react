@@ -1,40 +1,39 @@
-import { Container } from "./styles";
+import * as Styled from "./styles";
 import Bottle from "../../../../../assets/bottle.png";
+import { IWeekDay } from "../../../helper";
 
-interface WeekBtn {
-  day: string;
-  short: string;
-  onClick: () => void;
+type WeekBtnProps = {
+  weekday: IWeekDay;
   selected: boolean;
-  isImage?: boolean;
-}
+  onClick: () => void;
+};
 
-export const WeekBtn = ({
-  day,
-  short,
-  onClick,
+export const WeekBtn: React.FC<WeekBtnProps> = ({
+  weekday,
   selected,
-  isImage,
-}: WeekBtn) => {
-  const orangeBk = ["Domingo", "Sábado"].includes(day);
+  onClick,
+}: WeekBtnProps) => {
+  const isWeekendDay = ["Domingo", "Sábado"].includes(weekday.day);
+
+  const description = weekday.isImage
+    ? ["qualquer", <br key="br" />, "dia é dia"]
+    : weekday.day;
+
+  const getColor = () => {
+    if (isWeekendDay) return "#f3592f";
+
+    if (weekday.isImage) return "#FFDD2E";
+
+    return "white";
+  };
 
   return (
-    <Container selected={selected}>
-      <button
-        onClick={onClick}
-        className={`${orangeBk ? "red" : ""} ${isImage ? "btn-img" : ""}`}
-      >
-        {isImage ? <img src={Bottle} /> : short}
-      </button>
+    <Styled.Container>
+      <Styled.Button color={getColor()} selected={selected} onClick={onClick}>
+        {weekday.isImage ? <Styled.Image src={Bottle} /> : weekday.short}
+      </Styled.Button>
 
-      {isImage ? (
-        <>
-          <p>qualquer</p>
-          <p>dia é dia</p>
-        </>
-      ) : (
-        <p>{day}</p>
-      )}
-    </Container>
+      <Styled.Description>{description}</Styled.Description>
+    </Styled.Container>
   );
 };
