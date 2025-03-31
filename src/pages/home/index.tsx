@@ -20,6 +20,7 @@ import {
 import { useNavigate } from "react-router";
 import { useSession } from "../../context/sessionContext";
 import { GuestUserBanner } from "./components/guestUserBanner";
+import { Navbar } from "../components/navbar";
 // import { Stickers } from "./components/stickers";
 
 export const Home = () => {
@@ -176,50 +177,52 @@ export const Home = () => {
   }
 
   return (
-    <Container>
-      <Banner
-        sectionId="banner"
-        ref={sectionBanner}
-        onCreateMusic={() => {
-          if (sectionSagalovers.current) scrollToSection(sectionSagalovers);
-        }}
-      />
+    <>
+      <Navbar />
+      <Container>
+        <Banner
+          sectionId="banner"
+          ref={sectionBanner}
+          onCreateMusic={() => {
+            if (sectionSagalovers.current) scrollToSection(sectionSagalovers);
+          }}
+        />
 
-      <Sagalovers
-        changeIg={changeIg}
-        ref={sectionSagalovers}
-        onFill={() => {
-          if (inviteOptions.current) scrollToSection(inviteOptions, 0);
-        }}
-      />
+        <Sagalovers
+          changeIg={changeIg}
+          ref={sectionSagalovers}
+          onFill={() => {
+            if (inviteOptions.current) scrollToSection(inviteOptions, 0);
+          }}
+        />
 
-      <InviteOptions
-        ref={inviteOptions}
-        onInvite={onInvite}
-        onFill={() => {
-          if (sectionWeekDay.current) scrollToSection(sectionWeekDay, 0);
-        }}
-      />
+        <InviteOptions
+          ref={inviteOptions}
+          onInvite={onInvite}
+          onFill={() => {
+            if (sectionWeekDay.current) scrollToSection(sectionWeekDay, 0);
+          }}
+        />
 
-      <WeekDay
-        ref={sectionWeekDay}
-        onWeekdays={onWeekdays}
-        onFill={() => {
-          if (sectionSendMessage.current)
-            scrollToSection(sectionSendMessage, 0);
-        }}
-      />
+        <WeekDay
+          ref={sectionWeekDay}
+          onWeekdays={onWeekdays}
+          onFill={() => {
+            if (sectionSendMessage.current)
+              scrollToSection(sectionSendMessage, 0);
+          }}
+        />
 
-      <SendMessage
-        ref={sectionSendMessage}
-        onAddMessage={onAddMessage}
-        onFill={() => {
-          if (sectionGenerateMusic.current)
-            scrollToSection(sectionGenerateMusic, 0);
-        }}
-      />
+        <SendMessage
+          ref={sectionSendMessage}
+          onAddMessage={onAddMessage}
+          onFill={() => {
+            if (sectionGenerateMusic.current)
+              scrollToSection(sectionGenerateMusic, 0);
+          }}
+        />
 
-      {/* <Phone
+        {/* <Phone
         ref={sectionPhone}
         addPhone={addPhone}
         loading={loadingLyrics}
@@ -229,16 +232,17 @@ export const Home = () => {
         }}
       /> */}
 
-      <GenerateMusic
-        ref={sectionGenerateMusic}
-        loading={loadingLyrics}
-        generateMusic={generateMusic}
-        onFill={() => {
-          if (sectionPhone.current) scrollToSection(sectionPhone, -150);
-        }}
-      />
+        <GenerateMusic
+          ref={sectionGenerateMusic}
+          loading={loadingLyrics}
+          generateMusic={generateMusic}
+          onFill={() => {
+            if (sectionPhone.current) scrollToSection(sectionPhone, -150);
+          }}
+        />
 
-      {/* <Stickers /> */}
-    </Container>
+        {/* <Stickers /> */}
+      </Container>
+    </>
   );
 };
