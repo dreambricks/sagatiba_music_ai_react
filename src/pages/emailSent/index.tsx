@@ -1,7 +1,9 @@
 import { Container } from "./styles";
 import Mountains from "../../../src/assets/mountains.png";
+import { useDisableIOSZoom } from "../../hooks/useDisableIOSZoom";
 
 export const EmailSent = () => {
+  useDisableIOSZoom();
 
   return (
     <Container>
