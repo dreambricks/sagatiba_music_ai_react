@@ -1,16 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import * as Styled from "./styles";
 import FormInput from "../components/formInput";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { resetSendEmail, signIn } from "../../service";
-import { toast } from "react-toastify";
 import { saveAccessTokenToCookie } from "../../storage";
 import { useNavigate } from "react-router";
 import { useSession } from "../../context/sessionContext";
 import { jwtDecode } from "jwt-decode";
 import { AxiosError } from "axios";
+import ErrorModal from "../components/errorModal";
+import { toast } from "react-toastify";
 
 interface ILoginFormValues {
   email: string;
@@ -27,6 +28,16 @@ type ILoginFormField = z.infer<typeof loginFormSchema>;
 const Login: React.FC = () => {
   const { updateUser } = useSession();
   const navigate = useNavigate();
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
+  const [modalAction, setModalAction] = useState<(() => void) | undefined>(
+    undefined
+  );
+
+  const closeModal = () => {
+    setModalOpen(false);
+    setModalAction(undefined);
+  };
 
   const {
     register,
@@ -65,24 +76,28 @@ const Login: React.FC = () => {
 
       if (error.status === 403) {
         const errorMessage = error.response?.data.error || "Erro inesperado";
-        const toastId = toast.error(
-          `${errorMessage}. Clique aqui para reenviar o link ao e-mail`,
-          {
-            onClick: async () => {
-              toast.dismiss(toastId);
-              const response = await resetSendEmail(data.email);
-              if (response.status === 200) {
-                toast.success("Link enviado com sucesso");
-              } else {
-                toast.error("Erro ao enviar link");
-              }
-            },
-          }
+
+        setModalMessage(
+          `${errorMessage}. Você pode reenviar o link de validação para o seu e-mail.`
         );
+        setModalOpen(true);
+        setModalAction(() => async () => {
+          try {
+            closeModal();
+            await resetSendEmail(data.email);
+
+            toast.success("Link enviado com sucesso");
+          } catch (error) {
+            console.error("Erro ao enviar link:", error);
+            toast.error("Erro ao enviar link");
+          }
+        });
+
         return;
       }
 
-      toast.error("Credencias incorretas, tente novamente");
+      setModalMessage("Credenciais incorretas, tente novamente.");
+      setModalOpen(true);
     }
   };
   return (
@@ -117,6 +132,14 @@ const Login: React.FC = () => {
           />
         </form>
       </Styled.FormContainer>
+
+      <ErrorModal
+        isOpen={modalOpen}
+        onRequestClose={closeModal}
+        message={modalMessage}
+        onActionClick={modalAction}
+        actionLabel="Reenviar link"
+      />
     </Styled.Container>
   );
 };

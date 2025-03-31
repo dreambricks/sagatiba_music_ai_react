@@ -10,13 +10,13 @@ import { AudioPlayer } from "../player/Player";
 import DownloadBtn from "../../assets/download_svg.svg";
 import Share from "../../assets/share_orange_svg.svg";
 
-
 export const LyricsPage = () => {
   const [lyrics, setLyrics] = useState("");
   const [taskId, setTaskId] = useState();
   const [audioUrls, setAudioUrls] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   const [buttonLoadingText, setButtonLoadingText] = useState("Coletando dados...");
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   const buttonInterval = useRef<undefined | number>();
 
@@ -50,14 +50,13 @@ export const LyricsPage = () => {
     if (taskId != null) {
       setTaskId(taskId as any);
     }
-  }
+  };
 
   useEffect(() => {
     getTask();
     const item = getLyrics();
     if (item) setLyrics(item);
   }, []);
-
 
   useEffect(() => {
     if (loading) {
@@ -74,7 +73,6 @@ export const LyricsPage = () => {
     return () => clearInterval(buttonInterval.current);
   }, [loading]);
 
-
   useEffect(() => {
     if ((message as any)?.audio_urls) {
       setAudioUrls((message as any).audio_urls);
@@ -85,7 +83,6 @@ export const LyricsPage = () => {
 
   const downloadMp3File = async (url: string) => {
     try {
-
       const response = await fetch(url);
       if (!response.ok) throw new Error(`Erro ao baixar arquivo`);
 
@@ -99,8 +96,6 @@ export const LyricsPage = () => {
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-
-
     } catch (error) {
       console.error("Erro ao baixar os arquivos:", error);
       alert("Erro ao baixar os arquivos: " + (error as Error).message);
@@ -112,9 +107,7 @@ export const LyricsPage = () => {
 
     if (navigator.share) {
       try {
-        await navigator.share({
-          url,
-        });
+        await navigator.share({ url });
         console.log("Link compartilhado com sucesso!");
       } catch (error) {
         console.error("Erro ao compartilhar:", error);
@@ -143,57 +136,52 @@ export const LyricsPage = () => {
   return (
     <Container>
       <div className="content">
-
-        {loading ?
+        {loading ? (
           <div className="tittle">
             <h1>ma.I.A.ra e mar.A.I.sa estão aquecendo a voz!</h1>
-            <h1>Sua música será gerada em até 10 minutinhos</h1>
-            < p className="description">
-              Fica de boa que, quando ela estiver pronta, a gente te manda uma mensagem.
+            <p className="description">
+              Sua música pode demorar uns minutinhos pra ficar pronta. Mas fica de boa que a gente te manda uma mensagem quando
+              ela estiver tudo certo pro play.
             </p>
           </div>
-          :
-          <div className="tittle">
-            <h1>
-              Bora seguir na saga? Sua música tá pronta!
-            </h1>
+        ) : (
+          <div className="tittle" style={{ marginBottom: "30px" }}>
+            <h1>Bora seguir na saga? Sua música tá pronta!</h1>
             <div className="description">
-              <p>Mas como  a inteligência artificial ainda tá aprendendo a viver, geramos duas versões. </p>
-              <p>Assim você escolhe a que mais combina com seu rolê</p>
+              <p>Mas ó: a inteligência artificial ainda tá aprendendo a viver e aperfeiçoando suas criações. Por isso, geramos duas
+                versões pra você escolher qual mais combina com seu rolê.
+              </p>
+              <p>Quanto mais músicas você criar, mais ela aprende a seguir na saga</p>
             </div>
           </div>
-        }
+        )}
 
-        {loading
-          ?
-          <CustomButton className="button-phrases"
-            disabled={loading}
-          >
+        {loading ? (
+          <CustomButton className="button-phrases" disabled={loading}>
             {buttonLoadingText}
           </CustomButton>
-          :
+        ) : (
           <div className="players">
-            <div className="container-player">
-              {audioUrls.length >= 1 && <AudioPlayer audioUrl={audioUrls[0]} />}
-              <div className="socials">
-                <img src={DownloadBtn} alt="" onClick={() => audioUrls.length > 0 && downloadMp3File(audioUrls[0])} />
-                <img src={Share} alt="" onClick={() => compartilharLink(0)} />
+            {audioUrls.slice(0, 2).map((url, idx) => (
+              <div className="container-player" key={idx}>
+                <AudioPlayer
+                  audioUrl={url}
+                  isActive={activeIndex === idx}
+                  onPlay={() => setActiveIndex(prev => (prev === idx ? null : idx))}
+                  onFinish={() => setActiveIndex(null)}
+                />
+                <div className="socials">
+                  <img src={DownloadBtn} alt="Download" onClick={() => downloadMp3File(url)} />
+                  <img src={Share} alt="Compartilhar" onClick={() => compartilharLink(idx)} />
+                </div>
               </div>
-            </div>
-
-            <div className="container-player">
-              {audioUrls.length >= 1 && <AudioPlayer audioUrl={audioUrls[1]} />}
-              <div className="socials">
-                <img src={DownloadBtn} alt="" onClick={() => audioUrls.length > 0 && downloadMp3File(audioUrls[1])} />
-                <img src={Share} alt="" onClick={() => compartilharLink(1)} />
-              </div>
-            </div>
+            ))}
           </div>
-        }
+        )}
 
         <div className="container-info">
           <div className="download-img">
-            <img src={Download} alt="" />
+            <img src={Download} alt="Download" />
           </div>
 
           <div className="lyrics">
@@ -208,6 +196,6 @@ export const LyricsPage = () => {
           Não compartilhe com menores de 18 anos.
         </p>
       </div>
-    </Container >
+    </Container>
   );
 };

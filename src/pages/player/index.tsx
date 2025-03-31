@@ -17,6 +17,7 @@ export const Player = () => {
   const [lyrics, setLyrics] = useState("");
   const [audioUrls, setAudioUrls] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   useEffect(() => {
     console.log("Executando busca de letras...");
@@ -45,10 +46,8 @@ export const Player = () => {
     }
   }, [id]);
 
-
   const downloadMp3File = async (url: string) => {
     try {
-
       const response = await fetch(url);
       if (!response.ok) throw new Error(`Erro ao baixar arquivo`);
 
@@ -62,8 +61,6 @@ export const Player = () => {
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-
-
     } catch (error) {
       console.error("Erro ao baixar os arquivos:", error);
       alert("Erro ao baixar os arquivos: " + (error as Error).message);
@@ -75,9 +72,7 @@ export const Player = () => {
 
     if (navigator.share) {
       try {
-        await navigator.share({
-          url,
-        });
+        await navigator.share({ url });
         console.log("Link compartilhado com sucesso!");
       } catch (error) {
         console.error("Erro ao compartilhar:", error);
@@ -116,10 +111,17 @@ export const Player = () => {
         {index !== null ? (
           <div className="players">
             <div className="container-player">
-              {audioUrls.length >= 1 && <AudioPlayer audioUrl={audioUrls[Number(index)]} />}
+              {audioUrls.length >= 1 && (
+                <AudioPlayer
+                  audioUrl={audioUrls[Number(index)]}
+                  isActive={activeIndex === Number(index)}
+                  onPlay={() => setActiveIndex(prev => (prev === Number(index) ? null : Number(index)))}
+                  onFinish={() => setActiveIndex(null)}
+                />
+              )}
               <div className="socials">
-                <img src={DownloadBtn} alt="" onClick={() => audioUrls.length > 0 && downloadMp3File(audioUrls[Number(index)])} />
-                <img src={Share} alt="" onClick={() => compartilharLink(Number(index))} />
+                <img src={DownloadBtn} alt="Download" onClick={() => audioUrls.length > 0 && downloadMp3File(audioUrls[Number(index)])} />
+                <img src={Share} alt="Compartilhar" onClick={() => compartilharLink(Number(index))} />
               </div>
             </div>
           </div>
@@ -127,32 +129,37 @@ export const Player = () => {
           <div className="players">
             {audioUrls.slice(0, 2).map((url, idx) => (
               <div key={idx} className="container-player">
-                {audioUrls.length >= 1 && <AudioPlayer audioUrl={url} />}
+                <AudioPlayer
+                  audioUrl={url}
+                  isActive={activeIndex === idx}
+                  onPlay={() => setActiveIndex(prev => (prev === idx ? null : idx))}
+                  onFinish={() => setActiveIndex(null)}
+                />
                 <div className="socials">
-                  <img src={DownloadBtn} alt="" onClick={() => audioUrls.length > 0 && downloadMp3File(url)} />
-                  <img src={Share} alt="" onClick={() => compartilharLink(idx)} />
+                  <img src={DownloadBtn} alt="Download" onClick={() => downloadMp3File(url)} />
+                  <img src={Share} alt="Compartilhar" onClick={() => compartilharLink(idx)} />
                 </div>
               </div>
             ))}
           </div>
         )}
 
-        {loading == false ? (
+        {loading === false ? (
           <div className="container-info">
             <div className="download-img">
-              <img src={Download} alt="" />
+              <img src={Download} alt="Download" />
             </div>
             <div className="lyrics">
               <div className="lyrics-holder">
                 <pre>{lyrics.replace(/\[(intro|verse|outro)\]|\*|markdown/gi, "").trim()}</pre>
               </div>
             </div>
-          </div>) : (
+          </div>
+        ) : (
           <div className="loading">
-            <img src={Loading} alt="" />
+            <img src={Loading} alt="Carregando..." />
           </div>
         )}
-
 
         <p className="advise">
           Beba com moderação. <br />

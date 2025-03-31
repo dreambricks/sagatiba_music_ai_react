@@ -204,7 +204,7 @@ export const Home = () => {
   //   }
   // };
 
-  if (user) {
+  if (!user) {
     return <MainSection />;
   }
 
