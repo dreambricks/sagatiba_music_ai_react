@@ -9,7 +9,7 @@ import Tambor from "../../../../assets/tambor.png";
 import Violao from "../../../../assets/violao.png";
 import Caipirinha from "../../../../assets/caipirinha.png";
 import Sombra from "../../../../assets/sombra.png";
-import CustomButton from "../../../components/CustomButton";
+import CustomButtonNL from "../../../components/customButtonNL";
 
 interface SectionProps {
   sectionId: string;
@@ -59,7 +59,7 @@ const BannerNewLayout = ({ sectionId, onCreateMusic }: SectionProps) => {
     >
       {user && (
         <div className="absolute top-4 right-4 z-50">
-          <CustomButton
+          <CustomButtonNL
             title="logoff"
             onClick={handleLogoff}
             className="!bg-white !text-orangeCustom !border !border-orangeCustom !px-4 !py-1  md:!text-sm rounded-0"
@@ -213,7 +213,7 @@ const BannerNewLayout = ({ sectionId, onCreateMusic }: SectionProps) => {
 
           {/* Botões */}
           <div className="flex justify-center uppercase">
-            <CustomButton title="crie sua música" onClick={handleCreateMusic} className="uppercase"/>
+            <CustomButtonNL title="crie sua música" onClick={handleCreateMusic} className="uppercase"/>
           </div>
         </div>
 
