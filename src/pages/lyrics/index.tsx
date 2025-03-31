@@ -139,17 +139,19 @@ export const LyricsPage = () => {
         {loading ? (
           <div className="tittle">
             <h1>ma.I.A.ra e mar.A.I.sa estão aquecendo a voz!</h1>
-            <h1>Sua música será gerada em até 10 minutinhos</h1>
             <p className="description">
-              Fica de boa que, quando ela estiver pronta, a gente te manda uma mensagem.
+              Sua música pode demorar uns minutinhos pra ficar pronta. Mas fica de boa que a gente te manda uma mensagem quando
+              ela estiver tudo certo pro play.
             </p>
           </div>
         ) : (
-          <div className="tittle">
+          <div className="tittle" style={{ marginBottom: "30px" }}>
             <h1>Bora seguir na saga? Sua música tá pronta!</h1>
             <div className="description">
-              <p>Mas como a inteligência artificial ainda tá aprendendo a viver, geramos duas versões.</p>
-              <p>Assim você escolhe a que mais combina com seu rolê</p>
+              <p>Mas ó: a inteligência artificial ainda tá aprendendo a viver e aperfeiçoando suas criações. Por isso, geramos duas
+                versões pra você escolher qual mais combina com seu rolê.
+              </p>
+              <p>Quanto mais músicas você criar, mais ela aprende a seguir na saga</p>
             </div>
           </div>
         )}
