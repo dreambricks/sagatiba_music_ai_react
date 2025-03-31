@@ -9,7 +9,7 @@ interface WeekDayProps {
   onNextPress: () => void;
 }
 
-export const WeekDay = forwardRef<HTMLDivElement, WeekDayProps>(
+export const WeekDaySection = forwardRef<HTMLDivElement, WeekDayProps>(
   ({ selectedDay, onDaySelected, onNextPress }, ref) => {
     const handleDayClick = (day: string) => {
       onDaySelected(day);

@@ -1,9 +1,8 @@
 import { Container } from "./styles";
-import { WeekDay } from "./components/weekday";
+import { WeekDaySection } from "./components/weekdaySection";
 // import { Phone } from "./components/phone";
-import { InviteOptions } from "./components/invite_options";
-import { SendMessage } from "./components/sendMessage";
-import { GenerateMusic } from "./components/generateMusic";
+import { InviteOptionsSection } from "./components/inviteOptionsSection";
+import { SendMessageSection } from "./components/sendMessageSection";
 import { useRef, useState } from "react";
 import { generate, generateMusicLyric } from "../../service";
 import { toast } from "react-toastify";
@@ -35,11 +34,12 @@ export const Home = () => {
     });
   const [inviteFor, setInviteFor] = useState("");
   const [day, setDay] = useState("");
+  const [message, setMessage] = useState("");
 
   // const ig = useRef("");
   // const invite = useRef("");
   // const day = useRef("");
-  const message = useRef("");
+  // const message = useRef("");
   const phone = useRef("");
 
   const guestNameSectionRef = useRef<HTMLDivElement | null>(null);
@@ -47,13 +47,13 @@ export const Home = () => {
   const inviteOptionsSectionRef = useRef<HTMLDivElement | null>(null);
   const sectionWeekDay = useRef<HTMLDivElement | null>(null);
   const sectionSendMessage = useRef<HTMLDivElement | null>(null);
-  const sectionGenerateMusic = useRef<HTMLDivElement | null>(null);
-  const sectionPhone = useRef<HTMLDivElement | null>(null);
+  // const sectionGenerateMusic = useRef<HTMLDivElement | null>(null);
+  // const sectionPhone = useRef<HTMLDivElement | null>(null);
 
   // const changeIg = (value: string) => (ig.current = value);
   // const onInvite = (value: string) => (invite.current = value);
   // const onWeekdays = (value: string) => (day.current = value);
-  const onAddMessage = (value: string) => (message.current = value);
+  // const onAddMessage = (value: string) => (message.current = value);
   const addPhone = (value: string) => (phone.current = value);
 
   const scrollToSection = (
@@ -77,19 +77,19 @@ export const Home = () => {
   };
 
   const validateForm = () => {
-    const fields = [
-      // { ref: ig, name: "Usuário" },
-      // { ref: invite, name: "Convite" },
-      // { ref: day, name: "Dia" },
-      { ref: message, name: "Mensagem" },
-    ];
+    // const fields = [
+    //   // { ref: ig, name: "Usuário" },
+    //   // { ref: invite, name: "Convite" },
+    //   // { ref: day, name: "Dia" },
+    //   // { ref: message, name: "Mensagem" },
+    // ];
 
-    for (const field of fields) {
-      if (!field.ref.current || field.ref.current.trim() === "") {
-        toast.error(`O campo ${field.name} é obrigatório!`);
-        return false;
-      }
-    }
+    // for (const field of fields) {
+    //   if (!field.ref.current || field.ref.current.trim() === "") {
+    //     toast.error(`O campo ${field.name} é obrigatório!`);
+    //     return false;
+    //   }
+    // }
 
     return true;
   };
@@ -111,7 +111,7 @@ export const Home = () => {
       form.append("destination", guestNameInputData.value);
       form.append("invite_options", inviteFor);
       form.append("weekdays", day);
-      form.append("message", message.current);
+      form.append("message", message);
       const formattedPhone = formatPhone(phone.current);
       form.append("phone", formattedPhone);
       form.append("user_oid", user?.userOid ?? "");
@@ -238,7 +238,7 @@ export const Home = () => {
         onChangeGuestName={handleChangeGuestName}
       />
 
-      <InviteOptions
+      <InviteOptionsSection
         ref={inviteOptionsSectionRef}
         value={inviteFor}
         onInviteSelected={setInviteFor}
@@ -247,7 +247,7 @@ export const Home = () => {
         }}
       />
 
-      <WeekDay
+      <WeekDaySection
         ref={sectionWeekDay}
         selectedDay={day}
         onDaySelected={setDay}
@@ -256,12 +256,11 @@ export const Home = () => {
         }}
       />
 
-      <SendMessage
+      <SendMessageSection
         ref={sectionSendMessage}
-        onAddMessage={onAddMessage}
-        onFill={() => {
-          scrollToSection(sectionGenerateMusic);
-        }}
+        value={message}
+        onMessageChange={setMessage}
+        onGenerateMusic={() => {}}
       />
 
       {/* <Phone
@@ -274,14 +273,14 @@ export const Home = () => {
         }}
       /> */}
 
-      <GenerateMusic
+      {/* <GenerateMusic
         ref={sectionGenerateMusic}
         loading={loadingLyrics}
         generateMusic={generateMusic}
         onFill={() => {
           scrollToSection(sectionPhone);
         }}
-      />
+      /> */}
 
       {/* <Stickers /> */}
     </Container>
