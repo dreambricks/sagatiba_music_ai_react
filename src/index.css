@@ -1,3 +1,9 @@
+/* Diretivas do Tailwind */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
 @font-face {
   font-family: Gopher-Medium;
   src: url("./assets/fonts/gopher/Gopher-Medium.woff2");
@@ -11,6 +17,8 @@
 @font-face {
   font-family: Gopher-Bold;
   src: url("./assets/fonts/gopher/Gopher-Bold.woff2");
+  font-weight: 700; /* Garantir que o peso 700 seja carregado */
+  font-style: normal;
 }
 
 @font-face {
