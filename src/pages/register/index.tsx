@@ -222,7 +222,7 @@ const Register: React.FC = () => {
 
           <Styled.CheckBox
             {...register("acceptTerms")}
-            text="EU ACEITO OS TERMOS DE USO E RESPONSABILIDADE DE COMPARTILHAMENTO"
+            text="EU ACEITO OS TERMOS DE USO E RESPONSABILIDADE"
             errorMessage={errors.acceptTerms?.message}
             onTextClick={() => toggleModal("terms", true)}
             style={{ marginBottom: "8px" }}

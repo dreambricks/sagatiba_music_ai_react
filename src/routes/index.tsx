@@ -15,11 +15,15 @@ import { Erro } from "../pages/erro";
 import OverBookMiddleware from "./middlewares/overBookMiddleware";
 import { Overbook } from "../pages/overBook";
 import { EmailSent } from "../pages/emailSent";
+import { Terms } from "../pages/terms";
+import { Policy } from "../pages/policy";
 
 export const Routing = () => {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/termosdeuso" element={<Terms />} />
+        <Route path="/politicadeprivacidade" element={<Policy />} />
         <Route path="/overbook" element={<Overbook />} />
         <Route element={<OverBookMiddleware />}>
           <Route path="/age-gate" element={<AgeGate />} />

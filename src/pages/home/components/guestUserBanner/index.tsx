@@ -41,9 +41,12 @@ export const GuestUserBanner = () => {
             <img src={Invite} alt="invite" className="invite" />
           </div>
 
-          {user && <LogoutButton title="LOGOFF" onClick={handleLogoff} />}
+          {user ? (
+            <LogoutButton title="LOGOFF" onClick={handleLogoff} />
+          ) : (
+            <LogoutButton title="LOGIN" onClick={handleCreateMusic} />
+          )}
         </div>
-
         <div className="top">
           <img src={Mountains} alt="" />
         </div>
