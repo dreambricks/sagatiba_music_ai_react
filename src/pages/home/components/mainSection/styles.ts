@@ -11,6 +11,7 @@ export const Container = styled.section`
   background-color: #f9f5ed;
   align-items: center;
   overflow: hidden;
+  position: relative;
 `;
 
 export const BgImage = styled.div`
