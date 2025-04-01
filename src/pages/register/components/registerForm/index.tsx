@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import * as Styled from "./styles";
 import FormInput from "../../../components/formInput";
-import { ModalInfo } from "../../../home/components/destination/Modal";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 import { validateCpfDigits } from "../../../../utils/ValidatorUtils";
@@ -15,6 +14,7 @@ import { registerUser } from "../../../../service";
 import { useNavigate } from "react-router";
 import { useSession } from "../../../../context/sessionContext";
 import { toast } from "react-toastify";
+import { ModalInfo } from "../../../components/modalInfo";
 
 const whatsappRegex = /^\(\d{2}\) \d{5}-\d{4}$/;
 

@@ -4,10 +4,14 @@ import { useSession } from "../../context/sessionContext";
 
 const UR_BASE = "wss://sagatibamusicapi.zapto.org";
 
+type IMessage = {
+  audio_urls: string[];
+};
+
 export const useWebSocket = (task_id: number | undefined) => {
   const { user } = useSession();
 
-  const [message, setMessage] = useState(null);
+  const [message, setMessage] = useState<IMessage | null>(null);
   const [isConnected, setIsConnected] = useState(false);
   const [hasReceivedAudio, setHasReceivedAudio] = useState(false);
   const socketRef = useRef<Socket | null>(null);

@@ -1,54 +1,41 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { Container } from "./styles";
+import * as Styled from "./styles";
 import Download from "../../assets/download_lyric.gif";
 import { useEffect, useRef, useState } from "react";
 import { getLyrics, getTaskId } from "../../storage";
 import { useWebSocket } from "./useSocket";
-import { CustomButton } from "./components/custom-button";
 import { toast } from "react-toastify";
 import { AudioPlayer } from "../player/Player";
 import DownloadBtn from "../../assets/download_svg.svg";
 import Share from "../../assets/share_orange_svg.svg";
 
+const LOADING_MESSAGES = [
+  "Aprendendo estilo musical...",
+  "Refinando os acordes...",
+  "Carregando inspiração...",
+  "Pausa para uma Sagatiba...",
+  "Ajustando o tom perfeito...",
+  "Criando harmonia mágica...",
+  "Coletando dados...",
+] as const;
+
 export const LyricsPage = () => {
   const [lyrics, setLyrics] = useState("");
-  const [taskId, setTaskId] = useState();
+  const [taskId, setTaskId] = useState<number>();
   const [audioUrls, setAudioUrls] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
-  const [buttonLoadingText, setButtonLoadingText] = useState("Coletando dados...");
+  const [buttonLoadingText, setButtonLoadingText] =
+    useState("Coletando dados...");
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   const buttonInterval = useRef<undefined | number>();
 
   const { message } = useWebSocket(taskId);
 
-  const loadingMessages = [
-    "Aprendendo estilo musical...",
-    "Refinando os acordes...",
-    "Carregando inspiração...",
-    "Pausa para uma Sagatiba...",
-    "Ajustando o tom perfeito...",
-    "Criando harmonia mágica...",
-    "Coletando dados...",
-  ];
-
-  // const generateId = async () => {
-  //   try {
-  //     const response = await generate();
-
-  //     if (response.status === "Sua tarefa foi enfileirada") {
-  //       setTaskId(response.task_id);
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
   const getTask = () => {
     const taskId = getTaskId();
     console.log(taskId);
-    if (taskId != null) {
-      setTaskId(taskId as any);
+    if (taskId !== null) {
+      setTaskId(Number(taskId));
     }
   };
 
@@ -62,8 +49,8 @@ export const LyricsPage = () => {
     if (loading) {
       let index = 0;
       buttonInterval.current = setInterval(() => {
-        setButtonLoadingText(loadingMessages[index]);
-        index = (index + 1) % loadingMessages.length;
+        setButtonLoadingText(LOADING_MESSAGES[index]);
+        index = (index + 1) % LOADING_MESSAGES.length;
       }, 3500);
     } else {
       clearInterval(buttonInterval.current);
@@ -74,8 +61,8 @@ export const LyricsPage = () => {
   }, [loading]);
 
   useEffect(() => {
-    if ((message as any)?.audio_urls) {
-      setAudioUrls((message as any).audio_urls);
+    if (message?.audio_urls) {
+      setAudioUrls(message.audio_urls);
       setLoading(false);
       // clearLocalStorage();
     }
@@ -118,7 +105,8 @@ export const LyricsPage = () => {
   };
 
   const copiarParaAreaDeTransferencia = (texto: string) => {
-    navigator.clipboard.writeText(texto)
+    navigator.clipboard
+      .writeText(texto)
       .then(() => {
         toast.success("✅ Link copiado para a área de transferência!", {
           position: "bottom-right",
@@ -134,68 +122,124 @@ export const LyricsPage = () => {
   };
 
   return (
-    <Container>
-      <div className="content">
-        {loading ? (
-          <div className="tittle">
-            <h1>ma.I.A.ra e mar.A.I.sa estão aquecendo a voz!</h1>
-            <p className="description">
-              Sua música pode demorar uns minutinhos pra ficar pronta. Mas fica de boa que a gente te manda uma mensagem quando
-              ela estiver tudo certo pro play.
-            </p>
-          </div>
-        ) : (
-          <div className="tittle" style={{ marginBottom: "30px" }}>
-            <h1>Bora seguir na saga? Sua música tá pronta!</h1>
-            <div className="description">
-              <p>Mas ó: a inteligência artificial ainda tá aprendendo a viver e aperfeiçoando suas criações. Por isso, geramos duas
-                versões pra você escolher qual mais combina com seu rolê.
-              </p>
-              <p>Quanto mais músicas você criar, mais ela aprende a seguir na saga</p>
-            </div>
-          </div>
-        )}
+    <Styled.Container>
+      <Styled.TopContentContainer>
+        <Styled.Title>
+          ma.I.A.ra e mar.A.I.sa
+          <br />
+          estão aquecendo a voz!
+        </Styled.Title>
 
-        {loading ? (
-          <CustomButton className="button-phrases" disabled={loading}>
-            {buttonLoadingText}
-          </CustomButton>
-        ) : (
-          <div className="players">
-            {audioUrls.slice(0, 2).map((url, idx) => (
-              <div className="container-player" key={idx}>
-                <AudioPlayer
-                  audioUrl={url}
-                  isActive={activeIndex === idx}
-                  onPlay={() => setActiveIndex(prev => (prev === idx ? null : idx))}
-                  onFinish={() => setActiveIndex(null)}
-                />
-                <div className="socials">
-                  <img src={DownloadBtn} alt="Download" onClick={() => downloadMp3File(url)} />
-                  <img src={Share} alt="Compartilhar" onClick={() => compartilharLink(idx)} />
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
+        <Styled.Description>
+          Sua música será gerada em até 10 minutinhos
+          <br />
+          <br /> Fica de boa que, quando ela estiver pronta
+          <br />a gente te manda uma mensagem.
+        </Styled.Description>
 
-        <div className="container-info">
-          <div className="download-img">
-            <img src={Download} alt="Download" />
-          </div>
+        <Styled.Button title={buttonLoadingText} />
+      </Styled.TopContentContainer>
 
-          <div className="lyrics">
-            <div className="lyrics-holder">
-              <pre>{lyrics.replace(/\[(intro|verse|outro)\]|\*|markdown/gi, "").trim()}</pre>
-            </div>
-          </div>
-        </div>
+      <Styled.BottomContentContainer>
+        <Styled.CenteredContainer>
+          <Styled.GifContainer>
+            <Styled.Gif src={Download} />
+          </Styled.GifContainer>
 
-        <p className="advise">
-          Beba com moderação. <br />
-          Não compartilhe com menores de 18 anos.
-        </p>
-      </div>
-    </Container>
+          <Styled.LyricContainer>
+            <Styled.Lyrics>
+              {lyrics
+                .replace(/\[(intro|verse|outro)\]|\*|markdown/gi, "")
+                .trim()}
+            </Styled.Lyrics>
+          </Styled.LyricContainer>
+        </Styled.CenteredContainer>
+
+        <Styled.DisclaimerText>
+          Beba com moderação. Não compartilhe com menores de 18 anos.
+        </Styled.DisclaimerText>
+      </Styled.BottomContentContainer>
+    </Styled.Container>
+  );
+
+  return (
+    <Styled.Container>
+      {loading ? (
+        <Styled.TopContentContainer>
+          <Styled.Title>
+            ma.I.A.ra e mar.A.I.sa
+            <br />
+            estão aquecendo a voz!
+          </Styled.Title>
+
+          <Styled.Description>
+            Sua música será gerada em até 10 minutinhos
+          </Styled.Description>
+
+          <Styled.Description>
+            Fica de boa que, quando ela estiver pronta
+            <br />a gente te manda uma mensagem.
+          </Styled.Description>
+
+          <Styled.Button title={buttonLoadingText} />
+        </Styled.TopContentContainer>
+      ) : (
+        <>
+          <h1>Bora seguir na saga? Sua música tá pronta!</h1>
+          <p>
+            Mas ó: a inteligência artificial ainda tá aprendendo a viver e
+            aperfeiçoando suas criações. Por isso, geramos duas versões pra você
+            escolher qual mais combina com seu rolê.
+          </p>
+          <p>
+            Quanto mais músicas você criar, mais ela aprende a seguir na saga
+          </p>
+        </>
+      )}
+      {loading ? (
+        <></>
+      ) : (
+        // <Styled.Button title={buttonLoadingText} />
+        // <CustomButton className="button-phrases" disabled={loading}>
+        //   {buttonLoadingText}
+        // </CustomButton>
+
+        <>
+          {audioUrls.slice(0, 2).map((url, idx) => (
+            <>
+              <AudioPlayer
+                audioUrl={url}
+                isActive={activeIndex === idx}
+                onPlay={() =>
+                  setActiveIndex((prev) => (prev === idx ? null : idx))
+                }
+                onFinish={() => setActiveIndex(null)}
+              />
+
+              <img
+                src={DownloadBtn}
+                alt="Download"
+                onClick={() => downloadMp3File(url)}
+              />
+
+              <img
+                src={Share}
+                alt="Compartilhar"
+                onClick={() => compartilharLink(idx)}
+              />
+            </>
+          ))}
+        </>
+      )}
+      {/* <img src={Download} alt="Download" /> */}
+
+      <pre>
+        {lyrics.replace(/\[(intro|verse|outro)\]|\*|markdown/gi, "").trim()}
+      </pre>
+
+      <Styled.DisclaimerText>
+        Beba com moderação. Não compartilhe com menores de 18 anos.
+      </Styled.DisclaimerText>
+    </Styled.Container>
   );
 };

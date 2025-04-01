@@ -1,303 +1,130 @@
 import styled from "styled-components";
+import CustomButton from "../components/customButton";
+import { ContentContainer } from "./components/contentContainer";
+
+const BOTTOM_CONTAINER_SIZE = "40vh";
+const BOTTOM_CONTAINER_SIZE_MOBILE = "30vh";
 
 export const Container = styled.div`
-  display: grid;
-  grid-template-columns: 35px 1fr 35px !important;
-  height: 100%;
-  background: #ffdd2e;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+  background-color: white;
+`;
 
-  .content {
-    grid-column: 2/3;
-    padding: 60px 0 60px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+export const TopContentContainer = styled.div`
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  gap: 32px;
+  padding: 32px;
+`;
 
-    .tittle {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      max-width: 90%;
+export const BottomContentContainer = styled.div`
+  display: flex;
+  width: 100%;
+  height: ${BOTTOM_CONTAINER_SIZE};
+  background-color: #ccc;
+  justify-content: center;
+  align-items: center;
 
-      h1 {
-        text-align: center;
-        font-size: 1.5rem;
-        font-family: "Gopher-Bold", "sans-serif";
-      }
+  @media (max-width: 768px) {
+    height: ${BOTTOM_CONTAINER_SIZE_MOBILE};
+  }
+`;
 
-      .description {
-        margin-top: 30px;
-        text-align: center;
-      }
-    }
+export const Title = styled.h1`
+  font-family: "Gopher-Bold";
+  color: #f15a31;
+  text-align: center;
 
-    .players {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 40px;
+  @media (max-width: 768px) {
+    font-size: 24px;
+  }
+`;
 
-      .container-player {
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        gap: 20px;
+export const Description = styled.p`
+  text-align: center;
+  color: black;
 
-        .socials {
-          img {
-            cursor: pointer;
-            width: 2.5rem;
-          }
-        }
-      }
-    }
+  @media (max-width: 768px) {
+    font-size: 14px;
+  }
+`;
 
-    .button-phrases {
-      margin-top: 80px;
-      margin-bottom: 50px;
-      font-family: "Gopher-Bold", "sans-serif";
-      cursor: pointer;
+export const Button = styled(CustomButton)`
+  width: 300px;
+  cursor: default;
 
-      &:disabled {
-        cursor: not-allowed;
-      }
-    }
+  @media (max-width: 768px) {
+    width: 200px;
+  }
+`;
 
-    .container-info {
-      .download-img {
-        border-radius: 40px;
-        overflow: hidden;
-        display: none;
+export const DisclaimerText = styled.span`
+  position: absolute;
+  bottom: 16px;
+  font-size: 12px;
+  align-self: center;
 
-        img {
-          width: 100%;
-          max-width: 490px;
-        }
-      }
+  @media (max-width: 768px) {
+    font-size: 8px;
+  }
+`;
 
-      .lyrics {
-        margin-top: 40px;
-        background: #32c034;
-        border-radius: 40px;
-        height: 320px;
-        padding: 25px 10px 25px 30px;
+export const CenteredContainer = styled.div`
+  display: flex;
+  gap: 54px;
+  position: absolute;
+  top: calc(100% - (${BOTTOM_CONTAINER_SIZE}));
+  left: 50%;
+  transform: translate(-50%, -50%);
 
-        .lyrics-holder {
-          height: 100%;
-          overflow: auto;
+  @media (max-width: 768px) {
+    gap: 24px;
+    top: calc(100% - (${BOTTOM_CONTAINER_SIZE_MOBILE}));
+  }
+`;
 
-          pre {
-            font-family: "Gopher-Medium", "sans-serif";
-            white-space: pre-line;
-            user-select: text;
-          }
+export const GifContainer = styled(ContentContainer)``;
 
-          &::-webkit-scrollbar {
-            width: 5px;
-          }
+export const LyricContainer = styled(ContentContainer)`
+  justify-content: center;
+  align-items: center;
 
-          &::-webkit-scrollbar-track {
-            background: #129d14;
-          }
+  background-color: #f9f5ed;
+  overflow-y: auto;
 
-          &::-webkit-scrollbar-thumb {
-            background: #ffdd2e;
-            border-radius: 10px;
-          }
-
-          &::-webkit-scrollbar-thumb:hover {
-            background: #ffdd2e;
-            border-radius: 10px;
-          }
-        }
-      }
-    }
-
-    .share {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      margin-top: 40px;
-      font-family: "Gopher-Bold", "sans-serif";
-      font-size: 1.5rem;
-
-      .socials {
-        img {
-          width: 40px;
-        }
-      }
-    }
-
-    .advise {
-      margin-top: 40px;
-      text-align: center;
-    }
+  /* Esconde a scrollbar */
+  &::-webkit-scrollbar {
+    display: none;
   }
 
-  @media (min-width: 768px) {
-    grid-template-columns: 1fr 560px 1fr !important;
+  /* Para Firefox */
+  scrollbar-width: none;
 
-    .content {
-      .tittle {
-        max-width: 80%;
-        .description {
-          text-align: center;
-        }
-      }
-      .players {
-        .container-player {
-          .socials {
-            display: flex;
-            gap: 10px;
-            img {
-              width: 4rem;
-            }
-          }
-        }
-      }
+  /* Para IE/Edge */
+  -ms-overflow-style: none;
+`;
 
-      .container-info {
-        margin-top: 50px;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: 500px;
-        gap: 20px;
-        width: 100%;
+export const Gif = styled.img`
+  display: flex;
+  flex: 1;
+`;
 
-        .download-img {
-          grid-column: 1/2;
-          grid-row: 1/2;
-          display: block;
+export const Lyrics = styled.pre`
+  font-size: 18px;
+  font-family: "Gopher-Regular";
+  text-align: center;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  margin-top: 24px;
+  padding: 16px;
 
-          img {
-            width: 100%;
-            max-width: unset;
-            height: 100%;
-            display: block;
-            object-fit: cover;
-          }
-        }
-
-        .lyrics {
-          grid-column: 2/3;
-
-          margin-top: 0;
-          flex-grow: 1;
-          height: initial;
-        }
-      }
-    }
-  }
-
-  @media (min-width: 1024px) {
-    grid-template-columns: 1fr 960px 1fr !important;
-
-    .content {
-      .description {
-        text-align: center;
-      }
-
-      .container-info {
-        grid-template-rows: 900px;
-      }
-    }
-  }
-
-  @media (min-width: 1280px) {
-    grid-template-columns: 1fr 960px 1fr !important;
-
-    .content {
-      .description {
-        text-align: center;
-      }
-
-      .lyrics {
-        border-radius: 113px;
-        padding: 85px 99px 21px 161px;
-
-        .lyrics-holder {
-          font-size: 1.8rem;
-        }
-      }
-    }
-  }
-
-  @media (min-width: 1920px) {
-    grid-template-columns: 1fr 1626px 1fr !important;
-
-    .content {
-      .tittle {
-        max-width: 80%;
-        h1 {
-          font-size: 4.5rem;
-          text-align: center;
-        }
-
-        .description {
-          font-size: 2.56rem;
-        }
-      }
-
-      /* button {
-        font-size: 4rem;
-        padding: 33px 40px 29px;
-        border-radius: 41px;
-      } */
-
-      .container-info {
-        gap: 2px;
-        height: 1059px;
-        grid-template-rows: 1059px;
-
-        .download-img {
-          max-width: 697px;
-        }
-
-        .lyrics {
-          border-radius: 80px;
-          padding: 61px 19px 50px 82px;
-
-          .lyrics-holder {
-            height: 100%;
-            font-size: 1.8rem;
-
-            pre {
-              margin-right: 100px;
-              text-align: justify;
-            }
-
-            &::-webkit-scrollbar {
-              width: 15px;
-            }
-
-            &::-webkit-scrollbar-thumb {
-              border-radius: 115px;
-            }
-
-            &::-webkit-scrollbar-thumb:hover {
-              border-radius: 115px;
-            }
-          }
-        }
-      }
-
-      .share {
-        gap: 30px;
-        font-size: 6.25rem;
-        .socials {
-          img {
-            width: 160px;
-          }
-        }
-      }
-      .advise {
-        font-size: 2.5625rem;
-      }
-    }
+  @media (max-width: 768px) {
+    font-size: 12px;
   }
 `;
