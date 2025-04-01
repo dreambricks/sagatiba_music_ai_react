@@ -39,7 +39,7 @@ export const InviteOptionsSection = forwardRef<
               <Styled.OptionButton
                 key={item.id}
                 selected={value === item.option}
-                selectedColor={item.color}
+                $selected_color={item.color}
                 onClick={() => handleSelectInviteFor(item.option)}
               >
                 {item.option}

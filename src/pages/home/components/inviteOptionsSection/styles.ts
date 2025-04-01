@@ -101,7 +101,7 @@ export const OptionsContainer = styled.div`
 
 export const OptionButton = styled.button<{
   selected: boolean;
-  selectedColor: string;
+  $selected_color: string;
 }>`
   display: flex;
   flex-grow: 1;
@@ -112,13 +112,13 @@ export const OptionButton = styled.button<{
   font-weight: 600;
   border: 1px solid #ccc;
   background-color: ${(props) =>
-    props.selected ? props.selectedColor : "#FFFFFF"};
+    props.selected ? props.$selected_color : "#FFFFFF"};
   color: ${(props) => (props.selected ? "black" : "#555")};
   transition: all 0.3s;
   cursor: pointer;
 
   &:hover {
     background-color: ${(props) =>
-      props.selected ? props.selectedColor : "#f0f0f0"};
+      props.selected ? props.$selected_color : "#f0f0f0"};
   }
 `;

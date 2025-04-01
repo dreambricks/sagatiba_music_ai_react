@@ -10,12 +10,11 @@ export type IGuestNameInputData = {
 type Props = {
   guestNameInputData: IGuestNameInputData;
   onChangeGuestName: (value: string) => void;
+  onNextClick: () => void;
 };
 
 const GuestNameSection = forwardRef<HTMLDivElement, Props>(
-  ({ guestNameInputData, onChangeGuestName }, ref) => {
-    const handleNext = () => {};
-
+  ({ guestNameInputData, onChangeGuestName, onNextClick }, ref) => {
     return (
       <Styled.Container ref={ref}>
         <Styled.WhiteContainer>
@@ -41,7 +40,7 @@ const GuestNameSection = forwardRef<HTMLDivElement, Props>(
             compartilhe o convite com maiores de 18 anos
           </Styled.RegularText>
 
-          <Styled.Button title="PRÓXIMO >" onClick={handleNext} />
+          <Styled.Button title="PRÓXIMO >" onClick={onNextClick} />
         </Styled.WhiteContainer>
       </Styled.Container>
     );

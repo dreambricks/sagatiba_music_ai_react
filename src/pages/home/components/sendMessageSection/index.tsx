@@ -3,12 +3,13 @@ import * as Styled from "./style";
 
 interface SendMessageProps {
   value: string;
+  isLoading: boolean;
   onMessageChange: (message: string) => void;
   onGenerateMusic: () => void;
 }
 
 export const SendMessageSection = forwardRef<HTMLDivElement, SendMessageProps>(
-  ({ value, onMessageChange, onGenerateMusic }, ref) => {
+  ({ value, isLoading, onMessageChange, onGenerateMusic }, ref) => {
     return (
       <Styled.Container ref={ref}>
         <Styled.LeftContainer>
@@ -36,11 +37,12 @@ export const SendMessageSection = forwardRef<HTMLDivElement, SendMessageProps>(
 
           <Styled.GenerateButton
             title="GERAR MÚSICA >"
+            loading={isLoading}
             onClick={onGenerateMusic}
           />
         </Styled.LeftContainer>
 
-        <Styled.RightContainer></Styled.RightContainer>
+        <Styled.RightContainer />
       </Styled.Container>
     );
   }

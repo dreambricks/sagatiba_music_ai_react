@@ -1,10 +1,12 @@
 import { useState, useEffect, useRef } from "react";
 import { io, Socket } from "socket.io-client";
-import { getPhoneFromCookie } from "../../storage";
+import { useSession } from "../../context/sessionContext";
 
 const UR_BASE = "wss://sagatibamusicapi.zapto.org";
 
 export const useWebSocket = (task_id: number | undefined) => {
+  const { user } = useSession();
+
   const [message, setMessage] = useState(null);
   const [isConnected, setIsConnected] = useState(false);
   const [hasReceivedAudio, setHasReceivedAudio] = useState(false);
@@ -13,7 +15,7 @@ export const useWebSocket = (task_id: number | undefined) => {
   const forceReconnectInterval = useRef<number | undefined>(undefined);
   const intervalRef = useRef<number | null>(null);
 
-  const phone = getPhoneFromCookie();
+  const phone = user?.phone ?? "";
 
   const connectWebSocket = () => {
     console.log("Conectando ao WebSocket...");

@@ -1,18 +1,11 @@
 import { Container } from "./styles";
 import { WeekDaySection } from "./components/weekdaySection";
-// import { Phone } from "./components/phone";
 import { InviteOptionsSection } from "./components/inviteOptionsSection";
 import { SendMessageSection } from "./components/sendMessageSection";
 import { useRef, useState } from "react";
 import { generate, generateMusicLyric } from "../../service";
 import { toast } from "react-toastify";
-import {
-  saveLyrics,
-  saveLyricsId,
-  savePhone,
-  savePhoneToCookie,
-  saveTaskId,
-} from "../../storage";
+import { saveLyrics, saveLyricsId, saveTaskId } from "../../storage";
 import { useNavigate } from "react-router";
 import { useSession } from "../../context/sessionContext";
 import GuestNameSection, {
@@ -20,8 +13,25 @@ import GuestNameSection, {
 } from "./components/guestNameSection";
 import MainSection from "./components/mainSection";
 import { AxiosError } from "axios";
-import { Navbar } from "../components/navbar";
-// import { Stickers } from "./components/stickers";
+import { z } from "zod";
+
+const nonEmptyStringSchema = z.string().nonempty();
+
+const musicFormSchema = z.object({
+  guestName: nonEmptyStringSchema,
+  inviteFor: nonEmptyStringSchema,
+  day: nonEmptyStringSchema,
+  message: nonEmptyStringSchema,
+});
+
+type IMusicFormSchema = z.infer<typeof musicFormSchema>;
+
+const errorFieldNames = {
+  guestName: "Usuário",
+  inviteFor: "Convite",
+  day: "Dia",
+  message: "Mensagem",
+} as const;
 
 export const Home = () => {
   const navigate = useNavigate();
@@ -37,32 +47,10 @@ export const Home = () => {
   const [day, setDay] = useState("");
   const [message, setMessage] = useState("");
 
-  // const ig = useRef("");
-  // const invite = useRef("");
-  // const day = useRef("");
-  // const message = useRef("");
-  const phone = useRef("");
-
   const guestNameSectionRef = useRef<HTMLDivElement | null>(null);
-  // const sectionSagalovers = useRef<HTMLDivElement | null>(null);
   const inviteOptionsSectionRef = useRef<HTMLDivElement | null>(null);
-  const sectionWeekDay = useRef<HTMLDivElement | null>(null);
-  const sectionSendMessage = useRef<HTMLDivElement | null>(null);
-  // const sectionGenerateMusic = useRef<HTMLDivElement | null>(null);
-  // const sectionPhone = useRef<HTMLDivElement | null>(null);
-
-  // const changeIg = (value: string) => (ig.current = value);
-  // const onInvite = (value: string) => (invite.current = value);
-  // const onWeekdays = (value: string) => (day.current = value);
-  // const onAddMessage = (value: string) => (message.current = value);
-  const addPhone = (value: string) => (phone.current = value);
-
-  const scrollToSection = (
-    targetRef: React.MutableRefObject<HTMLElement | null>
-  ) => {
-    if (!targetRef.current) return;
-    targetRef.current.scrollIntoView({ behavior: "smooth" });
-  };
+  const sectionWeekDayRef = useRef<HTMLDivElement | null>(null);
+  const sectionSendMessageRef = useRef<HTMLDivElement | null>(null);
 
   const handleChangeGuestName = (value: string) => {
     let errorMessage = "";
@@ -78,50 +66,37 @@ export const Home = () => {
   };
 
   const validateForm = () => {
-    // const fields = [
-    //   // { ref: ig, name: "Usuário" },
-    //   // { ref: invite, name: "Convite" },
-    //   // { ref: day, name: "Dia" },
-    //   // { ref: message, name: "Mensagem" },
-    // ];
+    const { error, success } = musicFormSchema.safeParse({
+      guestName: guestNameInputData.value,
+      inviteFor: inviteFor,
+      day: day,
+      message: message,
+    });
 
-    // for (const field of fields) {
-    //   if (!field.ref.current || field.ref.current.trim() === "") {
-    //     toast.error(`O campo ${field.name} é obrigatório!`);
-    //     return false;
-    //   }
-    // }
+    if (error) {
+      const fieldKey = error.errors[0].path[0] as keyof IMusicFormSchema;
+      toast.error(`O campo ${errorFieldNames[fieldKey]} é obrigatório`);
+    }
 
-    return true;
-  };
-
-  const formatPhone = (phone: string) => {
-    return phone.replace(/[\s-]/g, "");
+    return success;
   };
 
   const generateMusic = async () => {
+    if (!validateForm()) return;
+
     try {
       setLoadingLyrics(true);
-
-      if (!validateForm()) {
-        setLoadingLyrics(false);
-        return;
-      }
 
       const form = new FormData();
       form.append("destination", guestNameInputData.value);
       form.append("invite_options", inviteFor);
       form.append("weekdays", day);
       form.append("message", message);
-      const formattedPhone = formatPhone(phone.current);
-      form.append("phone", formattedPhone);
+      form.append("phone", user?.phone ?? "11999999999");
       form.append("user_oid", user?.userOid ?? "");
-      addPhone(user?.phone ?? "11999999999");
 
       const response = await generateMusicLyric(form);
 
-      savePhone(phone.current);
-      savePhoneToCookie(phone.current);
       saveLyrics(response.lyrics);
       saveLyricsId(response.lyrics_oid);
 
@@ -154,7 +129,7 @@ export const Home = () => {
 
   const generateId = async () => {
     try {
-      const response = await generate();
+      const response = await generate(user?.phone ?? "11999999999");
       console.log(response);
 
       if (response.status === "Sua tarefa foi enfileirada") {
@@ -165,45 +140,45 @@ export const Home = () => {
     }
   };
 
-  // const scrollToSection = (
-  //   sectionRef: React.RefObject<HTMLDivElement>,
-  //   offset: number = 0,
-  //   duration: number = 1000
-  // ) => {
-  //   if (sectionRef.current) {
-  //     const startPosition = window.scrollY;
+  const scrollToSection = (
+    sectionRef: React.RefObject<HTMLDivElement>,
+    offset: number = 0,
+    duration: number = 1000
+  ) => {
+    if (sectionRef.current) {
+      const startPosition = window.scrollY;
 
-  //     const element = sectionRef.current;
-  //     const elementTop = element.getBoundingClientRect().top + window.scrollY;
-  //     const elementHeight = element.offsetHeight;
-  //     const viewportHeight = window.innerHeight;
+      const element = sectionRef.current;
+      const elementTop = element.getBoundingClientRect().top + window.scrollY;
+      const elementHeight = element.offsetHeight;
+      const viewportHeight = window.innerHeight;
 
-  //     // Centraliza o elemento no meio da tela
-  //     const targetPosition =
-  //       elementTop - viewportHeight / 2 + elementHeight / 2 + offset;
+      // Centraliza o elemento no meio da tela
+      const targetPosition =
+        elementTop - viewportHeight / 2 + elementHeight / 2 + offset;
 
-  //     const distance = targetPosition - startPosition;
-  //     const startTime = performance.now();
+      const distance = targetPosition - startPosition;
+      const startTime = performance.now();
 
-  //     const easeInOutQuad = (t: number) => {
-  //       return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
-  //     };
+      const easeInOutQuad = (t: number) => {
+        return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+      };
 
-  //     const scrollAnimation = (currentTime: number) => {
-  //       const timeElapsed = currentTime - startTime;
-  //       const progress = Math.min(timeElapsed / duration, 1);
-  //       const ease = easeInOutQuad(progress);
-  //       const scrollStep = startPosition + distance * ease;
-  //       window.scrollTo(0, scrollStep);
+      const scrollAnimation = (currentTime: number) => {
+        const timeElapsed = currentTime - startTime;
+        const progress = Math.min(timeElapsed / duration, 1);
+        const ease = easeInOutQuad(progress);
+        const scrollStep = startPosition + distance * ease;
+        window.scrollTo(0, scrollStep);
 
-  //       if (progress < 1) {
-  //         requestAnimationFrame(scrollAnimation);
-  //       }
-  //     };
+        if (progress < 1) {
+          requestAnimationFrame(scrollAnimation);
+        }
+      };
 
-  //     requestAnimationFrame(scrollAnimation);
-  //   }
-  // };
+      requestAnimationFrame(scrollAnimation);
+    }
+  };
 
   if (!user) {
     return <MainSection />;
@@ -212,22 +187,6 @@ export const Home = () => {
   return (
     <Container>
       {/* <Navbar /> */}
-
-      {/* <Banner
-        sectionId="banner"
-        ref={sectionBanner}
-        onCreateMusic={() => {
-          if (sectionSagalovers.current) scrollToSection(sectionSagalovers);
-        }}
-      /> */}
-
-      {/* <Sagalovers
-        changeIg={changeIg}
-        ref={sectionSagalovers}
-        onFill={() => {
-          if (inviteOptions.current) scrollToSection(inviteOptions, 0);
-        }}
-      /> */}
 
       <MainSection
         onGenerateMusic={() => {
@@ -239,6 +198,7 @@ export const Home = () => {
         ref={guestNameSectionRef}
         guestNameInputData={guestNameInputData}
         onChangeGuestName={handleChangeGuestName}
+        onNextClick={() => scrollToSection(inviteOptionsSectionRef)}
       />
 
       <InviteOptionsSection
@@ -246,44 +206,26 @@ export const Home = () => {
         value={inviteFor}
         onInviteSelected={setInviteFor}
         handleNextPress={() => {
-          scrollToSection(sectionWeekDay);
+          scrollToSection(sectionWeekDayRef);
         }}
       />
 
       <WeekDaySection
-        ref={sectionWeekDay}
+        ref={sectionWeekDayRef}
         selectedDay={day}
         onDaySelected={setDay}
         onNextPress={() => {
-          scrollToSection(sectionSendMessage);
+          scrollToSection(sectionSendMessageRef);
         }}
       />
 
       <SendMessageSection
-        ref={sectionSendMessage}
+        ref={sectionSendMessageRef}
         value={message}
+        isLoading={loadingLyrics}
         onMessageChange={setMessage}
-        onGenerateMusic={() => {}}
+        onGenerateMusic={generateMusic}
       />
-
-      {/* <Phone
-        ref={sectionPhone}
-        addPhone={addPhone}
-        loading={loadingLyrics}
-        onFill={() => {
-          if (sectionGenerateMusic.current)
-            scrollToSection(sectionGenerateMusic, 0);
-        }}
-      /> */}
-
-      {/* <GenerateMusic
-        ref={sectionGenerateMusic}
-        loading={loadingLyrics}
-        generateMusic={generateMusic}
-        onFill={() => {
-          scrollToSection(sectionPhone);
-        }}
-      /> */}
 
       {/* <Stickers /> */}
     </Container>

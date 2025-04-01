@@ -1,9 +1,9 @@
 import axios from "axios";
-import { getLyricsId, getPhone } from "../storage";
+import { getLyricsId } from "../storage";
 import { IRegisterUserBody, IUserJson } from "./types";
-import { IRegisterFormField } from "../pages/register";
 import { applyNumberOnly } from "../utils/MaskUtils";
 import { encryptText } from "../utils/CryptUtils";
+import { IRegisterFormField } from "../pages/register/components/registerForm";
 
 const UR_BASE = "https://sagatibamusicapi.zapto.org";
 // const UR_BASE = "http://localhost:5001";
@@ -14,10 +14,9 @@ export const generateMusicLyric = async (obj: FormData) => {
   return response.data;
 };
 
-export const generate = async () => {
+export const generate = async (phone: string) => {
   try {
     const lyrics_oid = getLyricsId();
-    const phone = getPhone();
 
     const response = await axios.post(
       `${UR_BASE}/lyrics/generate`,
@@ -36,10 +35,8 @@ export const generate = async () => {
   }
 };
 
-export const getTaskId = async () => {
+export const getTaskId = async (phone: string) => {
   try {
-    const phone = getPhone();
-
     const response = await axios.post(`${UR_BASE}/lyrics/process`, { phone });
 
     return response.data;
