@@ -23,13 +23,21 @@ const MainSection = forwardRef<HTMLDivElement, Props>(
       }
     };
 
-    const handleLogOff = () => {
-      updateUser(null);
+    const handleUserSession = () => {
+      if (user) {
+        updateUser(null);
+        return;
+      }
+
+      navigate("/login");
     };
 
     return (
       <Styled.Container ref={ref}>
-        {user && <Styled.LogOffButton title="LOGOFF" onClick={handleLogOff} />}
+        <Styled.LogOffButton
+          title={user ? "LOGOFF" : "LOGIN"}
+          onClick={handleUserSession}
+        />
 
         <Styled.BgImage />
 
