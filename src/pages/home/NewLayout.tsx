@@ -1,6 +1,6 @@
 import { Container } from "./styles";
 import { Sagalovers } from "./components/destinationNewLayout";
-import { WeekDay } from "./components/weekday/indedx";
+import { WeekDay } from "./components/weekdayNewLayout/indedx";
 // import { Phone } from "./components/phone";
 import BannerNewLayout from "./components/bannerNewLayout";
 import { InviteOptions } from "./components/inviteOptionsNewLayout";
