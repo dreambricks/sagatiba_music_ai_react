@@ -20,6 +20,7 @@ import GuestNameSection, {
 } from "./components/guestNameSection";
 import MainSection from "./components/mainSection";
 import { AxiosError } from "axios";
+import { Navbar } from "../components/navbar";
 // import { Stickers } from "./components/stickers";
 
 export const Home = () => {
@@ -210,6 +211,8 @@ export const Home = () => {
 
   return (
     <Container>
+      {/* <Navbar /> */}
+
       {/* <Banner
         sectionId="banner"
         ref={sectionBanner}
