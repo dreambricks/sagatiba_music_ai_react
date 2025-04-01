@@ -8,6 +8,8 @@ import Download from "../../assets/download_lyric.gif";
 import { AudioPlayer } from "./Player";
 import { toast } from "react-toastify";
 import Loading from "../../assets/spinner_sem_fundo_ver2.gif";
+import { Navbar } from "../components/navbar";
+import { Footer } from "../components/footer";
 
 export const Player = () => {
   const location = useLocation();
@@ -99,73 +101,77 @@ export const Player = () => {
   };
 
   return (
-    <Container>
-      <div className="content">
-        <h1>BORA ESCUTAR UMA MÚSICA?</h1>
+    <div style={{ overflowX: "hidden" }}>
+      <Navbar />
+      <Container>
+        <div className="content">
+          <h1>BORA ESCUTAR UMA MÚSICA?</h1>
 
-        <p className="description">
-          Seu amigo Sagalover te mandou uma música feita especialmente pra você,
-          pra que você consiga sentir o ritmo da Sagatiba com Maiara e Maraisa!
-        </p>
+          <p className="description">
+            Seu amigo Sagalover te mandou uma música feita especialmente pra você,
+            pra que você consiga sentir o ritmo da Sagatiba com Maiara e Maraisa!
+          </p>
 
-        {index !== null ? (
-          <div className="players">
-            <div className="container-player">
-              {audioUrls.length >= 1 && (
-                <AudioPlayer
-                  audioUrl={audioUrls[Number(index)]}
-                  isActive={activeIndex === Number(index)}
-                  onPlay={() => setActiveIndex(prev => (prev === Number(index) ? null : Number(index)))}
-                  onFinish={() => setActiveIndex(null)}
-                />
-              )}
-              <div className="socials">
-                <img src={DownloadBtn} alt="Download" onClick={() => audioUrls.length > 0 && downloadMp3File(audioUrls[Number(index)])} />
-                <img src={Share} alt="Compartilhar" onClick={() => compartilharLink(Number(index))} />
-              </div>
-            </div>
-          </div>
-        ) : (
-          <div className="players">
-            {audioUrls.slice(0, 2).map((url, idx) => (
-              <div key={idx} className="container-player">
-                <AudioPlayer
-                  audioUrl={url}
-                  isActive={activeIndex === idx}
-                  onPlay={() => setActiveIndex(prev => (prev === idx ? null : idx))}
-                  onFinish={() => setActiveIndex(null)}
-                />
+          {index !== null ? (
+            <div className="players">
+              <div className="container-player">
+                {audioUrls.length >= 1 && (
+                  <AudioPlayer
+                    audioUrl={audioUrls[Number(index)]}
+                    isActive={activeIndex === Number(index)}
+                    onPlay={() => setActiveIndex(prev => (prev === Number(index) ? null : Number(index)))}
+                    onFinish={() => setActiveIndex(null)}
+                  />
+                )}
                 <div className="socials">
-                  <img src={DownloadBtn} alt="Download" onClick={() => downloadMp3File(url)} />
-                  <img src={Share} alt="Compartilhar" onClick={() => compartilharLink(idx)} />
+                  <img src={DownloadBtn} alt="Download" onClick={() => audioUrls.length > 0 && downloadMp3File(audioUrls[Number(index)])} />
+                  <img src={Share} alt="Compartilhar" onClick={() => compartilharLink(Number(index))} />
                 </div>
               </div>
-            ))}
-          </div>
-        )}
-
-        {loading === false ? (
-          <div className="container-info">
-            <div className="download-img">
-              <img src={Download} alt="Download" />
             </div>
-            <div className="lyrics">
-              <div className="lyrics-holder">
-                <pre>{lyrics.replace(/\[(intro|verse|outro)\]|\*|markdown/gi, "").trim()}</pre>
+          ) : (
+            <div className="players">
+              {audioUrls.slice(0, 2).map((url, idx) => (
+                <div key={idx} className="container-player">
+                  <AudioPlayer
+                    audioUrl={url}
+                    isActive={activeIndex === idx}
+                    onPlay={() => setActiveIndex(prev => (prev === idx ? null : idx))}
+                    onFinish={() => setActiveIndex(null)}
+                  />
+                  <div className="socials">
+                    <img src={DownloadBtn} alt="Download" onClick={() => downloadMp3File(url)} />
+                    <img src={Share} alt="Compartilhar" onClick={() => compartilharLink(idx)} />
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {loading === false ? (
+            <div className="container-info">
+              <div className="download-img">
+                <img src={Download} alt="Download" />
+              </div>
+              <div className="lyrics">
+                <div className="lyrics-holder">
+                  <pre>{lyrics.replace(/\[(intro|verse|outro)\]|\*|markdown/gi, "").trim()}</pre>
+                </div>
               </div>
             </div>
-          </div>
-        ) : (
-          <div className="loading">
-            <img src={Loading} alt="Carregando..." />
-          </div>
-        )}
+          ) : (
+            <div className="loading">
+              <img src={Loading} alt="Carregando..." />
+            </div>
+          )}
 
-        <p className="advise">
-          Beba com moderação. <br />
-          Não compartilhe com menores de 18 anos.
-        </p>
-      </div>
-    </Container>
+          <p className="advise">
+            Beba com moderação. <br />
+            Não compartilhe com menores de 18 anos.
+          </p>
+        </div>
+      </Container>
+      <Footer />
+    </div>
   );
 };

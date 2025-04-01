@@ -14,6 +14,8 @@ import GuestNameSection, {
 import MainSection from "./components/mainSection";
 import { AxiosError } from "axios";
 import { z } from "zod";
+import { Footer } from "../components/footer";
+import { Navbar } from "../components/navbar";
 
 const nonEmptyStringSchema = z.string().nonempty();
 
@@ -181,12 +183,12 @@ export const Home = () => {
   };
 
   if (!user) {
-    return <MainSection />;
+    return (<Container><Navbar /><MainSection /><Footer /></Container>);
   }
 
   return (
     <Container>
-      {/* <Navbar /> */}
+      <Navbar />
 
       <MainSection
         onGenerateMusic={() => {
@@ -228,6 +230,7 @@ export const Home = () => {
       />
 
       {/* <Stickers /> */}
+      <Footer />
     </Container>
   );
 };

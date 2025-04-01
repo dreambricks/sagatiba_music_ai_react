@@ -9,6 +9,8 @@ import { toast } from "react-toastify";
 import { AudioPlayer } from "../player/Player";
 import DownloadBtn from "../../assets/download_svg.svg";
 import Share from "../../assets/share_orange_svg.svg";
+import { Navbar } from "../components/navbar";
+import { Footer } from "../components/footer";
 
 export const LyricsPage = () => {
   const [lyrics, setLyrics] = useState("");
@@ -134,68 +136,72 @@ export const LyricsPage = () => {
   };
 
   return (
-    <Container>
-      <div className="content">
-        {loading ? (
-          <div className="tittle">
-            <h1>ma.I.A.ra e mar.A.I.sa estão aquecendo a voz!</h1>
-            <p className="description">
-              Sua música pode demorar uns minutinhos pra ficar pronta. Mas fica de boa que a gente te manda uma mensagem quando
-              ela estiver tudo certo pro play.
-            </p>
-          </div>
-        ) : (
-          <div className="tittle" style={{ marginBottom: "30px" }}>
-            <h1>Bora seguir na saga? Sua música tá pronta!</h1>
-            <div className="description">
-              <p>Mas ó: a inteligência artificial ainda tá aprendendo a viver e aperfeiçoando suas criações. Por isso, geramos duas
-                versões pra você escolher qual mais combina com seu rolê.
+    <div style={{ overflowX: "hidden" }}>
+      <Navbar />
+      <Container>
+        <div className="content">
+          {loading ? (
+            <div className="tittle">
+              <h1>ma.I.A.ra e mar.A.I.sa estão aquecendo a voz!</h1>
+              <p className="description">
+                Sua música pode demorar uns minutinhos pra ficar pronta. Mas fica de boa que a gente te manda uma mensagem quando
+                ela estiver tudo certo pro play.
               </p>
-              <p>Quanto mais músicas você criar, mais ela aprende a seguir na saga</p>
             </div>
-          </div>
-        )}
-
-        {loading ? (
-          <CustomButton className="button-phrases" disabled={loading}>
-            {buttonLoadingText}
-          </CustomButton>
-        ) : (
-          <div className="players">
-            {audioUrls.slice(0, 2).map((url, idx) => (
-              <div className="container-player" key={idx}>
-                <AudioPlayer
-                  audioUrl={url}
-                  isActive={activeIndex === idx}
-                  onPlay={() => setActiveIndex(prev => (prev === idx ? null : idx))}
-                  onFinish={() => setActiveIndex(null)}
-                />
-                <div className="socials">
-                  <img src={DownloadBtn} alt="Download" onClick={() => downloadMp3File(url)} />
-                  <img src={Share} alt="Compartilhar" onClick={() => compartilharLink(idx)} />
-                </div>
+          ) : (
+            <div className="tittle" style={{ marginBottom: "30px" }}>
+              <h1>Bora seguir na saga? Sua música tá pronta!</h1>
+              <div className="description">
+                <p>Mas ó: a inteligência artificial ainda tá aprendendo a viver e aperfeiçoando suas criações. Por isso, geramos duas
+                  versões pra você escolher qual mais combina com seu rolê.
+                </p>
+                <p>Quanto mais músicas você criar, mais ela aprende a seguir na saga</p>
               </div>
-            ))}
-          </div>
-        )}
+            </div>
+          )}
 
-        <div className="container-info">
-          <div className="download-img">
-            <img src={Download} alt="Download" />
-          </div>
+          {loading ? (
+            <CustomButton className="button-phrases" disabled={loading}>
+              {buttonLoadingText}
+            </CustomButton>
+          ) : (
+            <div className="players">
+              {audioUrls.slice(0, 2).map((url, idx) => (
+                <div className="container-player" key={idx}>
+                  <AudioPlayer
+                    audioUrl={url}
+                    isActive={activeIndex === idx}
+                    onPlay={() => setActiveIndex(prev => (prev === idx ? null : idx))}
+                    onFinish={() => setActiveIndex(null)}
+                  />
+                  <div className="socials">
+                    <img src={DownloadBtn} alt="Download" onClick={() => downloadMp3File(url)} />
+                    <img src={Share} alt="Compartilhar" onClick={() => compartilharLink(idx)} />
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
 
-          <div className="lyrics">
-            <div className="lyrics-holder">
-              <pre>{lyrics.replace(/\[(intro|verse|outro)\]|\*|markdown/gi, "").trim()}</pre>
+          <div className="container-info">
+            <div className="download-img">
+              <img src={Download} alt="Download" />
+            </div>
+
+            <div className="lyrics">
+              <div className="lyrics-holder">
+                <pre>{lyrics.replace(/\[(intro|verse|outro)\]|\*|markdown/gi, "").trim()}</pre>
+              </div>
             </div>
           </div>
-        </div>
 
-        <p className="advise">
-          Beba com moderação. <br />
-          Não compartilhe com menores de 18 anos.
-        </p>
-      </div>
-    </Container>
+          <p className="advise">
+            Beba com moderação. <br />
+            Não compartilhe com menores de 18 anos.
+          </p>
+        </div>
+      </Container>
+      <Footer />
+    </div>
   );
 };

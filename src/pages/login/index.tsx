@@ -12,6 +12,9 @@ import { jwtDecode } from "jwt-decode";
 import { AxiosError } from "axios";
 import ErrorModal from "../components/errorModal";
 import { toast } from "react-toastify";
+import { Container } from "../home/styles";
+import { Footer } from "../components/footer";
+import { Navbar } from "../components/navbar";
 
 interface ILoginFormValues {
   email: string;
@@ -101,46 +104,50 @@ const Login: React.FC = () => {
     }
   };
   return (
-    <Styled.Container>
-      <Styled.FormContainer>
-        <Styled.Title>Faça seu login</Styled.Title>
+    <Container>
+      <Navbar />
+      <Styled.Container>
+        <Styled.FormContainer>
+          <Styled.Title>Faça seu login</Styled.Title>
 
-        <Styled.RecoverPassword />
+          <Styled.RecoverPassword />
 
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <FormInput
-            {...register("email")}
-            label="E-mail:"
-            placeholder="e-mail que foi utilizado no cadastro"
-            errorMessage={errors.email?.message}
-            type="email"
-            style={{ marginBottom: "16px" }}
-          />
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <FormInput
+              {...register("email")}
+              label="E-mail:"
+              placeholder="e-mail que foi utilizado no cadastro"
+              errorMessage={errors.email?.message}
+              type="email"
+              style={{ marginBottom: "16px" }}
+            />
 
-          <FormInput
-            {...register("password")}
-            label="Senha:"
-            placeholder="sua senha"
-            type="password"
-            errorMessage={errors.password?.message}
-          />
+            <FormInput
+              {...register("password")}
+              label="Senha:"
+              placeholder="sua senha"
+              type="password"
+              errorMessage={errors.password?.message}
+            />
 
-          <Styled.FormButton
-            title="ENTRAR"
-            type="submit"
-            loading={isSubmitting}
-          />
-        </form>
-      </Styled.FormContainer>
+            <Styled.FormButton
+              title="ENTRAR"
+              type="submit"
+              loading={isSubmitting}
+            />
+          </form>
+        </Styled.FormContainer>
 
-      <ErrorModal
-        isOpen={modalOpen}
-        onRequestClose={closeModal}
-        message={modalMessage}
-        onActionClick={modalAction}
-        actionLabel="Reenviar link"
-      />
-    </Styled.Container>
+        <ErrorModal
+          isOpen={modalOpen}
+          onRequestClose={closeModal}
+          message={modalMessage}
+          onActionClick={modalAction}
+          actionLabel="Reenviar link"
+        />
+      </Styled.Container>
+      <Footer />
+    </Container>
   );
 };
 
