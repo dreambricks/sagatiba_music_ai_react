@@ -1,18 +1,28 @@
 import PlayIcon from "../../../assets/play-btn.svg";
 import PauseIcon from "../../../assets/btn-pause.png";
-
-import { AudioContainer, PlayButton, WaveformContainer } from "./styles";
+import * as Styled from "./styles";
 import { useEffect, useRef } from "react";
 import WaveSurfer from "wavesurfer.js";
+import DownloadBtn from "../../../assets/download_svg.svg";
+import Share from "../../../assets/share_orange_svg.svg";
 
 interface AudioPlayerProps {
   audioUrl: string;
   isActive: boolean;
   onPlay: () => void;
   onFinish?: () => void;
+  onShare: () => void;
+  onDownload: () => void;
 }
 
-export const AudioPlayer = ({ audioUrl, isActive, onPlay, onFinish }: AudioPlayerProps) => {
+export const AudioPlayer = ({
+  audioUrl,
+  isActive,
+  onPlay,
+  onFinish,
+  onShare,
+  onDownload,
+}: AudioPlayerProps) => {
   const waveformRef = useRef<HTMLDivElement>(null);
   const wavesurferRef = useRef<WaveSurfer | null>(null);
 
@@ -30,7 +40,6 @@ export const AudioPlayer = ({ audioUrl, isActive, onPlay, onFinish }: AudioPlaye
       height: "auto",
       barAlign: "bottom",
       normalize: true,
-      fillParent: true,
     });
 
     wavesurfer.load(audioUrl);
@@ -59,17 +68,25 @@ export const AudioPlayer = ({ audioUrl, isActive, onPlay, onFinish }: AudioPlaye
   };
 
   return (
-    <AudioContainer>
-      <div className="controls">
-        <PlayButton onClick={handleClick}>
-          {isActive ? (
-            <img src={PauseIcon} alt="Pause" className="play-img" />
-          ) : (
-            <img src={PlayIcon} alt="Play" className="play-img" />
-          )}
-        </PlayButton>
-        <WaveformContainer ref={waveformRef} />
-      </div>
-    </AudioContainer>
+    <Styled.Container>
+      <Styled.AudioContainer>
+        <Styled.PlayButton onClick={handleClick}>
+          <Styled.PlayImage
+            src={isActive ? PauseIcon : PlayIcon}
+            alt={isActive ? "Pause" : "Play"}
+          />
+        </Styled.PlayButton>
+
+        <Styled.WaveformContainer ref={waveformRef} />
+      </Styled.AudioContainer>
+
+      <Styled.ActionButton
+        src={DownloadBtn}
+        alt="Download"
+        onClick={onDownload}
+      />
+
+      <Styled.ActionButton src={Share} alt="Compartilhar" onClick={onShare} />
+    </Styled.Container>
   );
 };

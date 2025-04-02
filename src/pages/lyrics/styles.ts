@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import CustomButton from "../components/customButton";
 import { ContentContainer } from "./components/contentContainer";
+import LyricsBg from "../../assets/lyrics_background.png";
 
-const BOTTOM_CONTAINER_SIZE = "40vh";
+const BOTTOM_CONTAINER_SIZE = "30vh";
 const BOTTOM_CONTAINER_SIZE_MOBILE = "30vh";
 
 export const Container = styled.div`
@@ -21,18 +22,28 @@ export const TopContentContainer = styled.div`
   align-items: center;
   gap: 32px;
   padding: 32px;
+
+  @media (max-width: 768px) {
+    gap: 24px;
+    padding: 16px;
+    margin-top: 10%;
+  }
 `;
 
 export const BottomContentContainer = styled.div`
   display: flex;
   width: 100%;
   height: ${BOTTOM_CONTAINER_SIZE};
-  background-color: #ccc;
   justify-content: center;
   align-items: center;
+  background-image: url(${LyricsBg});
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% ${BOTTOM_CONTAINER_SIZE};
 
   @media (max-width: 768px) {
     height: ${BOTTOM_CONTAINER_SIZE_MOBILE};
+    background-size: 100% ${BOTTOM_CONTAINER_SIZE_MOBILE};
   }
 `;
 
@@ -51,13 +62,17 @@ export const Description = styled.p`
   color: black;
 
   @media (max-width: 768px) {
-    font-size: 14px;
+    font-size: 12px;
   }
 `;
 
 export const Button = styled(CustomButton)`
   width: 300px;
   cursor: default;
+
+  &:active {
+    border: none;
+  }
 
   @media (max-width: 768px) {
     width: 200px;
@@ -77,14 +92,22 @@ export const DisclaimerText = styled.span`
 
 export const CenteredContainer = styled.div`
   display: flex;
-  gap: 54px;
   position: absolute;
-  top: calc(100% - (${BOTTOM_CONTAINER_SIZE}));
+  width: 100%;
   left: 50%;
+  top: calc(100% - (${BOTTOM_CONTAINER_SIZE}));
+  justify-content: center;
+  align-items: center;
+  gap: 54px;
   transform: translate(-50%, -50%);
+  padding: 16px;
+
+  @media (max-width: 1440px) {
+    gap: 16px;
+  }
 
   @media (max-width: 768px) {
-    gap: 24px;
+    gap: 8px;
     top: calc(100% - (${BOTTOM_CONTAINER_SIZE_MOBILE}));
   }
 `;
@@ -92,21 +115,17 @@ export const CenteredContainer = styled.div`
 export const GifContainer = styled(ContentContainer)``;
 
 export const LyricContainer = styled(ContentContainer)`
-  justify-content: center;
-  align-items: center;
-
   background-color: #f9f5ed;
+  padding: 8px;
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
 
   /* Esconde a scrollbar */
   &::-webkit-scrollbar {
     display: none;
   }
-
-  /* Para Firefox */
   scrollbar-width: none;
-
-  /* Para IE/Edge */
   -ms-overflow-style: none;
 `;
 
@@ -118,13 +137,27 @@ export const Gif = styled.img`
 export const Lyrics = styled.pre`
   font-size: 18px;
   font-family: "Gopher-Regular";
-  text-align: center;
   white-space: pre-wrap;
   word-wrap: break-word;
-  margin-top: 24px;
-  padding: 16px;
+  text-align: center;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  flex: 1;
+  min-height: min-content;
+
+  /* Centraliza visualmente o conteúdo quando cabe no container */
+  display: flex;
+  flex-direction: column;
+  justify-content: safe center; /* Usa 'safe' para evitar cortes */
 
   @media (max-width: 768px) {
     font-size: 12px;
   }
+`;
+
+export const AudiosContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 `;
