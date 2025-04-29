@@ -1,15 +1,27 @@
 export const applyCPFMask = (value: string): string => {
   // Remove todos os caracteres que não são números
-  const numericValue = value.replace(/\D/g, "");
+  const numericValue = value.replace(/\D/g, "").slice(0, 11); // Limita a 11 dígitos
 
-  // Aplica a máscara de CPF (999.999.999-99)
-  const maskedValue = numericValue
-    .slice(0, 11) // Limita o CPF a 11 dígitos
-    .replace(/(\d{3})(\d)/, "$1.$2") // Adiciona o primeiro ponto
-    .replace(/(\d{3})(\d)/, "$1.$2") // Adiciona o segundo ponto
-    .replace(/(\d{3})(\d{1,2})$/, "$1-$2"); // Adiciona o traço
+  // Aplica a máscara dinamicamente conforme o usuário digita
+  if (numericValue.length <= 3) {
+    return numericValue;
+  }
 
-  return maskedValue;
+  if (numericValue.length <= 6) {
+    return `${numericValue.slice(0, 3)}.${numericValue.slice(3)}`;
+  }
+
+  if (numericValue.length <= 9) {
+    return `${numericValue.slice(0, 3)}.${numericValue.slice(
+      3,
+      6
+    )}.${numericValue.slice(6)}`;
+  }
+
+  return `${numericValue.slice(0, 3)}.${numericValue.slice(
+    3,
+    6
+  )}.${numericValue.slice(6, 9)}-${numericValue.slice(9)}`;
 };
 
 export const applyPhoneMask = (value: string): string => {

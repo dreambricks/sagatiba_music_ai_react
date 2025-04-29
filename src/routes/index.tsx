@@ -17,6 +17,8 @@ import { Overbook } from "../pages/overBook";
 import { EmailSent } from "../pages/emailSent";
 import { Terms } from "../pages/terms";
 import { Policy } from "../pages/policy";
+import LoginAdmin from "../pages/admin/login";
+import Admin from "../pages/admin";
 
 export const Routing = () => {
   return (
@@ -46,6 +48,8 @@ export const Routing = () => {
             <Route path="/register" element={<Register />} />
             <Route path="/mensagem" element={<Player />} />
             <Route path="/email" element={<EmailSent />} />
+            <Route path="/admin/login" element={<LoginAdmin />} />
+            <Route path="/admin" element={<Admin />} />
 
             <Route element={<AuthMiddleware />}>
               <Route path="/letras" element={<LyricsPage />} />
