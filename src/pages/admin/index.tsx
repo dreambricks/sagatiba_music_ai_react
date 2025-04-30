@@ -3,11 +3,47 @@ import * as Styled from "./styles";
 import { Input } from "../components/formInput/styles";
 import { applyCPFMask } from "../../utils/MaskUtils";
 import { validateCpfDigits } from "../../utils/ValidatorUtils";
+import TableHeaderCell from "./components/tableHeaderCell";
+import Table from "./components/table";
+import TableRow from "./components/tableRow";
+import TableCell from "./components/tableCell";
+import Button from "./components/button";
+import SearchTypeSelector from "./components/searchTypeSelector";
+import Card from "./components/card";
+
+type IMusicSearchResponse = {
+  id: string;
+  email: string;
+  lyrics: string;
+};
+
+const dummyResults: IMusicSearchResponse[] = [
+  {
+    id: "1",
+    email: "usuario1@email.com",
+    lyrics:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ultricies augue sit amet enim mattis pharetra. Etiam tempor arcu urna, nec fermentum purus tempor nec. Nulla dapibus id urna sed efficitur",
+  },
+  {
+    id: "2",
+    email: "usuario2@email.com",
+    lyrics:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ultricies augue sit amet enim mattis pharetra. Etiam tempor arcu urna, nec fermentum purus tempor nec. Nulla dapibus id urna sed efficitur",
+  },
+  {
+    id: "3",
+    email: "usuario3@email.com",
+    lyrics:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ultricies augue sit amet enim mattis pharetra. Etiam tempor arcu urna, nec fermentum purus tempor nec. Nulla dapibus id urna sed efficitur",
+  },
+];
 
 const Admin: React.FC = () => {
   const [cpf, setCpf] = useState("");
   const [cpfError, setCpfError] = useState("");
   const [lyrics, setLyrics] = useState("");
+  const [results, setResults] = useState<IMusicSearchResponse[]>([]);
+  const [searchType, setSearchType] = useState<"user" | "lyrics">("user");
 
   const handleChangeCpf = (value: string) => {
     const maskedValue = applyCPFMask(value);
@@ -24,46 +60,91 @@ const Admin: React.FC = () => {
 
   const handleSearchMusic = () => {
     if (!lyrics) return;
+    setResults(dummyResults);
   };
 
   return (
     <Styled.Container>
       <Styled.Title>ÁREA ADMINISTRATIVA</Styled.Title>
 
-      <Styled.Card>
-        <h2>Buscar Usuário</h2>
+      <SearchTypeSelector value={searchType} onTypeChange={setSearchType} />
 
-        <Styled.Label>CPF</Styled.Label>
+      {searchType === "user" && (
+        <Card>
+          <h2>Buscar Usuário</h2>
 
-        <Input
-          placeholder="Digite o CPF (somente números)"
-          value={cpf}
-          onChange={(e) => handleChangeCpf(e.target.value)}
-          maxLength={14}
-        />
+          <Styled.Label>CPF</Styled.Label>
 
-        {cpfError && <Styled.ErrorMessage>{cpfError}</Styled.ErrorMessage>}
+          <Input
+            placeholder="Digite o CPF (somente números)"
+            value={cpf}
+            onChange={(e) => handleChangeCpf(e.target.value)}
+            maxLength={14}
+          />
 
-        <Styled.Button $color="blue" onClick={handleSearchUser}>
-          Buscar Usuário
-        </Styled.Button>
-      </Styled.Card>
+          {cpfError && <Styled.ErrorMessage>{cpfError}</Styled.ErrorMessage>}
 
-      <Styled.Card>
-        <h2>Buscar Música</h2>
+          <Button onClick={handleSearchUser} style={{ marginTop: "16px" }}>
+            Buscar Usuário
+          </Button>
+        </Card>
+      )}
 
-        <Styled.Label>Trecho da Letra</Styled.Label>
+      {searchType === "lyrics" && (
+        <Card>
+          <h2>Buscar Música</h2>
 
-        <Input
-          placeholder="Digite um trecho da música"
-          value={lyrics}
-          onChange={(e) => setLyrics(e.target.value)}
-        />
+          <Styled.Label>Trecho da Letra</Styled.Label>
 
-        <Styled.Button $color="green" onClick={handleSearchMusic}>
-          Buscar Música
-        </Styled.Button>
-      </Styled.Card>
+          <Input
+            placeholder="Digite um trecho da música"
+            value={lyrics}
+            onChange={(e) => setLyrics(e.target.value)}
+          />
+
+          <Button
+            color="green"
+            onClick={handleSearchMusic}
+            style={{ marginTop: "16px" }}
+          >
+            Buscar Música
+          </Button>
+        </Card>
+      )}
+
+      {searchType === "lyrics" && results.length > 0 && (
+        <Card>
+          <h3>Resultados da Busca</h3>
+
+          <Table>
+            <thead style={{ backgroundColor: "#f2f2f2" }}>
+              <TableRow>
+                <TableHeaderCell>E-mail</TableHeaderCell>
+
+                <TableHeaderCell>Trecho da Letra</TableHeaderCell>
+
+                <TableHeaderCell>Ações</TableHeaderCell>
+              </TableRow>
+            </thead>
+
+            <tbody>
+              {results.map((result) => (
+                <TableRow key={result.id}>
+                  <TableCell>{result.email}</TableCell>
+
+                  <TableCell>{result.lyrics}</TableCell>
+
+                  <TableCell>
+                    <Button onClick={() => console.log(`/musica/${result.id}`)}>
+                      Ver Detalhes
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </tbody>
+          </Table>
+        </Card>
+      )}
     </Styled.Container>
   );
 };

@@ -64,7 +64,7 @@ const LoginAdmin: React.FC = () => {
           <FormInput
             {...register("email")}
             label="E-mail:"
-            placeholder="e-mail que foi utilizado no cadastro"
+            placeholder="Insira o e-mail"
             errorMessage={errors.email?.message}
             type="email"
             style={{ marginBottom: "16px" }}
@@ -73,7 +73,7 @@ const LoginAdmin: React.FC = () => {
           <FormInput
             {...register("password")}
             label="Senha:"
-            placeholder="sua senha"
+            placeholder="Insira a senha"
             type="password"
             errorMessage={errors.password?.message}
           />

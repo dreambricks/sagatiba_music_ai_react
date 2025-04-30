@@ -19,6 +19,7 @@ import { Terms } from "../pages/terms";
 import { Policy } from "../pages/policy";
 import LoginAdmin from "../pages/admin/login";
 import Admin from "../pages/admin";
+import AdminDetails from "../pages/admin/details";
 
 export const Routing = () => {
   return (
@@ -50,6 +51,7 @@ export const Routing = () => {
             <Route path="/email" element={<EmailSent />} />
             <Route path="/admin/login" element={<LoginAdmin />} />
             <Route path="/admin" element={<Admin />} />
+            <Route path="/admin/details" element={<AdminDetails />} />
 
             <Route element={<AuthMiddleware />}>
               <Route path="/letras" element={<LyricsPage />} />
