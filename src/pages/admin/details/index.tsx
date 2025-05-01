@@ -3,6 +3,7 @@ import * as Styled from "./styles";
 import UserInfo from "./components/userInfo";
 import ActionButtons from "./components/actionButtons";
 import UserMusicTable from "./components/userMusicTable";
+import { blockOrUnblockUser, deleteUser } from "../../../service/adminService";
 
 const dummyUser = {
   name: "João Silva",
@@ -27,19 +28,29 @@ const dummyMusics = [
 ];
 
 const AdminDetails: React.FC = () => {
-  const handleBlock = () => {
-    if (confirm("Tem certeza que deseja bloquear este usuário?")) {
-      // lógica de bloqueio
-      alert("Usuário bloqueado!");
+  const handleBlock = async () => {
+    if (!confirm("Tem certeza que deseja bloquear este usuário?")) {
+      return;
+    }
+
+    try {
+      await blockOrUnblockUser("userId", true);
+    } catch (error) {
+      console.log(error);
     }
   };
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
     if (
-      confirm("Tem certeza que deseja deletar este usuário permanentemente?")
+      !confirm("Tem certeza que deseja deletar este usuário permanentemente?")
     ) {
-      // lógica de deleção
-      alert("Usuário deletado!");
+      return;
+    }
+
+    try {
+      await deleteUser("userId");
+    } catch (error) {
+      console.log(error);
     }
   };
 

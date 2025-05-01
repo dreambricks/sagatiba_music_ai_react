@@ -10,6 +10,7 @@ import TableCell from "./components/tableCell";
 import Button from "./components/button";
 import SearchTypeSelector from "./components/searchTypeSelector";
 import Card from "./components/card";
+import { fetchMusicByLyrics, fetchUserByCpf } from "../../service/adminService";
 
 type IMusicSearchResponse = {
   id: string;
@@ -51,16 +52,30 @@ const Admin: React.FC = () => {
     setCpfError("");
   };
 
-  const handleSearchUser = () => {
+  const handleSearchUser = async () => {
     if (!validateCpfDigits(cpf)) {
       setCpfError("Informe um CPF válido");
       return;
     }
+
+    try {
+      const response = await fetchUserByCpf(cpf);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  const handleSearchMusic = () => {
+  const handleSearchMusic = async () => {
     if (!lyrics) return;
+
     setResults(dummyResults);
+    try {
+      const response = await fetchMusicByLyrics(lyrics);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
