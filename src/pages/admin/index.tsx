@@ -11,6 +11,7 @@ import Button from "./components/button";
 import SearchTypeSelector from "./components/searchTypeSelector";
 import Card from "./components/card";
 import { fetchMusicByLyrics, fetchUserByCpf } from "../../service/adminService";
+import { toast } from "react-toastify";
 
 type IMusicSearchResponse = {
   id: string;
@@ -45,6 +46,7 @@ const Admin: React.FC = () => {
   const [lyrics, setLyrics] = useState("");
   const [results, setResults] = useState<IMusicSearchResponse[]>([]);
   const [searchType, setSearchType] = useState<"user" | "lyrics">("user");
+  const [loading, setLoading] = useState(false);
 
   const handleChangeCpf = (value: string) => {
     const maskedValue = applyCPFMask(value);
@@ -59,10 +61,14 @@ const Admin: React.FC = () => {
     }
 
     try {
+      setLoading(true);
       const response = await fetchUserByCpf(cpf);
       console.log(response);
     } catch (error) {
       console.log(error);
+      toast.error("Falha ao buscar usuário. Por favor, tente novamente.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -71,10 +77,14 @@ const Admin: React.FC = () => {
 
     setResults(dummyResults);
     try {
+      setLoading(true);
       const response = await fetchMusicByLyrics(lyrics);
       console.log(response);
     } catch (error) {
       console.log(error);
+      toast.error("Falha ao músicas. Por favor, tente novamente.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -99,7 +109,11 @@ const Admin: React.FC = () => {
 
           {cpfError && <Styled.ErrorMessage>{cpfError}</Styled.ErrorMessage>}
 
-          <Button onClick={handleSearchUser} style={{ marginTop: "16px" }}>
+          <Button
+            onClick={handleSearchUser}
+            isLoading={loading}
+            style={{ marginTop: "16px" }}
+          >
             Buscar Usuário
           </Button>
         </Card>
@@ -120,6 +134,7 @@ const Admin: React.FC = () => {
           <Button
             color="green"
             onClick={handleSearchMusic}
+            isLoading={loading}
             style={{ marginTop: "16px" }}
           >
             Buscar Música

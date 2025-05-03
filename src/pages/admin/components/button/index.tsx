@@ -1,5 +1,6 @@
 import React, { ButtonHTMLAttributes, PropsWithChildren } from "react";
 import * as Styled from "./styles";
+import Spinner from "../../../components/spinner";
 
 type Props = PropsWithChildren &
   ButtonHTMLAttributes<HTMLButtonElement> & {
@@ -7,6 +8,7 @@ type Props = PropsWithChildren &
     asLink?: boolean;
     href?: string;
     download?: boolean;
+    isLoading?: boolean;
   };
 
 const Button: React.FC<Props> = ({
@@ -15,8 +17,18 @@ const Button: React.FC<Props> = ({
   href,
   download,
   children,
+  isLoading = false,
+  onClick,
   ...rest
 }) => {
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    if (isLoading) {
+      e.preventDefault();
+      return;
+    }
+    onClick?.(e);
+  };
+
   if (asLink && href) {
     return (
       <Styled.Button
@@ -24,17 +36,31 @@ const Button: React.FC<Props> = ({
         href={href}
         $color={color}
         download={download}
+        aria-disabled={isLoading}
+        style={{ pointerEvents: isLoading ? "none" : undefined }}
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         {...(rest as any)}
       >
-        {children}
+        <Styled.ChildrenRow>
+          {children}
+          {isLoading && <Spinner />}
+        </Styled.ChildrenRow>
       </Styled.Button>
     );
   }
 
   return (
-    <Styled.Button type="button" $color={color} {...rest}>
-      {children}
+    <Styled.Button
+      type="button"
+      $color={color}
+      disabled={isLoading}
+      onClick={handleClick}
+      {...rest}
+    >
+      <Styled.ChildrenRow>
+        {children}
+        {isLoading && <Spinner />}
+      </Styled.ChildrenRow>
     </Styled.Button>
   );
 };

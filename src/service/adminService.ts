@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "sagatibamusicai.ddns.net";
+const BASE_URL = "https://sagatibamusicai.ddns.net";
 
 export const fetchUserByCpf = (cpf: string) => {
   return axios.post(`${BASE_URL}/admin/users/find_by_cpf`, {

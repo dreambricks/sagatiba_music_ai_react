@@ -20,8 +20,18 @@ export const Button = styled.button<{ $color?: string }>`
   text-decoration: none;
   text-align: center;
   width: fit-content;
+  opacity: ${({ disabled }) => (disabled ? 0.6 : 1)};
+  pointer-events: ${({ disabled }) => (disabled ? "none" : "auto")};
 
   &:hover {
     opacity: 0.9;
   }
+`;
+
+export const ChildrenRow = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
 `;

@@ -41,10 +41,10 @@ export const encryptText = (text: string): string => {
   return encrypted;
 };
 
-export const decryptText = (text: string): string => {
+export const decryptText = (text: string, key: string): string => {
   const encryptor = new JSEncrypt();
 
-  encryptor.setPublicKey(PUBLIC_KEY);
+  encryptor.setPrivateKey(key);
 
   const decrypted = encryptor.decrypt(text);
 
