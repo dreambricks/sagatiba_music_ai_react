@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as Styled from "./styles";
 import { Input } from "../components/formInput/styles";
 import { applyCPFMask } from "../../utils/MaskUtils";
@@ -10,35 +10,13 @@ import TableCell from "./components/tableCell";
 import Button from "./components/button";
 import SearchTypeSelector from "./components/searchTypeSelector";
 import Card from "./components/card";
-import { fetchMusicByLyrics, fetchUserByCpf } from "../../service/adminService";
+import {
+  fetchMusicByLyrics,
+  fetchUserByCpf,
+  IMusicSearchResponse,
+} from "../../service/adminService";
 import { toast } from "react-toastify";
-
-type IMusicSearchResponse = {
-  id: string;
-  email: string;
-  lyrics: string;
-};
-
-const dummyResults: IMusicSearchResponse[] = [
-  {
-    id: "1",
-    email: "usuario1@email.com",
-    lyrics:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ultricies augue sit amet enim mattis pharetra. Etiam tempor arcu urna, nec fermentum purus tempor nec. Nulla dapibus id urna sed efficitur",
-  },
-  {
-    id: "2",
-    email: "usuario2@email.com",
-    lyrics:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ultricies augue sit amet enim mattis pharetra. Etiam tempor arcu urna, nec fermentum purus tempor nec. Nulla dapibus id urna sed efficitur",
-  },
-  {
-    id: "3",
-    email: "usuario3@email.com",
-    lyrics:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ultricies augue sit amet enim mattis pharetra. Etiam tempor arcu urna, nec fermentum purus tempor nec. Nulla dapibus id urna sed efficitur",
-  },
-];
+import { encryptText } from "../../utils/CryptUtils";
 
 const Admin: React.FC = () => {
   const [cpf, setCpf] = useState("");
@@ -75,11 +53,10 @@ const Admin: React.FC = () => {
   const handleSearchMusic = async () => {
     if (!lyrics) return;
 
-    setResults(dummyResults);
     try {
       setLoading(true);
       const response = await fetchMusicByLyrics(lyrics);
-      console.log(response);
+      setResults(response);
     } catch (error) {
       console.log(error);
       toast.error("Falha ao músicas. Por favor, tente novamente.");
@@ -87,6 +64,10 @@ const Admin: React.FC = () => {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    console.log(encryptText("424.275.268-78"));
+  }, []);
 
   return (
     <Styled.Container>
@@ -159,13 +140,15 @@ const Admin: React.FC = () => {
 
             <tbody>
               {results.map((result) => (
-                <TableRow key={result.id}>
-                  <TableCell>{result.email}</TableCell>
+                <TableRow key={result.lyric_id}>
+                  <TableCell>{result.user?.email ?? "-"}</TableCell>
 
                   <TableCell>{result.lyrics}</TableCell>
 
                   <TableCell>
-                    <Button onClick={() => console.log(`/musica/${result.id}`)}>
+                    <Button
+                      onClick={() => console.log(`/musica/${result.lyric_id}`)}
+                    >
                       Ver Detalhes
                     </Button>
                   </TableCell>
