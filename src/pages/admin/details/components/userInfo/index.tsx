@@ -9,6 +9,7 @@ export type IUserInfo = {
   email: string;
   cpf: string;
   phone: string;
+  blocked: boolean;
 };
 
 type Props = {

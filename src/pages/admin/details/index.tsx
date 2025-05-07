@@ -31,17 +31,35 @@ const AdminDetails: React.FC = () => {
   const handleBlock = async () => {
     if (!userId) return;
 
-    if (!confirm("Tem certeza que deseja bloquear este usuário?")) {
+    const isBlocked = userData?.blocked === true;
+
+    if (
+      !confirm(
+        `Tem certeza que deseja ${
+          isBlocked ? "desbloquear" : "bloquear"
+        } este usuário?`
+      )
+    ) {
       return;
     }
 
     try {
       setIsBlockingUser(true);
-      await blockOrUnblockUser(userId, true);
-      toast.success("Usuário bloqueado com sucesso");
+      await blockOrUnblockUser(userId, !isBlocked);
+      setUserData((prevState) => {
+        if (!prevState) return null;
+        return { ...prevState, blocked: !isBlocked };
+      });
+      toast.success(
+        `Usuário ${isBlocked ? "desbloqueado" : "bloqueado"} com sucesso`
+      );
     } catch (error) {
       console.log(error);
-      toast.error("Falha ao bloquear usuário. Por favor, tente novamente.");
+      toast.error(
+        `Falha ao ${
+          isBlocked ? "desbloquear" : "bloquear"
+        } usuário. Por favor, tente novamente.`
+      );
     } finally {
       setIsBlockingUser(false);
     }
@@ -89,6 +107,7 @@ const AdminDetails: React.FC = () => {
         phone: response.phone,
         name,
         cpf,
+        blocked: response.blocked ?? false,
       });
     } catch (err) {
       console.error("Erro ao buscar dados do usuário:", err);
@@ -136,6 +155,7 @@ const AdminDetails: React.FC = () => {
           isDeletingUser={isDeletingUser}
           onBlockUserClick={handleBlock}
           onDeleteUserClick={handleDelete}
+          isBlocked={userData.blocked}
         />
       )}
 

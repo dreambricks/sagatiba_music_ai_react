@@ -32,6 +32,7 @@ export type IGetUserDataResponse = {
     $date: string;
   };
   decrypted_info: string;
+  blocked?: boolean;
 };
 
 export type IUserSummaryResponse = {

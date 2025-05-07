@@ -5,6 +5,7 @@ import Button from "../../../components/button";
 type Props = {
   isBlockingUser: boolean;
   isDeletingUser: boolean;
+  isBlocked: boolean;
   onBlockUserClick: () => void;
   onDeleteUserClick: () => void;
 };
@@ -12,6 +13,7 @@ type Props = {
 const ActionButtons: React.FC<Props> = ({
   isBlockingUser,
   isDeletingUser,
+  isBlocked,
   onBlockUserClick,
   onDeleteUserClick,
 }) => {
@@ -25,7 +27,7 @@ const ActionButtons: React.FC<Props> = ({
         disabled={isDeletingUser}
         onClick={onBlockUserClick}
       >
-        Bloquear Usuário
+        {`${isBlocked ? "Desbloquear" : "Bloquear"} Usuário`}
       </Button>
 
       <Button
