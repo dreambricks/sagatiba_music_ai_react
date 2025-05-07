@@ -5,7 +5,11 @@ import React, {
   ReactNode,
   useEffect,
 } from "react";
-import { clearAccessToken, getAccessTokenFromCookie } from "../storage";
+import {
+  clearAccessToken,
+  getAccessTokenFromCookie,
+  getAdminSessionFromCookie,
+} from "../storage";
 import { jwtDecode } from "jwt-decode";
 
 export type IUser = {
@@ -18,8 +22,10 @@ interface SessionContextType {
   user: IUser | null;
   ageVerified: boolean;
   loading: boolean;
+  isAdmin: boolean;
   updateUser: (newUser: IUser | null) => void;
   setAgeVerified: (verified: boolean) => void;
+  setIsAdmin: (isAdmin: boolean) => void;
 }
 
 const SessionContext = createContext<SessionContextType | undefined>(undefined);
@@ -34,6 +40,7 @@ export const SessionProvider: React.FC<SessionProviderProps> = ({
   const [user, setUser] = useState<IUser | null>(null);
   const [ageVerified, setAgeVerified] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   const updateUser = (newUser: IUser | null) => {
     if (!newUser) {
@@ -75,13 +82,27 @@ export const SessionProvider: React.FC<SessionProviderProps> = ({
     setLoading(false);
   };
 
+  const checkForAdminSession = () => {
+    const isAdminSessionActive = getAdminSessionFromCookie();
+    setIsAdmin(isAdminSessionActive);
+  };
+
   useEffect(() => {
     checkForUserSession();
+    checkForAdminSession();
   }, []);
 
   return (
     <SessionContext.Provider
-      value={{ user, loading, ageVerified, updateUser, setAgeVerified }}
+      value={{
+        user,
+        loading,
+        ageVerified,
+        isAdmin,
+        updateUser,
+        setAgeVerified,
+        setIsAdmin,
+      }}
     >
       {children}
     </SessionContext.Provider>

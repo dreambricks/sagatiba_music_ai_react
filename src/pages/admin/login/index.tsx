@@ -6,6 +6,10 @@ import { z } from "zod";
 import { useNavigate } from "react-router";
 import { AxiosError } from "axios";
 import FormInput from "../../components/formInput";
+import { loginAdmin } from "../../../service/adminService";
+import { useSession } from "../../../context/sessionContext";
+import { toast } from "react-toastify";
+import { updateAdminSession } from "../../../storage";
 
 interface ILoginFormValues {
   email: string;
@@ -21,6 +25,7 @@ type ILoginFormField = z.infer<typeof loginFormSchema>;
 
 const LoginAdmin: React.FC = () => {
   const navigate = useNavigate();
+  const { setIsAdmin } = useSession();
 
   const {
     register,
@@ -37,22 +42,14 @@ const LoginAdmin: React.FC = () => {
 
   const onSubmit: SubmitHandler<ILoginFormValues> = async (data) => {
     try {
-      //   const response = await signIn(data.email, data.password);
-      //   const decodedToken = jwtDecode<{
-      //     email: string;
-      //     user_oid: string;
-      //     phone: string;
-      //     exp: number;
-      //   }>(response.token);
-      //   updateUser({
-      //     email: decodedToken.email,
-      //     userOid: decodedToken.user_oid,
-      //     phone: decodedToken.phone,
-      //   });
-      //   navigate("/gerar-musica");
+      await loginAdmin(data.email, data.password);
+      updateAdminSession(true);
+      setIsAdmin(true);
+      navigate("/admin");
     } catch (err) {
       const error = err as AxiosError<{ error: string }>;
       console.log(error);
+      toast.error("Login inválido, tente novamente");
     }
   };
   return (

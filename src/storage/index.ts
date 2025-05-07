@@ -58,3 +58,12 @@ export const getAccessTokenFromCookie = () => {
 export const clearAccessToken = () => {
   return Cookies.remove("accessToken");
 };
+
+export const updateAdminSession = (isAdmin: boolean) => {
+  Cookies.set("isAdmin", JSON.stringify(isAdmin));
+};
+
+export const getAdminSessionFromCookie = () => {
+  const isAdmin = Cookies.get("isAdmin") || null;
+  return isAdmin === "true";
+};

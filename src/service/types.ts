@@ -8,4 +8,5 @@ export type IRegisterUserBody = {
   password_hash: string;
   user_info_hash: string;
   phone: string;
+  cpf_hash: string;
 };

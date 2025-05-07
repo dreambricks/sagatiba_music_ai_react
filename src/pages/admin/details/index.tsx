@@ -1,49 +1,43 @@
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import * as Styled from "./styles";
-import UserInfo from "./components/userInfo";
+import UserInfo, { IUserInfo } from "./components/userInfo";
 import ActionButtons from "./components/actionButtons";
 import UserMusicTable from "./components/userMusicTable";
-import { blockOrUnblockUser, deleteUser } from "../../../service/adminService";
+import {
+  blockOrUnblockUser,
+  deleteUser,
+  fetchUserData,
+  fetchUserMusicSummary,
+} from "../../../service/adminService";
 import { toast } from "react-toastify";
-import { decryptText } from "../../../utils/CryptUtils";
 import PemKeyInput from "./components/pemKeyInput";
+import { useParams } from "react-router";
 
-const dummyUser = {
-  name: "João Silva",
-  email: "joao@email.com",
-  cpf: "123.456.789-00",
-  phone: "(11) 99999-9999",
+type ISongListItem = {
+  id: string;
+  lyrics: string;
+  audioUrls: string[];
 };
 
-const dummyMusics = [
-  {
-    id: "1",
-    lyrics:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ultricies augue sit amet enim mattis pharetra. Etiam tempor arcu urna, nec fermentum purus tempor nec. Nulla dapibus id urna sed efficitur",
-    audioUrl: "/audios/audio1.mp3",
-  },
-  {
-    id: "2",
-    lyrics:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ultricies augue sit amet enim mattis pharetra. Etiam tempor arcu urna, nec fermentum purus tempor nec. Nulla dapibus id urna sed efficitur",
-    audioUrl: "/audios/audio2.mp3",
-  },
-];
-
 const AdminDetails: React.FC = () => {
+  const { userId } = useParams<{ userId: string }>();
+
   const [isDeletingUser, setIsDeletingUser] = useState(false);
   const [isBlockingUser, setIsBlockingUser] = useState(false);
-  const [privateKey, setPrivateKey] = useState<string | null>(null);
-  const [userData, setUserData] = useState(dummyUser);
+  const [userData, setUserData] = useState<IUserInfo | null>(null);
+  const [userSongs, setUserSongs] = useState<ISongListItem[]>([]);
+  const [loadingSong, setLoadingSongs] = useState(false);
 
   const handleBlock = async () => {
+    if (!userId) return;
+
     if (!confirm("Tem certeza que deseja bloquear este usuário?")) {
       return;
     }
 
     try {
       setIsBlockingUser(true);
-      await blockOrUnblockUser("userId", true);
+      await blockOrUnblockUser(userId, true);
       toast.success("Usuário bloqueado com sucesso");
     } catch (error) {
       console.log(error);
@@ -54,6 +48,8 @@ const AdminDetails: React.FC = () => {
   };
 
   const handleDelete = async () => {
+    if (!userId) return;
+
     if (
       !confirm("Tem certeza que deseja deletar este usuário permanentemente?")
     ) {
@@ -62,7 +58,7 @@ const AdminDetails: React.FC = () => {
 
     try {
       setIsDeletingUser(true);
-      await deleteUser("userId");
+      await deleteUser(userId);
       toast.success("Usuário deletado com sucesso");
     } catch (error) {
       console.log(error);
@@ -76,22 +72,57 @@ const AdminDetails: React.FC = () => {
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
     const file = e.target.files?.[0];
-    if (!file) return;
+    if (!userId || !file) return;
 
-    const text = await file.text();
-    setPrivateKey(text);
+    Promise.all([updateUserData(userId, file), updateUserMusicSummary()]);
   };
 
-  const decryptedUser = useMemo(() => {
-    if (!privateKey || !userData) return null;
+  const updateUserData = async (userId: string, file: File) => {
+    try {
+      const response = await fetchUserData(userId, file);
 
-    return {
-      name: decryptText(userData.name, privateKey),
-      email: decryptText(userData.email, privateKey),
-      cpf: decryptText(userData.cpf, privateKey),
-      phone: decryptText(userData.phone, privateKey),
-    };
-  }, [userData, privateKey]);
+      const [name, cpf] = response.decrypted_info.split(",");
+
+      setUserData({
+        id: response._id.$oid,
+        email: response.email,
+        phone: response.phone,
+        name,
+        cpf,
+      });
+    } catch (err) {
+      console.error("Erro ao buscar dados do usuário:", err);
+      toast.error(
+        "Falha ao buscar dados do usuário. Por favor, tente novamente."
+      );
+    }
+  };
+
+  const updateUserMusicSummary = async () => {
+    if (!userId) return;
+
+    try {
+      setLoadingSongs(true);
+      const response = await fetchUserMusicSummary(userId);
+
+      const songs: ISongListItem[] = response.map((item) => {
+        return {
+          id: item.lyrics_timestamp.$date,
+          lyrics: item.lyrics,
+          audioUrls: item.audio_urls.split(",").map((url) => url.trim()),
+        };
+      });
+
+      setUserSongs(songs);
+    } catch (error) {
+      console.log(error);
+      toast.error(
+        "Falha ao buscar músicas do usuário. Por favor, tente novamente"
+      );
+    } finally {
+      setLoadingSongs(false);
+    }
+  };
 
   return (
     <Styled.Container>
@@ -99,16 +130,18 @@ const AdminDetails: React.FC = () => {
 
       <PemKeyInput onChange={handlePrivateKeyUpload} />
 
-      <UserInfo userInfo={decryptedUser || userData} />
+      {userData && (
+        <ActionButtons
+          isBlockingUser={isBlockingUser}
+          isDeletingUser={isDeletingUser}
+          onBlockUserClick={handleBlock}
+          onDeleteUserClick={handleDelete}
+        />
+      )}
 
-      <UserMusicTable musics={dummyMusics} />
+      <UserInfo userInfo={userData} />
 
-      <ActionButtons
-        isBlockingUser={isBlockingUser}
-        isDeletingUser={isDeletingUser}
-        onBlockUserClick={handleBlock}
-        onDeleteUserClick={handleDelete}
-      />
+      <UserMusicTable musics={userSongs} isLoading={loadingSong} />
     </Styled.Container>
   );
 };

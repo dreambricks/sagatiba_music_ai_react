@@ -17,12 +17,16 @@ import {
 } from "../../service/adminService";
 import { toast } from "react-toastify";
 import { encryptText } from "../../utils/CryptUtils";
+import { useNavigate } from "react-router";
+import { AxiosError } from "axios";
 
 const Admin: React.FC = () => {
+  const navigate = useNavigate();
+
   const [cpf, setCpf] = useState("");
   const [cpfError, setCpfError] = useState("");
   const [lyrics, setLyrics] = useState("");
-  const [results, setResults] = useState<IMusicSearchResponse[]>([]);
+  const [musicResults, setMusicResults] = useState<IMusicSearchResponse[]>([]);
   const [searchType, setSearchType] = useState<"user" | "lyrics">("user");
   const [loading, setLoading] = useState(false);
 
@@ -41,9 +45,16 @@ const Admin: React.FC = () => {
     try {
       setLoading(true);
       const response = await fetchUserByCpf(cpf);
+      navigate(`/admin/details/${response._id}`);
       console.log(response);
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      console.log(err);
+      const error = err as AxiosError;
+
+      if (error.status === 404) {
+        toast.warn("Usuário não encontrado");
+        return;
+      }
       toast.error("Falha ao buscar usuário. Por favor, tente novamente.");
     } finally {
       setLoading(false);
@@ -56,7 +67,7 @@ const Admin: React.FC = () => {
     try {
       setLoading(true);
       const response = await fetchMusicByLyrics(lyrics);
-      setResults(response);
+      setMusicResults(response);
     } catch (error) {
       console.log(error);
       toast.error("Falha ao músicas. Por favor, tente novamente.");
@@ -123,7 +134,7 @@ const Admin: React.FC = () => {
         </Card>
       )}
 
-      {searchType === "lyrics" && results.length > 0 && (
+      {searchType === "lyrics" && musicResults.length > 0 && (
         <Card>
           <h3>Resultados da Busca</h3>
 
@@ -139,7 +150,7 @@ const Admin: React.FC = () => {
             </thead>
 
             <tbody>
-              {results.map((result) => (
+              {musicResults.map((result) => (
                 <TableRow key={result.lyric_id}>
                   <TableCell>{result.user?.email ?? "-"}</TableCell>
 
@@ -147,7 +158,9 @@ const Admin: React.FC = () => {
 
                   <TableCell>
                     <Button
-                      onClick={() => console.log(`/musica/${result.lyric_id}`)}
+                      onClick={() =>
+                        navigate(`/admin/details/${result.user?._id ?? ""}`)
+                      }
                     >
                       Ver Detalhes
                     </Button>

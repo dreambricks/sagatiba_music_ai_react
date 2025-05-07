@@ -86,6 +86,7 @@ export const registerUser = async (data: IRegisterFormField) => {
     password_hash: password,
     phone: digitsOnlyPhone,
     user_info_hash: encryptedUserInfo,
+    cpf_hash: digitsOnlyCpf,
   };
 
   const response = await axios.post<void>(
