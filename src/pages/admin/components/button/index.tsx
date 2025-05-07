@@ -9,6 +9,8 @@ type Props = PropsWithChildren &
     href?: string;
     download?: boolean;
     isLoading?: boolean;
+    as?: keyof JSX.IntrinsicElements;
+    [key: string]: unknown;
   };
 
 const Button: React.FC<Props> = ({
