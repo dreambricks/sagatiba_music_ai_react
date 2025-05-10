@@ -67,7 +67,7 @@ const Admin: React.FC = () => {
     try {
       setLoading(true);
       const response = await fetchMusicByLyrics(lyrics);
-      setMusicResults(response);
+      setMusicResults(response.filter((music) => music.user !== null));
     } catch (error) {
       console.log(error);
       toast.error("Falha ao músicas. Por favor, tente novamente.");

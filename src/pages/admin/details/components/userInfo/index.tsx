@@ -25,25 +25,29 @@ const UserInfo: React.FC<Props> = ({ userInfo }) => {
         <Styled.InfoItem>
           <Styled.Label>Nome</Styled.Label>
 
-          <p>{userInfo?.name ?? "-"}</p>
+          <Styled.ValueText>{userInfo?.name ?? "-"}</Styled.ValueText>
         </Styled.InfoItem>
 
         <Styled.InfoItem>
           <Styled.Label>E-mail</Styled.Label>
 
-          <p>{userInfo?.email ?? "-"}</p>
+          <Styled.ValueText>{userInfo?.email ?? "-"}</Styled.ValueText>
         </Styled.InfoItem>
 
         <Styled.InfoItem>
           <Styled.Label>CPF</Styled.Label>
 
-          <p>{userInfo?.cpf ? applyCPFMask(userInfo.cpf) : "-"}</p>
+          <Styled.ValueText>
+            {userInfo?.cpf ? applyCPFMask(userInfo.cpf) : "-"}
+          </Styled.ValueText>
         </Styled.InfoItem>
 
         <Styled.InfoItem>
           <Styled.Label>Telefone</Styled.Label>
 
-          <p>{userInfo?.phone ? applyPhoneMask(userInfo.phone) : "-"}</p>
+          <Styled.ValueText>
+            {userInfo?.phone ? applyPhoneMask(userInfo.phone) : "-"}
+          </Styled.ValueText>
         </Styled.InfoItem>
       </Styled.InfoGrid>
     </Card>

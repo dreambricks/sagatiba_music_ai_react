@@ -18,3 +18,7 @@ export const Label = styled.span`
   font-size: 14px;
   color: #666;
 `;
+
+export const ValueText = styled.p`
+  user-select: text;
+`;
