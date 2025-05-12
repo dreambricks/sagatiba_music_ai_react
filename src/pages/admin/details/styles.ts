@@ -7,6 +7,12 @@ export const Container = styled.div`
   padding-bottom: 80px;
 `;
 
+export const UpperButtons = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+`;
+
 export const Title = styled.h1`
   font-size: 28px;
   margin-bottom: 24px;

@@ -29,6 +29,13 @@ export const Routing = () => {
         <Route path="/termosdeuso" element={<Terms />} />
         <Route path="/politicadeprivacidade" element={<Policy />} />
         <Route path="/overbook" element={<Overbook />} />
+        <Route path="/admin/login" element={<LoginAdmin />} />
+
+        <Route element={<AdminMiddleware />}>
+          <Route path="/admin" element={<Admin />} />
+          <Route path="/admin/details/:userId" element={<AdminDetails />} />
+        </Route>
+
         <Route element={<OverBookMiddleware />}>
           <Route path="/age-gate" element={<AgeGate />} />
           <Route element={<AgeMiddleware />}>
@@ -50,12 +57,7 @@ export const Routing = () => {
             <Route path="/register" element={<Register />} />
             <Route path="/mensagem" element={<Player />} />
             <Route path="/email" element={<EmailSent />} />
-            <Route path="/admin/login" element={<LoginAdmin />} />
 
-            <Route element={<AdminMiddleware />}>
-              <Route path="/admin" element={<Admin />} />
-              <Route path="/admin/details/:userId" element={<AdminDetails />} />
-            </Route>
 
             <Route element={<AuthMiddleware />}>
               <Route path="/letras" element={<LyricsPage />} />

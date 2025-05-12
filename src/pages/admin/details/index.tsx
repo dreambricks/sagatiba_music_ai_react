@@ -12,6 +12,7 @@ import {
 import { toast } from "react-toastify";
 import PemKeyInput from "./components/pemKeyInput";
 import { useParams } from "react-router";
+import Button from "../components/button";
 
 type ISongListItem = {
   id: string;
@@ -35,8 +36,7 @@ const AdminDetails: React.FC = () => {
 
     if (
       !confirm(
-        `Tem certeza que deseja ${
-          isBlocked ? "desbloquear" : "bloquear"
+        `Tem certeza que deseja ${isBlocked ? "desbloquear" : "bloquear"
         } este usuário?`
       )
     ) {
@@ -56,8 +56,7 @@ const AdminDetails: React.FC = () => {
     } catch (error) {
       console.log(error);
       toast.error(
-        `Falha ao ${
-          isBlocked ? "desbloquear" : "bloquear"
+        `Falha ao ${isBlocked ? "desbloquear" : "bloquear"
         } usuário. Por favor, tente novamente.`
       );
     } finally {
@@ -94,6 +93,10 @@ const AdminDetails: React.FC = () => {
 
     Promise.all([updateUserData(userId, file), updateUserMusicSummary()]);
   };
+
+  const handleBack = () => {
+    window.history.back();
+  }
 
   const updateUserData = async (userId: string, file: File) => {
     try {
@@ -147,7 +150,20 @@ const AdminDetails: React.FC = () => {
     <Styled.Container>
       <Styled.Title>Detalhes do Usuário</Styled.Title>
 
-      <PemKeyInput onChange={handlePrivateKeyUpload} />
+      <Styled.UpperButtons>
+        <PemKeyInput onChange={handlePrivateKeyUpload} />
+
+        <Button
+          color="green"
+          isLoading={isBlockingUser}
+          disabled={isDeletingUser}
+          onClick={handleBack}
+          style={{ marginBottom: 15 }}
+        >
+          Voltar
+        </Button>
+
+      </Styled.UpperButtons>
 
       {userData && (
         <ActionButtons
